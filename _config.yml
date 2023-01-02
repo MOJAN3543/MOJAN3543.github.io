@@ -108,11 +108,11 @@ author:
   avatar           : "images/profile.jpeg"
   bio              : "아무 글이나 씁니다<br>가끔씩 씁니다"
   location         : "Republic of Korea"
-  email            : "wnstjd732@knu.ac.kr"
+  email            : #
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-       #url: mailto:wnstjd732@knu.ac.kr
+      url: mailto:wnstjd732@knu.ac.kr
     - label: "Website"
       icon: "fas fa-fw fa-link"
       # url: "https://your-website.com"
@@ -124,10 +124,10 @@ author:
       # url: "https://facebook.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-       url: "https://github.com/MOJAN3543/"
+      url: "https://github.com/MOJAN3543/"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
-       url: "https://instagram.com/sjs732/"
+      url: "https://instagram.com/sjs732/"
 
 # Site Footer
 footer:
