@@ -16,7 +16,7 @@ minimal_mistakes_skin    : "contrast" # "air", "aqua", "contrast", "dark", "dirt
 
 # Site Settings
 locale                   : "ko-KR"
-title                    : "모잔 코딩 블로그"
+title                    : "다람쥐 헌 쳇바퀴에 타고파"
 title_separator          : "-"
 subtitle                 : "https://MOJAN3543.github.io"
 name                     : "MOJAN"
@@ -26,7 +26,7 @@ baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "https://github.com/MOJAN3543/MOJAN3543.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
-masthead_title           : "모잔 코딩 블로그" # overrides the website title displayed in the masthead, use " " for no title
+masthead_title           : "MOJAN's Devlog" # overrides the website title displayed in the masthead, use " " for no title
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 200
 comments:
@@ -105,8 +105,8 @@ analytics:
 # Site Author
 author:
   name             : "MOJAN"
-  avatar           : "images/profile.jpeg"
-  bio              : "아무 글이나 씁니다<br>가끔씩 씁니다"
+  avatar           : "images/profile.png"
+  bio              : "아무 글이나 씁니다"
   location         : "Republic of Korea"
   email            : #
   links:
@@ -128,6 +128,9 @@ author:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       url: "https://instagram.com/sjs732/"
+    - label: "Beakjoon"
+      icon: "images/ac.png"
+      url: "https://www.acmicpc.net/user/wnstjd732"
 
 # Site Footer
 footer:
