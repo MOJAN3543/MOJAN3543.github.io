@@ -111,7 +111,7 @@ author:
   email            : #
   links:
     - label: "Email"
-      icon: "fab fa-solid fa-envelope"
+      icon: "fab fa-fw fa-envelope"
       url: mailto:wnstjd732@knu.ac.kr
     - label: "Website"
       icon: "fas fa-fw fa-link"
@@ -126,10 +126,10 @@ author:
       icon: "fab fa-fw fa-github"
       url: "https://github.com/MOJAN3543/"
     - label: "Instagram"
-      icon: "fab fa-brands fa-instagram"
+      icon: "fab fa-fw fa-instagram"
       url: "https://instagram.com/sjs732/"
     - label: "Solved.ac"
-      icon: "fab fa-solid fa-code"
+      icon: "fab fa-fw fa-code"
       url: "https://solved.ac/profile/wnstjd732"
 
 # Site Footer
