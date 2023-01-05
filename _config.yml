@@ -26,7 +26,7 @@ baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "https://github.com/MOJAN3543/MOJAN3543.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
-masthead_title           : "MOJAN's Devlog" # overrides the website title displayed in the masthead, use " " for no title
+masthead_title           : "다람쥐 헌 쳇바퀴에 타파" # overrides the website title displayed in the masthead, use " " for no title
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 200
 comments:
@@ -111,7 +111,7 @@ author:
   email            : #
   links:
     - label: "Email"
-      icon: "fab fa-fw fa-envelope-square"
+      icon: "fas fa-fw fa-envelope-square"
       url: mailto:wnstjd732@knu.ac.kr
     - label: "Website"
       icon: "fas fa-fw fa-link"
@@ -129,7 +129,7 @@ author:
       icon: "fab fa-fw fa-instagram"
       url: "https://instagram.com/sjs732/"
     - label: "Solved.ac"
-      icon: "fab fa-fw fa-"
+      icon: "fab fa-fw fa-link"
       url: "https://solved.ac/profile/wnstjd732"
 
 # Site Footer
