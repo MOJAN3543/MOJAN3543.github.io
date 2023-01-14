@@ -132,8 +132,8 @@ body {
   a:not(.btn) {
     &:hover {
       /*text-decoration: underline;*/
-      animation-duration: 0s;
-      animation-delay: 0s;
+      animation-duration: 0s !important;
+      animation-delay: 0s !important;
       color: mix(#fff, $text-color, 50%);
       text-decoration: none;
       img {
