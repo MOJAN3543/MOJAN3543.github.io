@@ -132,10 +132,10 @@ body {
   a:not(.btn) {
     &:hover {
       /*text-decoration: underline;*/
-      animation-duration: 0s !important;
-      animation-delay: 0s !important;
+      /*text-decoration: none;*/
+      text-decoration-color: #fff;
       color: mix(#fff, $text-color, 50%);
-      text-decoration: none;
+
       img {
         box-shadow: 0 0 10px rgba(#000, 0.25);
       }
