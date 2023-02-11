@@ -7,6 +7,7 @@ last_modified_at: 2023-02-11
 
 ## 1. 발단
 평범한 날처럼 유튜브를 돌아다니던중, [**긱블**](https://www.youtube.com/@geekble/)의 [**커뮤니티 게시글**](https://www.youtube.com/post/Ugkxhr7cTVx0Ml3pGKFRHVMH-cAiyiMzZvVO)을 발견했습니다.    
+ 
 ![GeekbleComminty](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/malang/Geekble_Community.PNG?raw=true) 
 {: .text-center}     
 게시글은 긱블의 폰트인 [**말랑이체**](https://malang2.geekble.kr/?utm_source=youtube&utm_medium=community&utm_campaign=malang2font)를 홍보하는 글이었습니다.   
@@ -15,6 +16,7 @@ last_modified_at: 2023-02-11
 일단. 디자이너 2명이서 2,500자를 작업했다는 대목에서, 이 폰트는 대략 2,500자를 쓸 수 있는 폰트란걸 알 수 있습니다.    
     
 그러고 보니, 한글은 엄청나게 많은 글자를 쓸 수 있지 않나요?    
+ 
 ![한글](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F1220EC3F4E9788160F) 
 {: .text-center}    
 그렇습니다. 한글은 **11,172자**를 표현 할 수 있는 문자입니다! 이렇게 된다면, 1분에 1글자를 쓴다고 해도, 대략 166시간[^1]이 걸립니다. 그러면, 대체 폰트는 어떻게 만드나요? 설마, 11,172자를 모두 쓰나요?    
