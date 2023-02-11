@@ -71,6 +71,7 @@ print(FontNotWorkList){% endraw %}
 ```
 자. 나왔습니다. `FontWorkList`에 없으면서, 한글인 글자를 `FontNotWorkList`에 할당했습니다.
 * * *
+**Source Code**
 ```python
 {% raw %}print(" ".join(FontNotWorkList)){% endraw %}
 ```   
@@ -84,6 +85,7 @@ print(FontNotWorkList){% endraw %}
 {: .text-center}          
 대부분의 글자가 표시되지 않습니다! 하지만, 몇몇 문자[^3]들은 표기되고 있으니, 이는 수작업으로 없애도록 하겠습니다.    
 * * *
+**Source Code**
 ```python
 {% raw %}ButWorkString = "괞굥꺆껒똰뙁뷀뷁뽜뽝뽱쀽샾쨥챱퐉핡"
 ButWorkList = [Str for Str in ButWorkString]
