@@ -17,20 +17,19 @@ last_modified_at: 2023-04-05
 
 ### 1.1 백문이 불여일견
 직접 예시를 들어 보겠습니다.  
+
 ![CAT](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/EncodeByKorean/CAT.png?raw=true "CAT")
 {: .text-center}  
+
 여기, `CAT`이라는 문자열이 있습니다. 이 문자열은 `C`, `A`, `T`로 분리되어 저장됩니다.  
 ![CAT2Binary](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/EncodeByKorean/CAT2Binary.png?raw=true "CAT2Binary")
 {: .text-center}  
+
 이와 같이 `CAT`은 ASCII로 디코딩되어 `67`, `65`, `84`으로 변환되고, 이를 이진수로 저장합니다.
 ![Binary2Base64](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/EncodeByKorean/Binary2Base64.png?raw=true "Binary2Base64")
 {: .text-center}  
 Base64는 이와 같은 이진수 데이터를 6비트씩 잘라서 이진수 값을 특정 문자로 치환합니다.  
-|제목|내용|설명|
-|------|---|---|
-|테스트1|테스트2|테스트3|
-|테스트1|테스트2|테스트3|
-|테스트1|테스트2|테스트3|
+
 
 
 
