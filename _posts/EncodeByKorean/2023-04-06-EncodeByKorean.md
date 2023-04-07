@@ -21,15 +21,18 @@ last_modified_at: 2023-04-05
 ![CAT](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/EncodeByKorean/CAT.png?raw=true "CAT")
 {: .text-center}  
 
-여기, `CAT`이라는 문자열이 있습니다. 이 문자열은 `C`, `A`, `T`로 분리되어 저장됩니다.  
+여기, `CAT`이라는 문자열이 있습니다. 컴퓨터는 이 문자열을 `C`, `A`, `T`의 문자로 분리합니다.  
+   
 ![CAT2Binary](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/EncodeByKorean/CAT2Binary.png?raw=true "CAT2Binary")
 {: .text-center}  
 
-이와 같이 `CAT`은 ASCII로 디코딩되어 `67`, `65`, `84`으로 변환되고, 이를 이진수로 저장합니다.
+그리고 이 문자를 저장하기 위해서 ASCII로 디코딩. `67`, `65`, `84`로 변환됩니다. 그리고 이를 이진수 형태로 저장합니다.   
+   
 ![Binary2Base64](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/EncodeByKorean/Binary2Base64.png?raw=true "Binary2Base64")
 {: .text-center}  
-Base64는 이와 같은 이진수 데이터를 6비트씩 잘라서 이진수 값을 특정 문자로 치환합니다.  
-
+여기서 Base64로 `CAT` 문자열을 인코딩 한다면, `CAT` 이진수 데이터를 6비트씩 잘라서 잘린 이진수 값을 특정 문자로 치환합니다. 예를 들어 `000000`은 `A`. `000001`은 `B` 이런식으로 치환하면 Base64로 인코딩된 결과를 얻을수 있습니다.   
+   
+이외에도 이진수 데이터가 6비트씩 나누어 떨어지지 않을때, `=`를 넣어서 나누어 떨어지지 않음을 표기하는 패딩 규칙도 있지만, 여기까지 설명하도록 하겠습니다.
 
 
 
