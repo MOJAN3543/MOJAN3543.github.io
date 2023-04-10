@@ -41,7 +41,7 @@ last_modified_at: 2023-04-05
    
 * 한글로 표기해서 한국인들에게 친숙하게 인코딩 할 수 있다.
 * ASCII코드로 제한해서 64개의 문자만 사용한 Base64와는 달리, 한글을 이용해서 더 많은 정보를 더 짧은 문자로 표기한다.
-* 더 짧아진 문자를 이용해서, 인코딩 된 문자를 직접 입력하여 디코딩한다던지, 이를 출력해서 디코딩 하게 한다면 더 효율적이다.
+* 더 짧아진 문자를 이용해서, 인코딩 된 문자를 직접 입력하여 디코딩한다던지, 이를 실제로 출력해서 디코딩 하게 한다면 더 효율적이다.
 * Base64보다 덜 알려져있으므로, 암호화로써의 역할을 한다
 
 이렇게 장점이 많은데 왜 만들지 않고 있죠?? 당장 만듭시다!   
@@ -50,6 +50,84 @@ last_modified_at: 2023-04-05
 EnKORde의 동작은 Base64와 유사합니다. 인코딩할 데이터를 특정 비트씩 자르고, 잘린 비트를 기반으로 특정 문자와 치환하는 방식입니다.   
    
 하지만 EnKORde는 데이터를 6비트씩 자르지 않고, 12비트씩 자릅니다. Base64가 한 글자에 나타내는 데이터의 2배입니다[^4]. 그리고 여기서 한글의 조합 원리가 사용됩니다. 바로 자음, 모음, 받침을 사용해 데이터를 표기합니다!    
+    
+| 자음 | 이진법 | 모음 | 이진법 | 받침 | 이진법 |
+|:--------|:--------|:--------|:--------|:--------|:--------|
+| ㄱ | d0000 | ㅏ | 0000 | (없음) | 0000 |
+| ㄲ | 0001 | ㅐ | 0001 | ㄱ | 0001 |
+| ㄴ | 0010 | ㅑ | 0010 | ㄴ | 0010 |
+| ㄷ | 0011 | ㅓ | 0011 | ㄶ | 0011 |
+| ㄸ | 0100 | ㅔ | 0100 | ㄷ | 0100 |
+| ㄹ | 0101 | ㅕ | 0101 | ㄹ | 0101 |
+| ㅁ | 0110 | ㅗ | 0110 | ㅁ | 0110 |
+| ㅂ | 0111 | ㅘ | 0111 | ㅂ | 0111 |
+| ㅅ | 1000 | ㅚ | 1000 | ㅅ | 1000 |
+| ㅇ | 1001 | ㅛ | 1001 | ㅇ | 1001 |
+| ㅈ | 1010 | ㅜ | 1010 | ㅈ | 1010 |
+| ㅊ | 1011 | ㅟ | 1011 | ㅊ | 1011 |
+| ㅋ | 1100 | ㅠ | 1100 | ㅋ | 1100 |
+| ㅌ | 1101 | ㅡ | 1101 | ㅌ | 1101 |
+| ㅍ | 1110 | ㅢ | 1110 | ㅍ | 1110 |
+| ㅎ | 1111 | ㅣ | 1111 | ㅎ | 1111 |
+
+위의 인코딩표를 이용해서 12비트 이진수를 1자리 한글로 변환할 수 있습니다! 예를 들어 `000000000000`는 `가`, `111111111111`는 `힣`, `000010101000`은 `굿`으로 변환됩니다.   
+   
+### 2.2 구현하기
+```python
+{% raw %}KOREAN_UNICODE_START = 44032
+KOREAN_INITIAL_COUNT = 19
+KOREAN_NEUTRAL_COUNT = 21
+KOREAN_FINAL_COUNT = 28
+
+def KoreanDecompose(Korean):
+    #Korean = KOREAN_UNICODE_START + initial * KOREAN_NEUTRAL_COUNT * KOREAN_FINAL_COUNT + neutral * KOREAN_FINAL_COUNT + final
+    final = (ord(Korean) - KOREAN_UNICODE_START) % KOREAN_FINAL_COUNT
+    neutral = ((ord(Korean) - KOREAN_UNICODE_START - final) // KOREAN_FINAL_COUNT) % KOREAN_NEUTRAL_COUNT
+    initial = (ord(Korean) - KOREAN_UNICODE_START - final - neutral * KOREAN_FINAL_COUNT) // (KOREAN_FINAL_COUNT * KOREAN_NEUTRAL_COUNT)
+    return [initial, neutral, final]
+
+def KoreanCompose(KoreanList):
+    initial, neutral, final = KoreanList
+    return chr(KOREAN_UNICODE_START + initial * KOREAN_NEUTRAL_COUNT * KOREAN_FINAL_COUNT + neutral * KOREAN_FINAL_COUNT + final)
+
+def KoreanEncode(msg):
+    KoreanInitialEncodeTable = [0, 1, 2, 3, 4, 5, 6, 7, 9, 11, 12, 14, 15, 16, 17, 18]
+    KoreanNeutralEncodeTable = [0, 1, 2, 4, 5, 6, 8, 9, 11, 12, 13, 16, 17, 18, 19, 20]
+    KoreanFinalEncodeTable = [0, 1, 4, 6, 7, 8, 16, 17, 19, 21, 22, 23, 24, 25, 26, 27]
+    
+    msgb = msg.encode()
+    bins = ''.join(format(b, '08b') for b in msgb)
+    if len(bins) % 12:
+        bins += '0'*(12-len(bins) % 12)
+        
+    ret = ''
+    for idx in range(0, len(bins), 12):
+        Initial = KoreanInitialEncodeTable[int(bins[idx:idx+4], 2)]
+        Neutral = KoreanNeutralEncodeTable[int(bins[idx+4:idx+8], 2)]
+        Final = KoreanFinalEncodeTable[int(bins[idx+8:idx+12], 2)]
+        ret += KoreanCompose([Initial, Neutral, Final])
+        
+    return ret
+
+def KoreanDecode(msg):
+    KoreanInitialDecodeTable = [0, 1, 2, 3, 4, 5, 6, 7, -1, 8, -1, 9, 10, -1, 11, 12, 13, 14, 15]
+    KoreanNeutralDecodeTable = [0, 1, 2, -1, 3, 4, 5, -1, 6, 7, -1, 8, 9, 10, -1, -1, 11, 12, 13, 14, 15]
+    KoreanFinalDecodeTable = [0, 1, -1, -1, 2, -1, 3, 4, 5, -1, -1, -1, -1, -1, -1, -1, 6, 7, -1, 8, -1, 9, 10, 11, 12, 13, 14, 15]
+    
+    bins = ''
+    for Kor in msg:
+        Initial, Neutral, Final = KoreanDecompose(Kor)
+        DecomposeList = [KoreanInitialDecodeTable[Initial], KoreanNeutralDecodeTable[Neutral], KoreanFinalDecodeTable[Final]]
+        for DecomposeNum in DecomposeList:
+            bins += format(DecomposeNum, '08b')[4:]
+    
+    ret = bytearray()
+    for idx in range(0, len(bins), 8):
+        ret += int(bins[idx:idx+8], 2).to_bytes(1, byteorder='little')
+                   
+    return ret.decode(){% endraw %}
+```   
+인코딩·디코딩은 [**2.1 EnKORde의 메커니즘**](https://mojan3543.github.io/EncodeByKorean/#21-enkorde%EC%9D%98-%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98)에서 설명한 과정과 같습니다.
 
 
 [^1]: `65`를 `A`라고 부르는 이 약속을 [**ASCII**](https://en.wikipedia.org/wiki/ASCII)라고 합니다.
