@@ -142,6 +142,8 @@ def KoreanDecode(msg):
    
 심지어, ASCII 문자 영역만 사용한 두번째 인코딩의 경우에는, 기존의 문장<sub>(공백 포함 37자)</sub>보다 인코딩 결과<sub>(공백 포함 25자)</sub>가 약 0.66배로 문자 길이가 감소함을 보였습니다! 의외로 좋은 결과가 나와서 만족스럽습니다.
 ## 3. EnKORde. 이제는 웹으로!
+![인코딩.웹.한국](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/EncodeByKorean/%EC%9D%B8%EC%BD%94%EB%94%A9.%EC%9B%B9.%ED%95%9C%EA%B5%AD.png?raw=true "인코딩.웹.한국")
+{: .text-center}  
 여기까지 구현해도 정말 재미있는 프로젝트입니다! 하지만, EnKORde의 위대함을 널리 알리고, 여러 사람들이 편하게 사용하게 하기 위해서, 이를 JavaScript로 다시 제작하여 웹상에 게시했습니다! [**해당 프로젝트**](https://github.com/MOJAN3543/enKORde)는 [**인코딩.웹.한국**](https://인코딩.웹.한국)에서 사용 가능합니다.    
     
 또한, EnKORde로 부호화된 문장을 빠르게 디코딩 하기 위해서, 부호화된 문장 앞에 `인코딩.웹.한국/?디코딩=(문장)` 이렇게 접속도 가능합니다.   
