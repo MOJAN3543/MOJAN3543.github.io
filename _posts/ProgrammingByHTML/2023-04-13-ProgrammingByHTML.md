@@ -10,7 +10,7 @@ last_modified_at: 2023-04-13
 농담입니다! HTML로는 프로그래밍 할 수 없습니다. [**HTML**](https://ko.wikipedia.org/wiki/HTML)의 [**ML**](https://ko.wikipedia.org/wiki/%EB%A7%88%ED%81%AC%EC%97%85_%EC%96%B8%EC%96%B4)부터 마크업 언어. 
 즉 데이터를 기술하는 언어라고 표기 되어있습니다. 하지만, HTML과 마크업 언어를 보조하는 [**스타일 시트 언어**](https://en.wikipedia.org/wiki/Style_sheet_language)인 [**CSS**](https://ko.wikipedia.org/wiki/CSS)를 같이 사용한다면, 이는 튜링 완전하게 됩니다!   
    
-이 뒤의 내용은 온전히 학부생의 시선으로 수집하고, 작성한 정보입니다. 완전하지 않을 수 있습니다.
+⚠주의 : 이 뒤의 내용은 온전히 학부생의 시선으로 수집하고, 작성한 정보입니다. 완전하지 않을 수 있습니다.
 {: .notice--warning}    
 
 ## 1. 튜링 완전?
