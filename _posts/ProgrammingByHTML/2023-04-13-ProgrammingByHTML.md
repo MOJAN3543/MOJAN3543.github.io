@@ -45,6 +45,113 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 
 [^1]: 실제로는 무한한 길이의 테이프를 구현할 수 없으므로, 어떤 기계가 유한한 저장 공간을 가졌지만, 이후에 무한하게 저장 공간을 추가 할 수 있다면, 이 기계를 느슨하게 튜링 완전하다 봅니다.
 
+<style>
+*{
+	font-family: 'Noto Sans KR', sans-serif;
+}
+.tape {
+	position: relative;
+	display: grid;
+	grid-template: 2rem / repeat(15, 2rem);
+	place-items: stretch;
+	place-content: center space-evenly;
+	margin: auto;
+	outline: none;
+	width: 34rem;
+	height: 2.5rem;
+	background-color: #f0f0f0;
+	font-weight: bold;
+	text-align: center;
+	font-size: 1.5rem;
+	line-height: 2rem;
+}
+.cell {
+	z-index: 1;
+	background-color : #ffffff;
+}
+.head {
+	position: absolute;
+	background-color : #000000;
+	width: 2.5rem;
+	height:4.75rem;
+	left: 4.5rem;
+}
+.state {
+	margin: auto;
+	width: 2rem;
+	height : 2.5rem;
+	background-color : #ffffff;
+	line-height: 3rem;
+}
+.controller {
+	border: none;
+	box-shadow: none;
+	background-color: #ffffff;
+	padding: 0.5rem;
+	margin-top: 2.5rem;
+	display: flex;
+	flex-flow: row wrap;
+	place-content: center;
+	font-weight: bold;
+	text-align: center;
+	font-size: 2rem;
+}
+.nextAct {
+	border: none;
+	box-shadow: none;
+	background-color: #ffffff;
+	padding: 0.1rem;
+	margin: auto;
+	display: flex;
+	font-weight: bold;
+	text-align: center;
+	font-size: 2rem;
+}
+.nextAct:hover{
+	transform: translatex(-0.4rem) rotate(-20deg);
+	transition: 0.7s;
+}
+.nextAct:active{
+	transform: translatex(0.3rem) rotate(10deg);
+	transition: 0.1s;
+}
+.refresh {
+	border: none;
+	box-shadow: none;
+	background-color: #ffffff;
+	padding: 0.1rem;
+	margin: auto;
+	display: flex;
+	font-weight: bold;
+	text-align: center;
+	font-size: 2rem;
+}
+.refresh:hover{
+	transform: rotate(360deg);
+	transition: 0.5s;
+}
+.refresh:active{
+	transform: scale(1.2);
+	transition: 0.1s;
+}
+.autoAct {
+	border: none;
+	box-shadow: none;
+	background-color: #ffffff;
+	padding: 0.1rem;
+	margin: auto;
+	display: flex;
+	font-weight: bold;
+	text-align: center;
+	font-size: 2rem;
+}
+.autoAct:hover{
+	transform: rotate(360deg);
+	transform-origin: 52.5% 52.5%;
+	transition: 2s;
+}
+</style>
+
 <script>
    class TuringMachine{
 		constructor(query, preset, firstState){
