@@ -40,70 +40,7 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 
 ### 2.1 얘가 뭘 한다는 거에요?
 일단 이런게 있다는건 알겠는데, 대체 얘가 뭘 한다는거죠?   
-<div class='BitNot'>
-   <div class='tape'>
-      <div class='head'>
-         .
-         <div class='state'>
-
-         </div>
-      </div>
-      <div class='cell'>
-
-      </div>
-      <div class='cell'>
-
-      </div>
-      <div class='cell'>
-
-      </div>
-      <div class='cell'>
-
-      </div>
-      <div class='cell'>
-
-      </div>
-      <div class='cell'>
-
-      </div>
-      <div class='cell'>
-
-      </div>
-      <div class='cell'>
-
-      </div>
-      <div class='cell'>
-
-      </div>
-      <div class='cell'>
-
-      </div>
-      <div class='cell'>
-
-      </div>
-      <div class='cell'>
-
-      </div>
-      <div class='cell'>
-
-      </div>
-      <div class='cell'>
-
-      </div>
-      <div class='cell'>
-
-      </div>
-
-   </div>
-   <div class='controller'>
-      <button class='nextAct'>
-         →
-      </button>
-      <button class='refresh'>
-         ↻
-      </button>
-   </div>
-</div>    
+<div class='BitNot'></div>
 위는 **실제로 동작하는** 튜링 머신입니다! 
 
 [^1]: 실제로는 무한한 길이의 테이프를 구현할 수 없으므로, 어떤 기계가 유한한 저장 공간을 가졌지만, 이후에 무한하게 저장 공간을 추가 할 수 있다면, 이 기계를 느슨하게 튜링 완전하다 봅니다.
