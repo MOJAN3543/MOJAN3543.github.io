@@ -1,10 +1,11 @@
-	class TuringMachine{
+class TuringMachine{
 		constructor(query, preset, firstState){
 			this.HeadIndex = 0;
 			this.NowState = firstState;
 			this.ActTable = {};
 			this.presetList = Object.assign([], preset);
 			this.MainHTML = document.querySelector(query);
+			this.HTMLconstruct();
 			this.ButtonHTML = this.MainHTML.querySelectorAll('Button');
 			this.headHTML = this.MainHTML.querySelector('div.tape > div.head');
 			this.headStateHTML = this.headHTML.querySelector('div.state');
@@ -30,6 +31,34 @@
 				this.cell.push('');
 			}
 			
+		}
+		HTMLconstruct(){
+			let TapeModel = document.createElement('div');
+			TapeModel.className = 'tape';
+			this.MainHTML.appendChild(TapeModel);
+			let HeadModel = document.createElement('div');
+			HeadModel.className = 'head';
+			HeadModel.innerHTML = '.';
+			TapeModel.appendChild(HeadModel);
+			let stateModel = document.createElement('div');
+			stateModel.className = 'state';
+			HeadModel.appendChild(stateModel);
+			for(let i=0; i<15; i++){
+				let CellModel = document.createElement("div");
+				CellModel.className = 'cell';
+				TapeModel.appendChild(CellModel);
+			}
+			let ControllerModel = document.createElement("div");
+			ControllerModel.className = 'controller';
+			this.MainHTML.appendChild(ControllerModel);
+			let ActModel = document.createElement("button");
+			ActModel.className = 'nextAct';
+			ActModel.innerHTML = '→'
+			ControllerModel.appendChild(ActModel);
+			let refreshModel = document.createElement("button");
+			refreshModel.className = 'refresh';
+			refreshModel.innerHTML = '↻';
+			ControllerModel.appendChild(refreshModel);
 		}
 		CellUpdate(){
 			for(let i=0; i<this.cellHTML.length; i++){
@@ -126,4 +155,3 @@
 	BitNotdiv.TupletoActTable(['A', '1', '0', 'R', 'A']);
 	BitNotdiv.TupletoActTable(['A', 'B', 'B', 'N', 'B']);
 	BitNotdiv.TupletoActTable(['B', 'B', 'B', 'N', 'B']);
-	
