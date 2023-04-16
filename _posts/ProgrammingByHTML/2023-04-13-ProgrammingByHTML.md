@@ -60,10 +60,53 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 만약에 `A`상태일때 `ㅤ`을 만나면. 즉 공백<sub>B</sub>을 만나면 어떻게 될까요? 위의 행동표를 보면 알겠지만, 공백<sub>B</sub>을 작성 후 움직이지 않고<sub>N</sub> `B`상태가 됩니다. 그리고 `B`상태에서는 공백<sub>B</sub>을 만나면, 공백<sub>B</sub>을 작성. 움직이지 않습니다<sub>N</sub>. 즉, `B` 상태가 되면 튜링 머신이 정지합니다.    
     
 그리고 눈치 채셨겠지만, 이는 NOT 비트 연산을 구현한 튜링 머신입니다!
-### 2.2 그래서 튜링 머신이랑 프로그래밍이랑 뭔 관계인가요?
-*여기에 범용 튜링 머신 입력*
-[^1]: 실제로는 무한한 길이의 테이프를 구현할 수 없으므로, 어떤 기계가 유한한 저장 공간을 가졌지만, 이후에 무한하게 저장 공간을 추가 할 수 있다면, 이 기계를 느슨하게 튜링 완전하다 봅니다.
+### 2.2 조금 더 업그레이드 버전
+앨런 튜링은 여기서 조금 더 나아가서, 해당 튜링 머신이, 테이프의 내용만 입력받는것이 아닌, 튜링 머신이 동작하는 방식도 입력 받아서, 한 장치가 여러가지 일을 할 수 있게 만든 **범용 튜링 머신**을 고안합니다.   
+<div class='Universal'></div>
 
+위는 실제로 동작하는 **범용 튜링 머신**입니다! `5-Tuple Action`과 `Tape`에 입력하고 **⇁**로 튜링 머신에 적용할 수 있습니다. 입력시에는 다음과 같은 규칙을 지키면 됩니다.
+
+5-Tuple Action   
+* 입력은 행동표의 5-튜플 표현과 같은 방식으로 이루어집니다. (현재 상태,읽혀진 기호,쓰이는 기호,이동 종류,다음 상태)를 입력합니다.
+* 튜플의 기호와 기호 사이에는 콜론만 입력되어야 합니다. 띄어쓰기를 허용하지 않습니다.
+* 튜플의 기호에는 한글자씩 입력되어야 합니다. 즉, 현재 상태나 읽혀진 기호에도 두글자 이상 사용되면 안됩니다.
+* 튜플의 상태<sub>(1, 5번째 인자)</sub>는 모두 대문자 알파벳입니다. 소문자 알파벳 또는 숫자를 허용하지 않습니다.
+* 공백을 입력하거나, 읽고 싶다면, `B`를 입력하면 됩니다. 다시 말해서, `B`를 테이프에 작성 할거나 읽을 수 없습니다.
+* 튜플과 튜플 사이에는 세미콜론<sub>;</sub>이 있어야 합니다. 단, 마지막 튜플 뒤에는 세미콜론을 붙이지 않습니다.
+* 테이프의 0번 인덱스에서 왼쪽으로 가거나, 14번 인덱스에서 오른쪽으로 가는 행동은 실행되지 않습니다.
+    
+Tape
+* 입력은 테이프에 들어갈 15개의 기호를 문자열 형태로 작성합니다.
+* 테이프가 15칸이므로, 15칸 이상의 입력을 받지 않습니다.
+* 공백을 테이프에 넣고싶다면, `B`를 입력하면 됩니다. 띄어쓰기 입력시, 공백이 아닌 띄어쓰기를 입력합니다. 오류가 날 수 있습니다.
+* 입력이 15자가 되지 않는다면, 자동으로 남은 칸을 공백으로 채웁니다.
+
+
+대략 이런 규칙을 지킨다면, [**2.1 얘가 뭘 한다는 거에요?**](https://mojan3543.github.io/ProgrammingByHTML/#21-%EC%96%98%EA%B0%80-%EB%AD%98-%ED%95%9C%EB%8B%A4%EB%8A%94-%EA%B1%B0%EC%97%90%EC%9A%94)의 NOT 비트 연산과 같은, 여러가지 튜링 머신을 구현 할 수 있습니다!
+   
+```
+5-Tuple Action : (A,0,1,R,A);(A,1,0,R,A);(A,B,B,N,B);(B,B,B,N,B)
+Tape : 110110101
+```   
+위는 NOT 비트 연산을 5-Tuple 형식으로 변환한 문자열입니다! 이를 입력해보고, 실행해보세요!   
+```
+5-Tuple Action : (A,0,X,R,B);(A,C,B,R,F);(B,0,0,R,B);(B,C,C,R,C);(C,0,0,R,C);(C,B,0,L,D);(D,0,0,L,D);(D,C,C,L,E);(E,0,0,L,E);(E,X,X,R,A);(F,0,0,N,F)
+Tape : 0000C00000
+```   
+NOT 비트 연산 뿐만 아니라, 조금 더 복잡한 계산도 가능합니다. 위는 `0`과 `C`로 구분된 일종의 덧셈 식을 계산하는 연산 장치입니다.   
+```
+5-Tuple Action : (A,B,B,R,B);(B,0,0,R,B);(B,1,1,R,B);(B,B,C,L,C);(C,0,0,L,C);(C,1,1,L,C);(C,B,B,R,D);(D,0,Y,R,E);(D,1,X,R,I);(D,C,C,L,M);(E,0,0,R,E);(E,1,1,R,E);(E,C,C,R,F);(F,0,0,R,F);(F,1,1,R,F);(F,B,0,L,G);(G,0,0,L,G);(G,1,1,L,G);(G,C,C,L,H);(H,0,0,L,H);(H,1,1,L,H);(H,Y,Y,R,D);(I,0,0,R,I);(I,1,1,R,I);(I,C,C,R,J);(J,0,0,R,J);(J,1,1,R,J);(J,B,1,L,K);(K,0,0,L,K);(K,1,1,L,K);(K,C,C,L,L);(L,0,0,L,L);(L,1,1,L,L);(L,X,X,R,D);(M,X,1,L,M);(M,Y,0,L,M);(M,B,B,N,N);(N,B,B,N,N)
+Tape : B101001B
+```
+이렇게 많은 행동표를 작성하면, 더 복잡한 계산이 가능합니다! 위는 이진수 형태의 문자열을 `C`를 간격을 두고 복사하는 연산 장치입니다.   
+
+잡설이 길었지만, 이를 보면 범용 튜링 머신은 원시적이긴 하지만, 프로그래밍 가능하다는 것을 볼 수 있습니다!   
+   
+이렇게, 프로그래밍이 가능한 범용 튜링 머신은 폰 노이만에 의해, [**폰 노이만 아키텍쳐**](https://ko.wikipedia.org/wiki/%ED%8F%B0_%EB%85%B8%EC%9D%B4%EB%A7%8C_%EA%B5%AC%EC%A1%B0)가 되었습니다. 폰 노이만 아키텍쳐 이전에는 한 기계의 동작 방식을 변경하려면 전선을 빼고 끼우는 작업을 해야 했지만, 폰 노이만이 프로그램의 개념을 개발하여, 현재의 대부분의 컴퓨터가 프로그램에 의해서 동작되고 있습니다.   
+## 3. 드디어 HTML 이야기
+이제까지 튜링 완전성에 대해서 알아봤습니다. 요약 하자면, 튜링 완전성은 튜링 머신을 동작 시킬수 있는가? 에 대한 이야기 입니다.
+
+[^1]: 실제로는 무한한 길이의 테이프를 구현할 수 없으므로, 어떤 기계가 유한한 저장 공간을 가졌지만, 이후에 무한하게 저장 공간을 추가 할 수 있다면, 이 기계를 느슨하게 튜링 완전하다 봅니다.
 
 <style>
 *{
@@ -103,6 +146,45 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 	background-color : #ffffff;
 	line-height: 3rem;
 }
+.inputtray {
+	border: none;
+	box-shadow: none;
+	background-color: #ffffff;
+	padding: 0.5rem;
+	margin: auto;
+	display: flex;
+	flex-flow: column wrap;
+	place-content: center;
+	align-items: flex-end;
+	font-weight: bold;
+	text-align: center;
+	font-size: 1.2rem;
+}
+.inputandcommit{
+	margin-top: auto;
+}
+.inputtext{
+	margin-left: 1rem;
+	width: 15rem;
+}
+.commitbutton{
+	margin-left: 1.5rem;
+	border: none;
+	box-shadow: none;
+	background-color: #ffffff;
+	font-weight: bold;
+	font-size: 1.5rem;
+	text-align: center;
+}
+.commitbutton:hover{
+	transform: rotate(130deg) translatex(0.5rem);
+	transition: 0.4s;
+}
+.commitbutton:active{
+	color: #088A08;
+	transform: rotate(130deg) translatex(0.5rem) scale(1.1);
+	transition: 0.1s;
+}
 .controller {
 	border: none;
 	box-shadow: none;
@@ -122,7 +204,6 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 	background-color: #ffffff;
 	padding: 0.1rem;
 	margin: auto;
-	display: flex;
 	font-weight: bold;
 	text-align: center;
 	font-size: 2rem;
@@ -133,7 +214,7 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 }
 .nextAct:active{
 	transform: translatex(0.3rem) rotate(10deg);
-	transition: 0.1s;
+	transition: 0.2s;
 }
 .refresh {
 	outline: none;
@@ -142,7 +223,6 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 	background-color: #ffffff;
 	padding: 0.1rem;
 	margin: auto;
-	display: flex;
 	font-weight: bold;
 	text-align: center;
 	font-size: 2rem;
@@ -174,14 +254,20 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 </style>
 
 <script>
-   class TuringMachine{
+	class TuringMachine{
 		constructor(query, preset, firstState){
 			this.HeadIndex = 0;
+			this.presetState = firstState;
 			this.NowState = firstState;
 			this.ActTable = {};
 			this.presetList = Object.assign([], preset);
 			this.MainHTML = document.querySelector(query);
 			this.HTMLconstruct();
+			if(query == 'div.Universal'){
+				this.Universalconstruct();
+				this.MainHTML.querySelectorAll('button')[2].onclick = this.TextToTuple.bind(this);
+				this.MainHTML.querySelectorAll('button')[3].onclick = this.TextToPreset.bind(this);
+			}
 			this.ButtonHTML = this.MainHTML.querySelectorAll('Button');
 			this.headHTML = this.MainHTML.querySelector('div.tape > div.head');
 			this.headStateHTML = this.headHTML.querySelector('div.state');
@@ -236,6 +322,27 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 			refreshModel.innerHTML = '↻';
 			ControllerModel.appendChild(refreshModel);
 		}
+		Universalconstruct(){
+			let inputtrayModel = document.createElement("div");
+			inputtrayModel.className = 'inputtray';
+			this.MainHTML.appendChild(inputtrayModel);
+			let Names = ['5-Tuple Action', 'Tape'];
+			for(let i=0; i<2; i++){
+				let inputandcommitModel = document.createElement("div");
+				inputandcommitModel.className = 'inputandcommit';
+				inputandcommitModel.innerHTML = Names[i];
+				inputtrayModel.appendChild(inputandcommitModel);
+				let inputtextModel = document.createElement("input");
+				inputtextModel.className = 'inputtext';
+				inputtextModel.type = 'text';
+				inputandcommitModel.appendChild(inputtextModel);
+				let buttonModel = document.createElement("button");
+				buttonModel.className = 'commitbutton';
+				buttonModel.innerHTML = '⇁';
+				inputandcommitModel.appendChild(buttonModel);
+			}
+			
+		}
 		CellUpdate(){
 			for(let i=0; i<this.cellHTML.length; i++){
 				this.cellHTML[i].innerHTML = this.cell[i];
@@ -243,7 +350,7 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 		}
 		Refresh(){
 			this.HeadIndex = 0;
-			this.NowState = 'A';
+			this.NowState = this.presetState;
 			for(let i=0; i<this.presetList.length; i++){
 				switch(this.presetList[i]){
 					case 'B':
@@ -302,10 +409,12 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 				Read = 'B';
 			try {
 				if(!(State in this.ActTable)||!(Read in this.ActTable[State]))
-					throw NoStateReadError;
+					throw 'NoStateReadError';
 				let Write = this.ActTable[State][Read][0];
 				let Move = this.ActTable[State][Read][1];
 				let NextState = this.ActTable[State][Read][2];
+				if((Move == 'L' && this.HeadIndex == 0)||(Move == 'R' && this.HeadIndex == 14))
+					throw 'OutOfBound';
 				this.HeadWrite(Write);
 				switch(Move){
 					case 'L':
@@ -319,7 +428,86 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 				this.HeadDisplayUpdate();
 			}
 			catch(err){
-				alert("현재 상태가 행동표에 정의되지 않았습니다.");
+				switch(err){
+					case 'NoStateReadError':
+						alert("현재 상태가 행동표에 정의되지 않았습니다.");
+						break;
+					case 'OutOfBound':
+						alert("헤드가 움직일 공간이 없습니다.");
+						break;
+						
+				}
+			}
+		}
+		TextToTuple(){
+			try{
+				let text = this.MainHTML.querySelectorAll('input')[0].value;
+				let tuplelist = text.split(';');
+				let CommandList = [];
+				tuplelist.forEach(function(tuple){
+					if(tuple[0] != '(' || tuple[tuple.length-1] != ')')
+						throw "UndueTupleString";
+					let Command = tuple.slice(1, tuple.length-1).split(',');
+					if(Command.length != 5)
+						throw "TupleLengthError";
+					if('A' > Command[0] || Command[0] > 'Z')
+						throw "StateIndexError";
+					if('A' > Command[4] || Command[4] > 'Z')
+						throw "NextIndexError";
+					if(Command[3] != 'L' && Command[3] != 'N' && Command[3] != 'R')
+						throw "MoveIndexNotLRN";
+					Command.forEach(function(Com){
+						if(Com.length != 1)
+							throw "CommandLengthError";
+					});
+					CommandList.push(Command);
+				});
+				CommandList.forEach(Command => this.TupletoActTable(Command))
+				this.Refresh();
+			}
+			catch(err){
+				switch(err){
+					case 'UndueTupleString':
+						alert("작성된 튜플의 양식이 적절하지 않습니다.");
+						break;
+					case 'TupleLengthError':
+						alert("튜플의 길이가 5가 아닙니다.");
+						break;
+					case 'MoveIndexNotLRN':
+						alert("튜플의 4번째 인자가 L, R, N중 하나가 아닙니다.");
+						break;
+					case 'CommandLengthError':
+						alert("튜플의 인자의 길이가 한글자가 아닙니다.");
+						break;
+					case 'StateIndexError':
+						alert("튜플의 1번째 인자가 대문자 알파벳이 아닙니다.");
+						break;
+					case 'NextIndexError':
+						alert("튜플의 5번째 인자가 대문자 알파벳이 아닙니다.");
+						break;
+					default:
+						alert(err);
+						break;
+				}	
+			}
+		}
+		TextToPreset(){
+			try{
+				let text = this.MainHTML.querySelectorAll('input')[1].value;
+				if(text.length>15)
+					throw "TextLengthError";
+				this.presetList = [];
+				text.split('').forEach(textElement => this.presetList.push(textElement))
+				this.Refresh();
+			}
+			catch(err){
+				switch(err){
+					case 'TextLengthError':
+						alert("작성된 테이프의 길이가 16자 이상입니다.");
+						break;
+					default:
+						alert(err);
+				}
 			}
 		}
 	}
@@ -331,4 +519,9 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 	BitNotdiv.TupletoActTable(['A', '1', '0', 'R', 'A']);
 	BitNotdiv.TupletoActTable(['A', 'B', 'B', 'N', 'B']);
 	BitNotdiv.TupletoActTable(['B', 'B', 'B', 'N', 'B']);
+	
+	let UniversalTuringMachine = new TuringMachine('div.Universal', [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], 'A');
+	UniversalTuringMachine.CellUpdate();
+	UniversalTuringMachine.HeadUpdate();
+	UniversalTuringMachine.HeadDisplayUpdate();
 </script>
