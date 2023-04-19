@@ -71,10 +71,10 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 * 튜플의 기호와 기호 사이에는 콜론만 입력되어야 합니다. 띄어쓰기를 허용하지 않습니다.
 * 튜플의 기호에는 한글자씩 입력되어야 합니다. 즉, 현재 상태나 읽혀진 기호에도 두글자 이상 사용되면 안됩니다.
 * 튜플의 상태<sub>(1, 5번째 인자)</sub>는 모두 대문자 알파벳입니다. 소문자 알파벳 또는 숫자를 허용하지 않습니다.
-* 공백을 입력하거나, 읽고 싶다면, `B`를 입력하면 됩니다. 다시 말해서, `B`를 테이프에 작성 할거나 읽을 수 없습니다.
+* 공백을 입력하거나, 읽고 싶다면, `B`를 입력하면 됩니다. 다시 말해서, `B`를 테이프에 작성 하거나 읽을 수 없습니다.
 * 튜플의 이동 종류<sub>(4번째 인자)</sub>는 'L'<sub>왼쪽 이동</sub>, 'N'<sub>이동하지 않음</sub>, 'R'<sub>오른쪽 이동</sub>중 하나여야 합니다.
+* 헤드가 테이프의 0번 인덱스에서 왼쪽으로 가거나, 14번 인덱스에서 오른쪽으로 가는 행동은 실행되지 않습니다.
 * 튜플과 튜플 사이에는 세미콜론<sub>;</sub>이 있어야 합니다. 단, 마지막 튜플 뒤에는 세미콜론을 붙이지 않습니다.
-* 테이프의 0번 인덱스에서 왼쪽으로 가거나, 14번 인덱스에서 오른쪽으로 가는 행동은 실행되지 않습니다.
     
 Tape
 * 입력은 테이프에 들어갈 15개의 기호를 문자열 형태로 작성합니다.
@@ -195,6 +195,10 @@ HTML과 CSS가 튜링 완전성을 증명하는건, Rule 110을 동작시킴으�
 	transform: rotate(130deg) translatex(0.5rem) scale(1.1);
 	transition: 0.1s;
 }
+.commitbutton:focus{ 	
+	border: none;
+	outline:none;
+}
 .controller {
 	border: none;
 	box-shadow: none;
@@ -226,6 +230,10 @@ HTML과 CSS가 튜링 완전성을 증명하는건, Rule 110을 동작시킴으�
 	transform: translatex(0.3rem) rotate(10deg);
 	transition: 0.2s;
 }
+.nextAct:focus{ 	
+	border: none;
+	outline:none;
+}
 .refresh {
 	outline: none;
 	border: none;
@@ -244,6 +252,10 @@ HTML과 CSS가 튜링 완전성을 증명하는건, Rule 110을 동작시킴으�
 .refresh:active{
 	transform: scale(1.2);
 	transition: 0.1s;
+}
+.refresh:focus{ 	
+	border: none;
+	outline:none;
 }
 .autoAct {
 	border: none;
