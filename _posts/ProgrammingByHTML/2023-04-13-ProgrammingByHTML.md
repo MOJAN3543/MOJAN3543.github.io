@@ -9,8 +9,11 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 ![저는HTML로프로그래밍해요](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/HTMLisnotProgrammingLang.jpg?raw=true "저는HTML로 프로그래밍해요")
 {: .text-center}    
 
-농담입니다! HTML로는 프로그래밍 할 수 없습니다. [**HTML**](https://ko.wikipedia.org/wiki/HTML)의 [**ML**](https://ko.wikipedia.org/wiki/%EB%A7%88%ED%81%AC%EC%97%85_%EC%96%B8%EC%96%B4)부터 마크업 언어. 
-즉 데이터를 기술하는 언어라고 표기 되어있습니다. 하지만, HTML과 마크업 언어를 보조하는 [**스타일 시트 언어**](https://en.wikipedia.org/wiki/Style_sheet_language)인 [**CSS**](https://ko.wikipedia.org/wiki/CSS)를 같이 사용한다면, 이는 튜링 완전하게 됩니다!   
+농담입니다! HTML로는 프로그래밍 할 수 없습니다.   
+    
+애초에 [**HTML**](https://ko.wikipedia.org/wiki/HTML)을 풀어쓴다면 **HyperText Markup Language**. 즉 [**마크업 언어**](https://ko.wikipedia.org/wiki/%EB%A7%88%ED%81%AC%EC%97%85_%EC%96%B8%EC%96%B4)입니다.  
+   
+하지만, HTML과 마크업 언어를 보조하는 [**스타일 시트 언어**](https://en.wikipedia.org/wiki/Style_sheet_language)인 [**CSS**](https://ko.wikipedia.org/wiki/CSS)를 같이 사용한다면, 이는 튜링 완전하게 됩니다!   
    
 ⚠ 주의 : 이 뒤의 내용은 온전히 학부생의 시선으로 수집하고, 작성한 정보입니다. 정보의 내용이나 논리가 완전하지 않을 수 있습니다.
 {: .notice--warning}    
@@ -105,7 +108,7 @@ Tape : B101001B
    
 이렇게, 프로그래밍이 가능한 범용 튜링 머신은 폰 노이만에 의해, [**폰 노이만 아키텍쳐**](https://ko.wikipedia.org/wiki/%ED%8F%B0_%EB%85%B8%EC%9D%B4%EB%A7%8C_%EA%B5%AC%EC%A1%B0)가 되었습니다. 폰 노이만 아키텍쳐 이전에는 한 기계의 동작 방식을 변경하려면 전선을 빼고 끼우는 작업을 해야 했지만, 폰 노이만이 프로그램의 개념을 개발하여, 현재의 대부분의 컴퓨터가 프로그램에 의해서 동작되고 있습니다.  
    
-범용 튜링 머신에 영감을 받은 폰 노이만 아키텍쳐를 채택한 대부분의 컴퓨터가 할 수 있는 일은 단일 테이프 튜링 머신으로 동작 가능합니다[^2].
+범용 튜링 머신에 영감을 받은 폰 노이만 아키텍쳐를 채택한 대부분의 컴퓨터가 할 수 있는 일은 단일 테이프 튜링 머신으로 동작 가능합니다[^2]. 즉, 위와 같은 튜링 머신이 충분한 시간과 테이프만 주어진다면 우리가 알고있는 모든 프로그램을 구동 시킬수 있다는 이야기 입니다! 물론, [**DOOM도 구동 될겁니다.**](https://twitter.com/emollick/status/1643839257348386817)
 ## 3. Rule 110
 이제까지 튜링 머신이 컴퓨터와 같은 역할을 한다는 것에 대해서 알아 봤습니다.   
    
