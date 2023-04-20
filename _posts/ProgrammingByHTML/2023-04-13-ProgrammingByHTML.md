@@ -209,6 +209,9 @@ Rule 110은 일차원 **세포 자동자**의 종류중 하나입니다. 일렬�
 	transform: rotate(130deg) translatex(0.5rem) scale(1.1);
 	transition: 0.1s;
 }
+.commitbutton:focus{
+	    outline: none;
+}
 .controller {
 	border: none;
 	box-shadow: none;
@@ -240,6 +243,9 @@ Rule 110은 일차원 **세포 자동자**의 종류중 하나입니다. 일렬�
 	transform: translatex(0.3rem) rotate(10deg);
 	transition: 0.2s;
 }
+.nextAct:focus{
+	    outline: none;
+}
 .refresh {
 	outline: none;
 	border: none;
@@ -258,6 +264,9 @@ Rule 110은 일차원 **세포 자동자**의 종류중 하나입니다. 일렬�
 .refresh:active{
 	transform: scale(1.2);
 	transition: 0.1s;
+}
+.refresh:focus{
+	    outline: none;
 }
 .autoAct {
 	border: none;
