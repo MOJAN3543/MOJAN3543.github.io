@@ -317,8 +317,13 @@ Rule 110은 일차원 **세포 자동자**의 종류중 하나입니다. 일렬�
 	height: 3.375rem;
 	background-color: #f0f0f0;
 }
-.BitNot, Universal {
+.BitNot {
 	overflow-x: auto;
+	-ms-overflow-style: none;
+	-webkit-scrollbar { display: none;}
+}
+.Universal {
+		overflow-x: auto;
 	-ms-overflow-style: none;
 	-webkit-scrollbar { display: none;}
 }
