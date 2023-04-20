@@ -201,10 +201,6 @@ HTML과 CSS가 튜링 완전성을 증명하는건, Rule 110을 동작시킴으�
 	transform: rotate(130deg) translatex(0.5rem) scale(1.1);
 	transition: 0.1s;
 }
-.commitbutton:focus{ 	
-	border: none;
-	outline:none;
-}
 .controller {
 	border: none;
 	box-shadow: none;
@@ -236,10 +232,6 @@ HTML과 CSS가 튜링 완전성을 증명하는건, Rule 110을 동작시킴으�
 	transform: translatex(0.3rem) rotate(10deg);
 	transition: 0.2s;
 }
-.nextAct:focus{ 	
-	border: none;
-	outline:none;
-}
 .refresh {
 	outline: none;
 	border: none;
@@ -259,10 +251,6 @@ HTML과 CSS가 튜링 완전성을 증명하는건, Rule 110을 동작시킴으�
 	transform: scale(1.2);
 	transition: 0.1s;
 }
-.refresh:focus{ 	
-	border: none;
-	outline:none;
-}
 .autoAct {
 	border: none;
 	box-shadow: none;
@@ -278,6 +266,54 @@ HTML과 CSS가 튜링 완전성을 증명하는건, Rule 110을 동작시킴으�
 	transform: rotate(360deg);
 	transform-origin: 52.5% 52.5%;
 	transition: 2s;
+}
+.automata {
+	position: relative;
+	display: grid;
+	grid-template: repeat(4, 2rem) / repeat(15, 2rem);
+	place-items: stretch;
+	place-content: space-evenly;
+	margin: auto;
+	outline: none;
+	width: 34rem;
+	height: 9.25rem;
+	background-color: #f0f0f0;
+	font-weight: bold;
+	text-align: center;
+	font-size: 1.5rem;
+	line-height: 2rem;
+}
+.rule {
+
+	position: relative;
+	display: grid;
+	grid-template: 3.375rem / repeat(8, 5.0625rem);
+	place-items: stretch;
+	place-content: space-evenly;
+	margin: auto;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	outline: none;
+	width: 47.25rem;
+	height: 3rem;
+}
+.ruleElement {
+	position: relative;
+	display: grid;
+	grid-template: repeat(2, 1.5rem)/ repeat(3, 1.5rem);
+	place-items: stretch;
+	place-content: space-evenly;
+	margin: auto;
+	outline: none;
+	width: 5.0625rem;
+	height: 3.375rem;
+	background-color: #f0f0f0;
+}
+.BitNot {
+	overflow-x: scroll;
+}
+.Universal {
+	overflow-x: scroll;
 }
 </style>
 
