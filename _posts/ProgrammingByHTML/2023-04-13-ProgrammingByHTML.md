@@ -121,9 +121,15 @@ Tape : B101001B
 이런 튜링 등가로 인해서 튜링 완전성이 증명된 아주 간단한 언어를 동작시켜, 특정 언어가 튜링 완전하다는것을 증명시키곤 합니다. 주로 만들어지는 대상은 [**Rule 110**](https://en.wikipedia.org/wiki/Rule_110)입니다.
 
 ### 3.1 Rule 110
-Rule 110은 일차원 **세포 자동자**의 종류중 하나입니다. 일렬로 배열된 세포의 주변 상태에 따라, 다음 세대의 상태가 결정되는 오토마타입니다.
+Rule 110은 **기초 세포 자동자**<sub>(Elementary Cellular Automata)</sub>의 종류중 하나입니다. 일렬로 배열된 세포의 주변 상태에 따라, 다음 세대의 상태가 결정되는 오토마타입니다.   
+<div class='Rule110'></div>
 
-*여기에 Rule110 입력*
+위는 실제로 동작하는 **Rule 110 시뮬레이터**[^4]입니다! **→**로 다음 칸으로 이동하고, **⮡**로 다음줄로 이동, **↻**로 시뮬레이터를 초기화 할 수 있습니다.    
+   
+해당 시뮬레이터는 위에 있는 8가지[^5] 패턴에 따라 다음 세포의 상태가 결정됩니다.  
+![Rule110MachineExample](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/Rule110MachineExample.png?raw=true "Rule110MachineExample")
+{: .text-center}  
+마치 이런식입니다. 이러한 패턴에 따라, 3개의 셀 중앙에 새로운 세포가 나타납니다. Rule 110의 의미도 이 패턴을 의미합니다. 한 세포가 켜져있는것을 `1`, 꺼져있는것을 `0`으로 치환하여, 규칙을 `01101110`. 즉 110으로 부르게 되는것이죠.
 
 순환 태그 시스템 -> 2태그 시스템 https://medium.com/@barvinograd1/cyclic-tag-system-1-line-of-turing-complete-code-cebe8e18658f
 2태그 시스템 - > 튜링 머신 https://dl.acm.org/doi/epdf/10.1145/321203.321206
@@ -131,7 +137,8 @@ Rule 110은 일차원 **세포 자동자**의 종류중 하나입니다. 일렬�
 [^1]: 실제로는 무한한 길이의 테이프를 구현할 수 없으므로, 어떤 기계가 유한한 저장 공간을 가졌지만, 이후에 무한하게 저장 공간을 추가 할 수 있다면, 이 기계를 느슨하게 튜링 완전하다 봅니다.
 [^2]: 이는 단일 테이프 튜링 머신을 다중 테이프 튜링 머신으로 확장 시키고, 업 다운 카운터로 단순화, 카운터 머신으로 단순화, 그리고 이 카운터 머신을 현재 컴퓨터에 가까운 레지스터 머신으로 확장 함에 증명되었습니다. 정확한 내용은 [**처치-튜링 명제**](https://en.wikipedia.org/wiki/Church%E2%80%93Turing_thesis)를 살펴보세요.
 [^3]: 어떤 명령형 언어가 튜링 완전하기 위해서는, 조건부 반복(Python의 `while`)과 변수의 [**CRUD**](https://ko.wikipedia.org/wiki/CRUD)의 기능이 있으면 됩니다. 
-
+[^4]: Rule 110 뿐만 아니라, 다른 규칙으로도 동작 가능합니다! Rule의 숫자를 변경하거나, Rule의 패턴을 클릭해보세요.
+[^5]: 1차원에 놓인 3개의 셀의 상태는 총 8가지<sub>2³</sub> 입니다
 <style>
 *{
 	font-family: 'Noto Sans KR', sans-serif;
@@ -155,6 +162,10 @@ Rule 110은 일차원 **세포 자동자**의 종류중 하나입니다. 일렬�
 .cell {
 	z-index: 1;
 	background-color : #ffffff;
+}
+.Activecell {
+	z-index: 1;
+	background-color : #10dc36;
 }
 .head {
 	position: absolute;
@@ -246,6 +257,28 @@ Rule 110은 일차원 **세포 자동자**의 종류중 하나입니다. 일렬�
 .nextAct:focus{
 	    outline: none;
 }
+.nextLine {
+	border: none;
+	box-shadow: none;
+	background-color: #ffffff;
+	padding: 0.1rem;
+	margin: auto;
+	line-height: 1;
+	font-weight: bold;
+	text-align: center;
+	font-size: 2rem;
+}
+.nextLine:hover{
+	transform: translatey(0.3rem);
+	transition: 0.4s;
+}
+.nextLine:active{
+	transform: translatex(0.3rem) translatey(0.3rem);
+	transition: 0.2s;
+}
+.nextLine:focus{
+	    outline: none;
+}
 .refresh {
 	outline: none;
 	border: none;
@@ -266,7 +299,7 @@ Rule 110은 일차원 **세포 자동자**의 종류중 하나입니다. 일렬�
 	transition: 0.1s;
 }
 .refresh:focus{
-	    outline: none;
+	outline: none;
 }
 .autoAct {
 	border: none;
@@ -287,12 +320,14 @@ Rule 110은 일차원 **세포 자동자**의 종류중 하나입니다. 일렬�
 .automata {
 	position: relative;
 	display: grid;
-	grid-template: repeat(4, 2rem) / repeat(15, 2rem);
+	grid-template: repeat(4, 2rem) / repeat(20, 2rem);
+	/* grid-template-rows: repeat(4, 2rem);
+	grid-template-columns: repeat(15, 2rem); */
 	place-items: stretch;
 	place-content: space-evenly;
 	margin: auto;
 	outline: none;
-	width: 34rem;
+	width: 45.25rem;
 	height: 9.25rem;
 	background-color: #f0f0f0;
 	font-weight: bold;
@@ -300,8 +335,25 @@ Rule 110은 일차원 **세포 자동자**의 종류중 하나입니다. 일렬�
 	font-size: 1.5rem;
 	line-height: 2rem;
 }
+.describe {
+	margin: auto;
+	place-content: center;
+	font-weight: bold;
+	font-size: 2rem;
+}
+.describeNum{
+	width: 3.5rem;
+	height: 2rem;
+	border: none;
+	border-bottom: 0.2rem solid black;
+	text-align: center;
+	font-weight: bold;
+	font-size: 2rem;
+}
+.describeNum:focus{
+	outline: none;
+}
 .rule {
-
 	position: relative;
 	display: grid;
 	grid-template: 3.375rem / repeat(8, 5.0625rem);
@@ -321,6 +373,7 @@ Rule 110은 일차원 **세포 자동자**의 종류중 하나입니다. 일렬�
 	place-items: stretch;
 	place-content: space-evenly;
 	margin: auto;
+	box-sizing: border-box;
 	outline: none;
 	width: 5.0625rem;
 	height: 3.375rem;
@@ -332,7 +385,13 @@ Rule 110은 일차원 **세포 자동자**의 종류중 하나입니다. 일렬�
 	-webkit-scrollbar { display: none;}
 }
 .Universal {
-		overflow-x: auto;
+	overflow-x: auto;
+	-ms-overflow-style: none;
+	-webkit-scrollbar { display: none;}
+}
+.Rule110 {
+	display: grid;
+	overflow-x: auto;
 	-ms-overflow-style: none;
 	-webkit-scrollbar { display: none;}
 }
@@ -596,6 +655,184 @@ Rule 110은 일차원 **세포 자동자**의 종류중 하나입니다. 일렬�
 			}
 		}
 	}
+	class Rule{ // ⮓ ⮡
+		constructor(query, preset){
+			this.rule = preset;
+			this.rulebinary = [!!(preset&128), !!(preset&64), !!(preset&32), !!(preset&16), !!(preset&8), !!(preset&4), !!(preset&2), !!(preset&1)];
+			this.MainHTML = document.querySelector(query);
+			this.automatarow = 4;
+			this.automatacolumn = 20;
+			this.evalrow = 1;
+			this.evalcolumn = 0;
+			this.evalNum = 0;
+			this.automata = [];
+			this.HTMLconstruct();
+			this.ruleUpdate();
+		}
+		HTMLconstruct(){
+			let describeModel = document.createElement('div');
+			describeModel.className = "describe";
+			describeModel.append("Rule ");
+			let describeNumModel = document.createElement('input');
+			describeNumModel.type = "text";
+			describeNumModel.setAttribute("maxlength", 3);
+			describeNumModel.placeholder = "N";
+			describeNumModel.onchange = this.describeNumInput.bind(this);
+			describeNumModel.className = "describeNum";
+			describeNumModel.value = this.rule;
+			describeModel.appendChild(describeNumModel);
+			describeModel.append(" Machine");
+			this.MainHTML.appendChild(describeModel);
+			let ruleModel = document.createElement('div');
+			ruleModel.className = "rule";
+			for(let i=0; i<8; i++){
+				let ruleElementModel = document.createElement('div');
+				ruleElementModel.className = "ruleElement";
+				let binary = [(7-i)&4, (7-i)&2, (7-i)&1];
+				for (let index in binary){
+					let ruleCellModel = document.createElement('div');
+					ruleCellModel.className = binary[index] != 0 ? "Activecell" : "cell";
+					ruleElementModel.appendChild(ruleCellModel);
+				}
+				let trash = document.createElement('div');
+				ruleElementModel.appendChild(trash);
+				let ruleCellModel = document.createElement('div');
+				ruleCellModel.className = "cell";
+				ruleElementModel.appendChild(ruleCellModel);
+				ruleElementModel.onclick = () => this.ruleToggle(i);
+				ruleModel.appendChild(ruleElementModel);
+			}
+			this.MainHTML.appendChild(ruleModel);
+			let automataModel = document.createElement('div');
+			automataModel.className = "automata";
+			for(let height=0; height<this.automatarow; height++){
+				for(let width=0; width<this.automatacolumn; width++){
+					let cellModel = document.createElement('div');
+					cellModel.className = "cell";
+					cellModel.onclick = () => this.cellToggle(height, width);
+					automataModel.appendChild(cellModel);
+				}
+				this.automata.push(new Array(this.automatacolumn).fill(false));
+			}
+			this.MainHTML.appendChild(automataModel);
+			let controllerModel = document.createElement('div');
+			let nextActModel = document.createElement('button');
+			nextActModel.className = 'nextAct';
+			nextActModel.innerHTML = '→';
+			nextActModel.onclick = this.automataAct.bind(this);
+			controllerModel.appendChild(nextActModel);
+			let nextLineModel = document.createElement('button');
+			nextLineModel.className = 'nextLine';
+			nextLineModel.innerHTML = '⮡';
+			nextLineModel.onclick = this.automataNextLine.bind(this);
+			controllerModel.appendChild(nextLineModel);
+			let refreshModel = document.createElement('button');
+			refreshModel.className = 'refresh';
+			refreshModel.innerHTML = '↻';
+			refreshModel.onclick = this.refresh.bind(this);
+			controllerModel.appendChild(refreshModel);
+			controllerModel.className = 'controller';
+			this.MainHTML.appendChild(controllerModel);
+		}
+		ruleUpdate(){
+			let ruleIndicatorList = this.MainHTML.querySelectorAll('div.ruleElement > div:nth-child(5)');
+			for(let index=0; index<8; index++)
+				ruleIndicatorList[index].className = this.rulebinary[index] ? "Activecell" : "cell";
+			// for(let index in ruleElementList){
+			// 	let ruleIndicator = ruleElementList[index].querySelector("div:nth-child(5)");
+			// 	ruleIndicator.className = this.rulebinary[index] ? "Activecell" : "cell";
+			// }
+			let describeNumModel = this.MainHTML.querySelector('input.describeNum');
+			describeNumModel.value = this.rulebinaryToNum();
+		}
+		ruleToggle(Index){
+			this.rulebinary[Index] = !this.rulebinary[Index];
+			this.ruleUpdate();
+		}
+		rulebinaryToNum(){
+			let ret = 0;
+			for(let index in this.rulebinary)
+				ret += this.rulebinary[index] ? Math.pow(2, 7-index) : 0;
+			return ret;
+		}
+		describeNumInput(){
+			let describeNum = this.MainHTML.querySelector('input.describeNum');
+			let val = Number(describeNum.value);
+			if(val<0)
+				val = 0;
+			if(val>255)
+				val = 255;
+			this.rulebinary = [!!(val&128), !!(val&64), !!(val&32), !!(val&16), !!(val&8), !!(val&4), !!(val&2), !!(val&1)];
+			this.ruleUpdate();
+		}
+		addLine(){
+			let automata = this.MainHTML.querySelector('div.automata');
+			this.automatarow++;
+			automata.style.gridTemplate = "repeat("+String(this.automatarow)+", 2rem) / repeat("+String(this.automatacolumn)+", 2rem)";
+			automata.style.height = String(this.automatarow*2.25+0.25)+"rem";
+			for(let width=0; width<this.automatacolumn; width++){
+				let cellModel = document.createElement('div');
+				cellModel.className = "cell";
+				cellModel.onclick = () => this.cellToggle(this.automatarow, width);
+				automata.appendChild(cellModel);
+			}
+			this.automata.push(new Array(this.automatacolumn).fill(false));
+		}
+		automataUpdate(){
+			let cellList = this.MainHTML.querySelectorAll('div.automata > div');
+			let index=0;
+			for(let height=0; height<this.automatarow; height++)
+				for(let width=0; width<this.automatacolumn; width++)
+					cellList[index++].className = this.automata[height][width] ? "Activecell" : "cell";
+			cellList[this.evalrow*this.automatacolumn+this.evalcolumn].style.border = "0.2rem dashed";
+			let parentCell = [];
+			parentCell.push(this.evalcolumn != 0 ? this.automata[this.evalrow-1][this.evalcolumn-1] : this.automata[this.evalrow-1][this.automatacolumn-1]);
+			parentCell.push(this.automata[this.evalrow-1][this.evalcolumn])
+			parentCell.push(this.evalcolumn != this.automatacolumn-1 ? this.automata[this.evalrow-1][this.evalcolumn+1] : this.automata[this.evalrow-1][0]);
+			this.evalNum = 4*parentCell[0]+2*parentCell[1]+1*parentCell[2];
+			this.MainHTML.querySelectorAll('div.ruleElement')[7-this.evalNum].style.border = "0.15rem dashed";
+			
+		}
+		evalStyleRemove(){
+			let cellList = this.MainHTML.querySelectorAll('div.automata > div');
+			cellList[this.evalrow*this.automatacolumn+this.evalcolumn].style.removeProperty("border");
+			this.MainHTML.querySelectorAll('div.ruleElement')[7-this.evalNum].style.removeProperty("border");
+		}
+		automataAct(){
+			this.evalStyleRemove();
+			let parentCell = [];
+			parentCell.push(this.evalcolumn != 0 ? this.automata[this.evalrow-1][this.evalcolumn-1] : this.automata[this.evalrow-1][this.automatacolumn-1]);
+			parentCell.push(this.automata[this.evalrow-1][this.evalcolumn])
+			parentCell.push(this.evalcolumn != this.automatacolumn-1 ? this.automata[this.evalrow-1][this.evalcolumn+1] : this.automata[this.evalrow-1][0]);
+			let evalNum = 4*parentCell[0]+2*parentCell[1]+1*parentCell[2];
+			let res = this.rulebinary[7-evalNum];
+			this.automata[this.evalrow][this.evalcolumn] = res;
+			this.evalrow += this.evalcolumn != this.automatacolumn-1 ? 0 : 1;
+			this.evalcolumn += this.evalcolumn != this.automatacolumn-1 ? 1 : -this.automatacolumn+1;
+			if(this.evalrow >= this.automatarow)
+				this.addLine();
+			this.automataUpdate();
+		}
+		automataNextLine(){
+			let leftcolumn = this.automatacolumn - this.evalcolumn;
+			for(let index=0; index<leftcolumn; index++)
+				this.automataAct();
+		}
+		refresh(){
+			this.evalStyleRemove();
+			for(let index=0; index<this.automatarow; index++)
+				this.automata[index].fill(false);
+			this.evalrow = 1;
+			this.evalcolumn = 0;
+			this.automata[0][19] = true;
+			this.automataUpdate();
+		}
+		cellToggle(row, column){
+			this.automata[row][column] = !this.automata[row][column];
+			this.evalStyleRemove();
+			this.automataUpdate();
+		}
+	}
 	let BitNotdiv = new TuringMachine('div.BitNot', [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], 'A');
 	BitNotdiv.CellUpdate();
 	BitNotdiv.HeadUpdate();
@@ -605,8 +842,14 @@ Rule 110은 일차원 **세포 자동자**의 종류중 하나입니다. 일렬�
 	BitNotdiv.TupletoActTable(['A', 'B', 'B', 'N', 'B']);
 	BitNotdiv.TupletoActTable(['B', 'B', 'B', 'N', 'B']);
 	
-	let UniversalTuringMachine = new TuringMachine('div.Universal', [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], 'A');
+	let UniversalTuringMachine = new TuringMachine('div.Universal', [-1, -1, -1, -1, -1], 'A');
 	UniversalTuringMachine.CellUpdate();
 	UniversalTuringMachine.HeadUpdate();
 	UniversalTuringMachine.HeadDisplayUpdate();
+	
+	let RuleMachine = new Rule('div.Rule110', 110);
+	RuleMachine.automata[0][19] = true;
+	RuleMachine.automataUpdate();
+	
+
 </script>
