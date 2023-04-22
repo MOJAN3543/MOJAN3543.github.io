@@ -43,8 +43,8 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 * 행동표 : 현재 상태와 읽은 기호에 따라서 다음에 어떤 행동을 할지 쓰여진 표입니다.
 * 상태 기록기 : 현재 상태를 기록합니다.
 
-### 2.1 얘가 뭘 한다는 거에요?
-일단 이런게 있다는건 알겠는데, 대체 얘가 뭘 한다는거죠?   
+### 2.1 튜링 머신이 할 수 있는 일
+할 수 있는거라곤 테이프에서 움직이고, 테이프를 읽고 쓰는 이 기계가 뭘 할 수 있을까요?   
 <div class='BitNot'></div>
 
 위는 **실제로 동작하는** 튜링 머신입니다! **→**로 다음 행동을 할 수 있고, **↻**로 튜링 머신을 초기화 할 수 있습니다.   
@@ -62,9 +62,9 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
     
 우선 제가 구현한 튜링머신은 초기 상태로 `A`를 가지고 있습니다. 행동표에 따라, `A` 상태일때 `0`을 읽으면 `1`을 테이프에 쓰고 오른쪽<sub>R</sub>으로 이동 후 `A` 상태가 됩니다. 그리고 `A`상태일때 `1`을 읽으면 `0`을 테이프에 쓰고 오른쪽<sub>R</sub>으로 이동 후 `A` 상태가 됩니다.    
     
-만약에 `A`상태일때 `ㅤ`을 만나면. 즉 공백<sub>B</sub>을 만나면 어떻게 될까요? 위의 행동표를 보면 알겠지만, 공백<sub>B</sub>을 작성 후 움직이지 않고<sub>N</sub> `B`상태가 됩니다. 그리고 `B`상태에서는 공백<sub>B</sub>을 만나면, 공백<sub>B</sub>을 작성. 움직이지 않습니다<sub>N</sub>. 즉, `B` 상태가 되면 튜링 머신이 정지합니다.    
+만약에 `A`상태일때 `ㅤ`을 만나면, 즉 공백<sub>B</sub>을 만나면 어떻게 될까요? 위의 행동표를 보면 알겠지만, 공백<sub>B</sub>을 작성 후 움직이지 않고<sub>N</sub> `B`상태가 됩니다. 그리고 `B`상태에서는 공백<sub>B</sub>을 만나면, 공백<sub>B</sub>을 작성. 움직이지 않습니다<sub>N</sub>. 즉, `B` 상태가 되면 튜링 머신이 정지합니다.    
     
-그리고 눈치 채셨겠지만, 이는 NOT 비트 연산을 구현한 튜링 머신입니다!
+그리고 눈치 채셨겠지만, 이는 0을 1로 만들고, 1을 0으로 만드는 NOT 비트 연산을 구현한 튜링 머신입니다!
 ### 2.2 조금 더 업그레이드 버전
 앨런 튜링은 여기서 조금 더 나아가서, 해당 튜링 머신이, 테이프의 내용만 입력받는것이 아닌, 튜링 머신이 동작하는 방식도 입력 받아서, 한 장치가 여러가지 일을 할 수 있게 만든 **범용 튜링 머신**을 고안합니다.   
 <div class='Universal'></div>
@@ -72,12 +72,12 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 위는 실제로 동작하는 **범용 튜링 머신**입니다! `5-Tuple Action`과 `Tape`에 입력하고 **⇁**로 튜링 머신에 적용할 수 있습니다. 입력시에는 다음과 같은 규칙을 지키면 됩니다.
 
 5-Tuple Action   
-* 입력은 행동표의 5-튜플 표현과 같은 방식으로 이루어집니다. (현재 상태,읽혀진 기호,쓰이는 기호,이동 종류,다음 상태)를 입력합니다.
-* 튜플의 기호와 기호 사이에는 콜론만 입력되어야 합니다. 띄어쓰기를 허용하지 않습니다.
-* 튜플의 기호에는 한글자씩 입력되어야 합니다. 즉, 현재 상태나 읽혀진 기호에도 두글자 이상 사용되면 안됩니다.
+* 입력은 행동표의 5-튜플 표현과 같은 방식으로 이루어집니다. `(현재 상태,읽혀진 기호,쓰이는 기호,이동 종류,다음 상태)`를 입력합니다.
+* 튜플의 기호와 기호 사이에는 콜론<sub>,</sub>만 입력되어야 합니다. 띄어쓰기를 허용하지 않습니다.
+* 튜플의 기호에는 한글자씩 입력되어야 합니다. 즉, 현재 상태에 사용되는 상태 기호나 테이프에 사용되는 기호에도 두글자 이상 사용되면 안됩니다.
 * 튜플의 상태<sub>(1, 5번째 인자)</sub>는 모두 대문자 알파벳입니다. 소문자 알파벳 또는 숫자를 허용하지 않습니다.
 * 공백을 입력하거나, 읽고 싶다면, `B`를 입력하면 됩니다. 다시 말해서, `B`를 테이프에 작성 하거나 읽을 수 없습니다.
-* 튜플의 이동 종류<sub>(4번째 인자)</sub>는 'L'<sub>왼쪽 이동</sub>, 'N'<sub>이동하지 않음</sub>, 'R'<sub>오른쪽 이동</sub>중 하나여야 합니다.
+* 튜플의 이동 종류<sub>(4번째 인자)</sub>는 L<sub>왼쪽 이동</sub>, N<sub>이동하지 않음</sub>, R<sub>오른쪽 이동</sub>중 하나여야 합니다.
 * 헤드가 테이프의 0번 인덱스에서 왼쪽으로 가거나, 14번 인덱스에서 오른쪽으로 가는 행동은 실행되지 않습니다.
 * 튜플과 튜플 사이에는 세미콜론<sub>;</sub>이 있어야 합니다. 단, 마지막 튜플 뒤에는 세미콜론을 붙이지 않습니다.
     
@@ -88,7 +88,7 @@ Tape
 * 입력이 15자가 되지 않는다면, 자동으로 남은 칸을 공백으로 채웁니다.
 
 
-대략 이런 규칙을 지킨다면, [**2.1 얘가 뭘 한다는 거에요?**](https://mojan3543.github.io/ProgrammingByHTML/#21-%EC%96%98%EA%B0%80-%EB%AD%98-%ED%95%9C%EB%8B%A4%EB%8A%94-%EA%B1%B0%EC%97%90%EC%9A%94)의 NOT 비트 연산과 같은, 여러가지 튜링 머신을 구현 할 수 있습니다!
+대략 이런 규칙을 지킨다면, [**2.1 튜링 머신이 할 수 있는 일**](https://mojan3543.github.io/ProgrammingByHTML/#21-%ED%8A%9C%EB%A7%81-%EB%A8%B8%EC%8B%A0%EC%9D%B4-%ED%95%A0-%EC%88%98-%EC%9E%88%EB%8A%94-%EC%9D%BC)의 NOT 비트 연산과 같은, 여러가지 튜링 머신을 구현 할 수 있습니다!
    
 ```
 5-Tuple Action : (A,0,1,R,A);(A,1,0,R,A);(A,B,B,N,B);(B,B,B,N,B)
@@ -104,42 +104,58 @@ NOT 비트 연산 뿐만 아니라, 조금 더 복잡한 계산도 가능합니�
 5-Tuple Action : (A,B,B,R,B);(B,0,0,R,B);(B,1,1,R,B);(B,B,C,L,C);(C,0,0,L,C);(C,1,1,L,C);(C,B,B,R,D);(D,0,Y,R,E);(D,1,X,R,I);(D,C,C,L,M);(E,0,0,R,E);(E,1,1,R,E);(E,C,C,R,F);(F,0,0,R,F);(F,1,1,R,F);(F,B,0,L,G);(G,0,0,L,G);(G,1,1,L,G);(G,C,C,L,H);(H,0,0,L,H);(H,1,1,L,H);(H,Y,Y,R,D);(I,0,0,R,I);(I,1,1,R,I);(I,C,C,R,J);(J,0,0,R,J);(J,1,1,R,J);(J,B,1,L,K);(K,0,0,L,K);(K,1,1,L,K);(K,C,C,L,L);(L,0,0,L,L);(L,1,1,L,L);(L,X,X,R,D);(M,X,1,L,M);(M,Y,0,L,M);(M,B,B,N,N);(N,B,B,N,N)
 Tape : B101001B
 ```
-이렇게 많은 행동표를 작성하면, 더 복잡한 계산이 가능합니다! 위는 이진수 형태의 문자열을 `C`를 간격을 두고 복사하는 연산 장치입니다.   
+이렇게 많은 행동표를 작성하면, 더 복잡한 계산이 가능합니다! 위는 이진수 형태의 문자열을 `C`를 간격을 두고 복사하는 연산 장치입니다.         
 
 잡설이 길었지만, 이를 보면 범용 튜링 머신은 원시적이긴 하지만, 프로그래밍 가능하다는 것을 볼 수 있습니다!   
    
-이렇게, 프로그래밍이 가능한 범용 튜링 머신은 폰 노이만에 의해, [**폰 노이만 아키텍쳐**](https://ko.wikipedia.org/wiki/%ED%8F%B0_%EB%85%B8%EC%9D%B4%EB%A7%8C_%EA%B5%AC%EC%A1%B0)가 되었습니다. 폰 노이만 아키텍쳐 이전에는 한 기계의 동작 방식을 변경하려면 전선을 빼고 끼우는 작업을 해야 했지만, 폰 노이만이 프로그램의 개념을 개발했고, 현재의 대부분의 컴퓨터가 프로그램에 의해서 동작되고 있습니다.  
+이후 시간이 흘러 프로그래밍이 가능한 범용 튜링 머신은 폰 노이만에 의해, [**폰 노이만 아키텍쳐**](https://ko.wikipedia.org/wiki/%ED%8F%B0_%EB%85%B8%EC%9D%B4%EB%A7%8C_%EA%B5%AC%EC%A1%B0)로 발전 되었습니다. 폰 노이만 아키텍쳐 이전에는 한 기계의 동작 방식을 변경하려면 전선을 빼고 끼우는 작업을 해야 했지만, 폰 노이만이 프로그램의 개념을 개발했고, 현재의 대부분의 컴퓨터가 프로그램에 의해서 동작되고 있습니다.  
    
-폰 노이만 아키텍쳐를 채택한 대부분의 컴퓨터가 할 수 있는 일은 단일 테이프 튜링 머신으로 동작 가능합니다[^2]. 즉, 위와 같은 튜링 머신이 충분한 시간과 테이프만 주어진다면 우리가 알고있는 모든 프로그램을 구동 시킬수 있다는 이야기 입니다! 물론, [**DOOM도 구동 될겁니다.**](https://twitter.com/emollick/status/1643839257348386817)
+폰 노이만 아키텍쳐를 채택한 컴퓨터가 할 수 있는 일은 단일 테이프 튜링 머신으로 동작 가능합니다[^2]. 즉, 위에 서술된 튜링 머신이 충분한 시간과 테이프만 주어진다면 우리가 알고있는 모든 프로그램을 구동 시킬수 있다는 이야기 입니다! 물론, [**DOOM도 구동 될겁니다.**](https://twitter.com/emollick/status/1643839257348386817)
 ## 3. 튜링 완전 증명
-튜링 머신을 동작 시킨다면 튜링 완전 하다는 것은 이제 이해 됐습니다. 그러면, 어떤 언어의 튜링 완전을 증명하려면, 어떤 언어로 튜링 머신을 직접 만들면 되겠죠?   
+"프로그래밍 언어가 튜링 머신을 동작 시킨다면 그것은 튜링 완전 하다"는 것은 이제 이해 됐습니다. 그러면, 특정 언어의 튜링 완전을 증명하려면, 그 언어로 튜링 머신을 직접 만들면 되겠죠?   
    
-굳이 그렇지는 않습니다! 이미 튜링 완전성이 증명된 어떤 언어(또는 오토마타)를 동작 시키면 되거든요.   
+굳이 그렇지는 않습니다! 튜링 머신을 만드는 대신, 이미 튜링 완전성이 증명된 어떤 언어(또는 오토마타)를 동작 시키면 되거든요.   
    
-예를 들어 이런식입니다. Python이 튜링 완전하다는건 자명한 사실입니다[^3]. 그리고 C로 Python을 구동시키는 CPython라는 것이 있습니다. 즉, C는 Python을 구동 시키기 때문에, 저절로 C는 튜링 완전하게 됩니다!   
+예를 들어 이런식입니다. Python이 튜링 완전하다는건 자명한 사실입니다[^3]. 그리고 C언어로는 Python을 구현 할 수 있습니다[^4]. 즉, C는 Python을 구동 시키기 때문에, 저절로 C는 튜링 완전하게 됩니다!   
    
-이런 튜링 등가로 인해서 튜링 완전성이 증명된 아주 간단한 언어를 동작시켜, 특정 언어가 튜링 완전하다는것을 증명시키곤 합니다. 주로 만들어지는 대상은 [**Rule 110**](https://en.wikipedia.org/wiki/Rule_110)입니다.
+특정 언어 C가 언어 P를 구동 시킬 수 있고, 그 반대도 성립하면, C와 P는 동등 하다고 할 수 있습니다. 이를 **튜링 등가**라고 합니다. 튜링 등가로 인해서 튜링 완전성이 증명된 아주 간단한 언어를 동작시켜, 특정 언어가 튜링 완전하다는것을 증명시키곤 합니다. 주로 그 대상이 되는것은 [**Rule 110**](https://en.wikipedia.org/wiki/Rule_110)입니다.
 
 ### 3.1 Rule 110
 Rule 110은 **기초 세포 자동자**<sub>(Elementary Cellular Automata)</sub>의 종류중 하나입니다. 일렬로 배열된 세포의 주변 상태에 따라, 다음 세대의 상태가 결정되는 오토마타입니다.   
 <div class='Rule110'></div>
 
-위는 실제로 동작하는 **Rule 110 시뮬레이터**[^4]입니다! **→**로 다음 칸으로 이동하고, **⮡**로 다음줄로 이동, **↻**로 시뮬레이터를 초기화 할 수 있습니다.    
+위는 실제로 동작하는 **Rule 110 시뮬레이터**[^5]입니다! **→**로 다음 칸으로 이동하고, **⮒**로 다음줄로 이동, **↻**로 시뮬레이터를 초기화 할 수 있습니다.    
    
-해당 시뮬레이터는 위에 있는 8가지[^5] 패턴에 따라 다음 세포의 상태가 결정됩니다.  
+해당 시뮬레이터는 시뮬레이터의 8가지[^6] 패턴에 따라 다음 세포의 상태가 결정됩니다.  
 
 ![Rule110MachineExample](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/Rule110MachineExample.png?raw=true "Rule110MachineExample")
 {: .text-center}  
-마치 이런식입니다. 이러한 패턴에 따라, 3개의 셀 중앙에 새로운 세포가 나타납니다. Rule 110의 의미도 이 패턴을 의미합니다. 한 세포가 켜져있는것을 `1`, 꺼져있는것을 `0`으로 치환하여, 규칙을 `01101110`. 즉 110으로 부르게 되는것이죠.
+마치 이런식입니다. 한 세포가 켜져있는 것을 `1`로, 꺼져 있는 것을 `0`으로 치환을 하겠습니다. 위의 패턴에 의하면, `001`의 다음 세대는 `1`이므로, 시뮬레이터의 `001`의 결과도 3개의 셀 중앙 아래칸에 `1`로 나타나 있습니다.   
+   
+Rule 110의 의미도 이 패턴을 의미합니다. `111`부터 `000`까지의 경우에서 다음 세대의 규칙인 `01101110`. 즉 110으로 부르게 되는것이죠[^7].   
+   
+시뮬레이터는 이 8가지 규칙대로 계속해서 다음 세대를 생산해 나갑니다. 그런데, 이게 또 무슨 의미가 있는건가요?
+
+### 3.2 Rule 110의 의미
+이 시뮬레이터에서 보기는 힘들겠지만, 다음 세대를 생산하고 생산하다 보면, 조금씩 규칙이 보이기 시작합니다.   
+   
+![Rule110Glider](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/rule110gilder.png?raw=true"Rule110Glider")
+{: .text-center} 
+이렇게 몇 세대에 걸쳐서 좌측, 또는 우측으로 움직이거나 움직이지 않는 규칙들이 보입니다. 이를 글라이더라고 합니다. 이 글라이더들이 서로 충돌하면, 새로운 글라이더를 만듭니다.   
+   
+이런 글라이더의 충돌을 0과 1의 클록 펄스...[^8]
 
 순환 태그 시스템 -> 2태그 시스템 https://medium.com/@barvinograd1/cyclic-tag-system-1-line-of-turing-complete-code-cebe8e18658f
 2태그 시스템 - > 튜링 머신 https://dl.acm.org/doi/epdf/10.1145/321203.321206
 
 [^1]: 실제로는 무한한 길이의 테이프를 구현할 수 없으므로, 어떤 기계가 유한한 저장 공간을 가졌지만, 이후에 무한하게 저장 공간을 추가 할 수 있다면, 이 기계를 느슨하게 튜링 완전하다 봅니다.
 [^2]: 이는 단일 테이프 튜링 머신을 다중 테이프 튜링 머신으로 확장 시키고, 업 다운 카운터로 단순화, 카운터 머신으로 단순화, 그리고 이 카운터 머신을 현재 컴퓨터에 가까운 레지스터 머신으로 확장 함에 증명되었습니다. 정확한 내용은 [**처치-튜링 명제**](https://en.wikipedia.org/wiki/Church%E2%80%93Turing_thesis)를 살펴보세요.
-[^3]: 어떤 명령형 언어가 튜링 완전하기 위해서는, 조건부 반복(Python의 `while`)과 변수의 [**CRUD**](https://ko.wikipedia.org/wiki/CRUD)의 기능이 있으면 됩니다. 
-[^4]: Rule 110 뿐만 아니라, 다른 규칙으로도 동작 가능합니다! Rule의 숫자를 변경하거나, Rule의 패턴을 클릭해보세요.
-[^5]: 1차원에 놓인 3개의 셀의 상태는 총 8가지<sub>2³</sub> 입니다
+[^3]: 어떤 명령형 언어가 튜링 완전하기 위해서는, 조건부 반복(Python의 `while`)과 변수의 [**CRUD**](https://ko.wikipedia.org/wiki/CRUD)의 기능이 있으면 됩니다.
+[^4]: [**CPython**](https://ko.wikipedia.org/wiki/C%ED%8C%8C%EC%9D%B4%EC%8D%AC)이라고 합니다.
+[^5]: Rule 110 뿐만 아니라, 다른 규칙으로도 동작 가능합니다! Rule의 숫자를 변경하거나, Rule의 패턴을 클릭해보세요.
+[^6]: 1차원에 놓인 3개의 셀의 상태는 총 8가지<sub>2³</sub> 입니다
+[^7]: 그래서 `00000000`부터 `11111111`까지, Rule 0부터 Rule 255까지 존재합니다. 이중 실질적으로 사용되는 Rule의 종류는 적습니다. Rule 30, Rule 90, Rule 184 등이 그중에서 연구가 활발히 이루어진 기초 세포 자동자입니다.
+[^8]: 참고 : [http://delta.cs.cinvestav.mx/~mcintosh/comun/texlet/texlet.html](http://delta.cs.cinvestav.mx/~mcintosh/comun/texlet/texlet.html)
 <style>
 *{
 	font-family: 'Noto Sans KR', sans-serif;
@@ -270,11 +286,11 @@ Rule 110은 **기초 세포 자동자**<sub>(Elementary Cellular Automata)</sub>
 	font-size: 2rem;
 }
 .nextLine:hover{
-	transform: translatey(0.3rem);
+	transform: rotate(-20deg);
 	transition: 0.4s;
 }
 .nextLine:active{
-	transform: translatex(0.3rem) translatey(0.3rem);
+	transform: rotate(20deg) translatey(0.3rem);
 	transition: 0.2s;
 }
 .nextLine:focus{
@@ -343,7 +359,7 @@ Rule 110은 **기초 세포 자동자**<sub>(Elementary Cellular Automata)</sub>
 	font-size: 2rem;
 }
 .describeNum{
-	width: 5rem;
+	width: 3.5rem;
 	height: 2rem;
 	border: none;
 	border-bottom: 0.2rem solid black;
@@ -724,7 +740,7 @@ Rule 110은 **기초 세포 자동자**<sub>(Elementary Cellular Automata)</sub>
 			controllerModel.appendChild(nextActModel);
 			let nextLineModel = document.createElement('button');
 			nextLineModel.className = 'nextLine';
-			nextLineModel.innerHTML = '⮡';
+			nextLineModel.innerHTML = '⮒';
 			nextLineModel.onclick = this.automataNextLine.bind(this);
 			controllerModel.appendChild(nextLineModel);
 			let refreshModel = document.createElement('button');
@@ -768,16 +784,18 @@ Rule 110은 **기초 세포 자동자**<sub>(Elementary Cellular Automata)</sub>
 		}
 		addLine(){
 			let automata = this.MainHTML.querySelector('div.automata');
+			let height = this.automatarow;
 			this.automatarow++;
 			automata.style.gridTemplate = "repeat("+String(this.automatarow)+", 2rem) / repeat("+String(this.automatacolumn)+", 2rem)";
 			automata.style.height = String(this.automatarow*2.25+0.25)+"rem";
 			for(let width=0; width<this.automatacolumn; width++){
 				let cellModel = document.createElement('div');
 				cellModel.className = "cell";
-				cellModel.onclick = () => this.cellToggle(this.automatarow, width);
+				cellModel.onclick = () => this.cellToggle(height, width);
 				automata.appendChild(cellModel);
 			}
-			this.automata.push(new Array(this.automatacolumn).fill(false));
+			let Newline = new Array(this.automatacolumn).fill(false);
+			this.automata.push(Newline);
 		}
 		automataUpdate(){
 			let cellList = this.MainHTML.querySelectorAll('div.automata > div');
