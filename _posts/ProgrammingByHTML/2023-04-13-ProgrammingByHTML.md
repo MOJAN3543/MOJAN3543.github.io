@@ -127,6 +127,7 @@ Rule 110은 **기초 세포 자동자**<sub>(Elementary Cellular Automata)</sub>
 위는 실제로 동작하는 **Rule 110 시뮬레이터**[^4]입니다! **→**로 다음 칸으로 이동하고, **⮡**로 다음줄로 이동, **↻**로 시뮬레이터를 초기화 할 수 있습니다.    
    
 해당 시뮬레이터는 위에 있는 8가지[^5] 패턴에 따라 다음 세포의 상태가 결정됩니다.  
+
 ![Rule110MachineExample](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/Rule110MachineExample.png?raw=true "Rule110MachineExample")
 {: .text-center}  
 마치 이런식입니다. 이러한 패턴에 따라, 3개의 셀 중앙에 새로운 세포가 나타납니다. Rule 110의 의미도 이 패턴을 의미합니다. 한 세포가 켜져있는것을 `1`, 꺼져있는것을 `0`으로 치환하여, 규칙을 `01101110`. 즉 110으로 부르게 되는것이죠.
@@ -342,7 +343,7 @@ Rule 110은 **기초 세포 자동자**<sub>(Elementary Cellular Automata)</sub>
 	font-size: 2rem;
 }
 .describeNum{
-	width: 3.5rem;
+	width: 5rem;
 	height: 2rem;
 	border: none;
 	border-bottom: 0.2rem solid black;
