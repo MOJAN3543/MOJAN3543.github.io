@@ -368,7 +368,7 @@ Rule 110을 언어로서 사용하기 위해서, 특정 글라이더를 `0`과 `
 	font-size: 2rem;
 }
 .describeNum{
-	width: 3.5rem;
+	width: 5rem;
 	height: 2rem;
 	border: none;
 	border-bottom: 0.2rem solid black;
