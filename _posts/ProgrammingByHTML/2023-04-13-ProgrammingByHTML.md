@@ -118,7 +118,7 @@ Tape : B101001B
    
 예를 들어 이런식입니다. Python이 튜링 완전하다는건 자명한 사실입니다[^3]. 그리고 C언어로는 Python을 구현 할 수 있습니다[^4]. 즉, C는 Python을 구동 시키기 때문에, 저절로 C는 튜링 완전하게 됩니다!   
    
-특정 언어 C가 언어 P를 구동 시킬 수 있고, 그 반대도 성립하면, C와 P는 동등 하다고 할 수 있습니다. 이를 **튜링 등가**라고 합니다. 튜링 등가로 인해서 튜링 완전성이 증명된 아주 간단한 언어를 동작시켜, 특정 언어가 튜링 완전하다는것을 증명시키곤 합니다. 주로 그 대상이 되는것은 [**Rule 110**](https://en.wikipedia.org/wiki/Rule_110)입니다.
+특정 언어 C가 언어 P를 구동 시킬 수 있고, 그 반대도 성립하면, C와 P는 동등 하다고 할 수 있습니다. 이를 **튜링 등가**라고 합니다. 튜링 등가로 인해서 튜링 완전성이 증명된 아주 간단한 언어를 동작시켜, 특정 언어가 튜링 완전하다는것을 증명시키곤 합니다. 주로 구현의 대상이 되는것은 [**Rule 110**](https://en.wikipedia.org/wiki/Rule_110)입니다.
 
 ### 3.1 Rule 110
 Rule 110은 **기초 세포 자동자**<sub>(Elementary Cellular Automata)</sub>의 종류중 하나입니다. 일렬로 배열된 세포의 주변 상태에 따라, 다음 세대의 상태가 결정되는 오토마타입니다.   
@@ -141,9 +141,17 @@ Rule 110의 의미도 이 패턴을 의미합니다. `111`부터 `000`까지의 
    
 ![Rule110Glider](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/rule110gilder.png?raw=true"Rule110Glider")
 {: .text-center} 
-이렇게 몇 세대에 걸쳐서 좌측, 또는 우측으로 움직이거나 움직이지 않는 규칙들이 보입니다. 이를 글라이더라고 합니다. 이 글라이더들이 서로 충돌하면, 새로운 글라이더를 만듭니다.   
+이렇게 몇 세대에 걸쳐서 좌측, 또는 우측으로 움직이거나 움직이지 않는 규칙들이 보입니다. 이를 글라이더라고 합니다.   
    
-이런 글라이더의 충돌을 0과 1의 클록 펄스...[^8]
+Rule 110을 언어로서 사용하기 위해서, 특정 글라이더를 `0`과 `1`로 구분 지어 사용합니다. 그리고 이 글라이더들이 충돌하며, 그냥 통과하거나, 충돌하여 사라지거나, 충돌하여 새로운 글라이더가 만들어지는 경우가 있습니다. 예를 들어, `1`로 정의된 글라이더가 구분자로 정의된 글라이더와 충돌한다면, `11` 또는 `10`에 해당하는 글라이더를 생산하는 규칙을 정의 할 수 있습니다[^8].
+   
+이런 성질들을 이용하여 Rule 110은 순환 태그 시스템<sub>Cyclic Tag-System</sub>을 구동합니다.  
+### 3.3 순환 태그 시스템
+순환 태그 시스템은 뭘까요?
+   
+순환 태그 시스템은 0과 1로 이루어진 입력과 단어 생산 규칙이 주어집니다. 이에 따라 규칙들을 순환하며 단어가 일정 길이 이하가 된다면 단어 생산을 중지하는 오토마타입니다.   
+   
+예시를 들어보겠습니다.
 
 순환 태그 시스템 -> 2태그 시스템 https://medium.com/@barvinograd1/cyclic-tag-system-1-line-of-turing-complete-code-cebe8e18658f
 2태그 시스템 - > 튜링 머신 https://dl.acm.org/doi/epdf/10.1145/321203.321206
@@ -155,7 +163,8 @@ Rule 110의 의미도 이 패턴을 의미합니다. `111`부터 `000`까지의 
 [^5]: Rule 110 뿐만 아니라, 다른 규칙으로도 동작 가능합니다! Rule의 숫자를 변경하거나, Rule의 패턴을 클릭해보세요.
 [^6]: 1차원에 놓인 3개의 셀의 상태는 총 8가지<sub>2³</sub> 입니다
 [^7]: 그래서 `00000000`부터 `11111111`까지, Rule 0부터 Rule 255까지 존재합니다. 이중 실질적으로 사용되는 Rule의 종류는 적습니다. Rule 30, Rule 90, Rule 184 등이 그중에서 연구가 활발히 이루어진 기초 세포 자동자입니다.
-[^8]: 참고 : [http://delta.cs.cinvestav.mx/~mcintosh/comun/texlet/texlet.html](http://delta.cs.cinvestav.mx/~mcintosh/comun/texlet/texlet.html)
+[^8]: 이 외에도 데이터 번역, 연산자 생산, 초기조건 등의 요소들이 활용되지만, 이해하기 힘들뿐더러, 저도 이해 하지 못했기에 여기까지 설명 드리겠습니다. 참고 : [**Reproducing the cyclic tag system developed by Matthew Cook with Rule 110 using the phases f1_1**](https://uwe-repository.worktribe.com/output/970133)
+<!-- [^8]: 참고 : [http://delta.cs.cinvestav.mx/~mcintosh/comun/texlet/texlet.html](http://delta.cs.cinvestav.mx/~mcintosh/comun/texlet/texlet.html) -->
 <style>
 *{
 	font-family: 'Noto Sans KR', sans-serif;
