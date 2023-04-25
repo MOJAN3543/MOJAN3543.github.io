@@ -17,7 +17,12 @@
     padding-right: $right-sidebar-width;
   }
 }
-
+.entries-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    gap: 1rem;
+}
 .archive__item {
   position: absolute;
   left: 0;
