@@ -19,7 +19,13 @@
 }
 
 .archive__item {
-  position: relative;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 0.5rem;
+  padding-top: 3rem;
+  width: 100%;
+  background-image: linear-gradient(to bottom, transparent, rgb(255 255 255) 5rem);
 
   a {
     position: relative;
@@ -125,6 +131,16 @@
    ========================================================================== */
 
 .list__item {
+    border: solid 0.17rem rgb(0 0 0 / 80%);
+    display: block;
+    position: relative;
+    border-radius: 1rem;
+    height: 16rem;
+    background-image: url(images/teaser.png);
+    background-size: cover;
+    background-position: 50% 50%;
+    contain: content;
+    box-shadow: 0 0.1875rem 0.375rem rgb(0 0 0 / 25%);
   .page__meta {
     margin: 0 0 4px;
     font-size: 0.6em;
