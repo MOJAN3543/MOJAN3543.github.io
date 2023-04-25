@@ -2,7 +2,7 @@
 title: "한글로 인코딩을 해보자! EnKORde"
 toc: true
 toc_sticky: true
-tag:
+tags:
 - Encode & Decode
 last_modified_at: 2023-04-05
 ---
