@@ -2,6 +2,8 @@
 title: "한글로 인코딩을 해보자! EnKORde"
 toc: true
 toc_sticky: true
+tag:
+- Encode & Decode
 last_modified_at: 2023-04-05
 ---
 ![이진수](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/EncodeByKorean/EnKORdeTitle.png?raw=true "이진수")
