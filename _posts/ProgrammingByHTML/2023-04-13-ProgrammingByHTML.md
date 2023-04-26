@@ -466,6 +466,8 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소의 형�
     margin-top: 2rem;
 }
 .Headtext {
+	overflow: hidden;
+	opacity: 1;
 	line-height: 2rem;
     font-size: 1.5rem;
     width: 2rem;
@@ -475,6 +477,8 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소의 형�
     font-weight: bold;
 }
 .producttext {
+	overflow: hidden;
+	opacity: 1;
 	line-height: 2rem;
     font-size: 1.5rem;
     width: 15rem;
@@ -484,6 +488,8 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소의 형�
     font-weight: bold;
 }
 .word {
+	overflow: hidden;
+	opacity: 1;
 	width: 50rem;
     height: 3rem;
     line-height: 3rem;
