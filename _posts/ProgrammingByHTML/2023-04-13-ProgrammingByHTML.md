@@ -22,7 +22,7 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 
 ## 1. 튜링 완전?
 어떤 프로그래밍 언어가 튜링 완전하다고 한다면, 어떤 프로그래밍 언어로 튜링 머신을 동작시킬수 있다는 말과 같습니다.   
-### 1.1 튜링 머신?
+### 1.1. 튜링 머신?
 튜링 머신이란, 엘런 튜링이 제시한, 계산을 할 수 있는 가상의 기계. 즉 오토마타를 말합니다.
 #### <sub>1.1.1 오토마타?</sub>
 ...... 끝이 없겠네요.  
@@ -43,7 +43,7 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 * 행동표 : 현재 상태와 읽은 기호에 따라서 다음에 어떤 행동을 할지 쓰여진 표입니다.
 * 상태 기록기 : 현재 상태를 기록합니다.
 
-### 2.1 튜링 머신이 할 수 있는 일
+### 2.1. 튜링 머신이 할 수 있는 일
 할 수 있는거라곤 테이프에서 움직이고, 테이프를 읽고 쓰는 이 기계가 뭘 할 수 있을까요?   
 <div class='BitNot'></div>
 
@@ -65,7 +65,7 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 만약에 `A`상태일때 `ㅤ`을 만나면, 즉 공백<sub>B</sub>을 만나면 어떻게 될까요? 위의 행동표를 보면 알겠지만, 공백<sub>B</sub>을 작성 후 움직이지 않고<sub>N</sub> `B`상태가 됩니다. 그리고 `B`상태에서는 공백<sub>B</sub>을 만나면, 공백<sub>B</sub>을 작성. 움직이지 않습니다<sub>N</sub>. 즉, `B` 상태가 되면 튜링 머신이 정지합니다.    
     
 그리고 눈치 채셨겠지만, 이는 0을 1로 만들고, 1을 0으로 만드는 NOT 비트 연산을 구현한 튜링 머신입니다!
-### 2.2 조금 더 업그레이드 버전
+### 2.2. 조금 더 업그레이드 버전
 앨런 튜링은 여기서 조금 더 나아가서, 해당 튜링 머신이, 테이프의 내용만 입력받는것이 아닌, 튜링 머신이 동작하는 방식도 입력 받아서, 한 장치가 여러가지 일을 할 수 있게 만든 **범용 튜링 머신**을 고안합니다.   
 <div class='Universal'></div>
 
@@ -73,7 +73,7 @@ script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 
 5-Tuple Action   
 * 입력은 행동표의 5-튜플 표현과 같은 방식으로 이루어집니다. `(현재 상태,읽혀진 기호,쓰이는 기호,이동 종류,다음 상태)`를 입력합니다.
-* 튜플의 기호와 기호 사이에는 콜론<sub>,</sub>만 입력되어야 합니다. 띄어쓰기를 허용하지 않습니다.
+* 튜플의 기호와 기호 사이에는 <sub>,</sub>만 입력되어야 합니다. 띄어쓰기를 허용하지 않습니다.
 * 튜플의 기호에는 한글자씩 입력되어야 합니다. 즉, 현재 상태에 사용되는 상태 기호나 테이프에 사용되는 기호에도 두글자 이상 사용되면 안됩니다.
 * 튜플의 상태<sub>(1, 5번째 인자)</sub>는 모두 대문자 알파벳입니다. 소문자 알파벳 또는 숫자를 허용하지 않습니다.
 * 공백을 입력하거나, 읽고 싶다면, `B`를 입력하면 됩니다. 다시 말해서, `B`를 테이프에 작성 하거나 읽을 수 없습니다.
@@ -120,7 +120,7 @@ Tape : B101001B
    
 특정 언어 C가 언어 P를 구동 시킬 수 있고, 그 반대도 성립하면, C와 P는 동등 하다고 할 수 있습니다. 이를 **튜링 등가**라고 합니다. 튜링 등가로 인해서 튜링 완전성이 증명된 아주 간단한 언어를 동작시켜, 특정 언어가 튜링 완전하다는것을 증명시키곤 합니다. 주로 구현의 대상이 되는것은 [**Rule 110**](https://en.wikipedia.org/wiki/Rule_110)입니다.
 
-### 3.1 Rule 110
+### 3.1. Rule 110
 Rule 110은 **기초 세포 자동자**<sub>(Elementary Cellular Automata)</sub>의 종류중 하나입니다. 일렬로 배열된 세포의 주변 상태에 따라, 다음 세대의 상태가 결정되는 오토마타입니다.   
 <div class='Rule110'></div>
 
@@ -136,7 +136,7 @@ Rule 110의 의미도 이 패턴을 의미합니다. `111`부터 `000`까지의 
    
 시뮬레이터는 이 8가지 규칙대로 계속해서 다음 세대를 생산해 나갑니다. 그런데, 이게 또 무슨 의미가 있는건가요?
 
-### 3.2 Rule 110의 의미
+### 3.2. Rule 110의 의미
 이 시뮬레이터에서 보기는 힘들겠지만, 다음 세대를 생산하고 생산하다 보면, 조금씩 규칙이 보이기 시작합니다.   
    
 ![Rule110Glider](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/rule110gilder.png?raw=true"Rule110Glider")
@@ -146,18 +146,60 @@ Rule 110의 의미도 이 패턴을 의미합니다. `111`부터 `000`까지의 
 Rule 110을 언어로서 사용하기 위해서, 특정 글라이더를 `0`과 `1`로 구분 지어 사용합니다. 그리고 이 글라이더들이 충돌하며, 그냥 통과하거나, 충돌하여 사라지거나, 충돌하여 새로운 글라이더가 만들어지는 경우가 있습니다. 예를 들어, `1`로 정의된 글라이더가 구분자로 정의된 글라이더와 충돌한다면, `11` 또는 `10`에 해당하는 글라이더를 생산하는 규칙을 정의 할 수 있습니다[^8].
    
 이런 성질들을 이용하여 Rule 110은 순환 태그 시스템<sub>Cyclic Tag-System</sub>을 구동합니다.  
-### 3.3 순환 태그 시스템
+### 3.3. 순환 태그 시스템
 순환 태그 시스템은 뭘까요?
    
-순환 태그 시스템은 `0`과 `1`로 이루어진 문자열 W와 단어 생산 규칙 P가 주어집니다. 이에 따라 규칙들을 순환하며 문자열 첫 단어가 `1`이면 단어를 생산하는 오토마타입니다.   
+순환 태그 시스템은 `0`과 `1`로 이루어진 문자열 W와 단어 생산 규칙 P가 주어집니다. 주어진 단어 생산 규칙들을 순환하며 문자열 첫 단어가 `1`이면 생산 규칙에서 해당 차례에 맞는 단어를 생산하는 오토마타입니다.
+<div class='Cyclic'></div>
 
-### 3.4 2 태그 시스템
-2 태그 시스템은 뭘까요?
+위는 실제로 동작하는 순환 태그 시스템입니다. `Start Word`에서 순환 태그 시스템의 시작 문자열 W를 설정 할 수 있고, `Production Rule`에서 단어 생산 규칙 P를 설정 할 수 있습니다. **→**로 다음 생산을 진행하고, **↻**로 시뮬레이터를 초기화 할 수 있습니다.   
+   
+`Start Word`와 `Production Rule`은 다음 규칙을 지키면서 입력 하면 됩니다.
 
-2 태그 시스템은, 순환 태그 시스템과 유사하게, 특정 단어를 읽으면 특정 단어를 생산하는 오토마타입니다. 하지만, 순환 태그 시스템과는 다르게, 2 태그 시스템은 이진수가 아닌, 단어들을 사용 할 수 있고, 1개의 앞 단어를 없애는 순환 태그 시스템과는 달리 2 태그 시스템은 2개의 단어를 삭제 후 단어를 생산합니다.
+Start Word   
+* 모든 값은 `0`과 `1`로 이루어져야 합니다. 
+    
+Prodution Rule
+* 생산 하는 모든 값은 `0`과 `1`로 이루어져야 합니다.
+* 룰의 첫 글자는 `(`, 마지막 글자는 `)`이어야 합니다.
+* 생산하는 값들의 사이에는 콤마<sub>,</sub>만 들어가야합니다.
+* 룰에는 `(`, `)`, `,`, `0`, `1` 만 포함되어야 합니다.
 
-순환 태그 시스템 -> 2태그 시스템 https://medium.com/@barvinograd1/cyclic-tag-system-1-line-of-turing-complete-code-cebe8e18658f
-2태그 시스템 - > 튜링 머신 https://dl.acm.org/doi/epdf/10.1145/321203.321206
+이런 규칙들을 지키면, 단어가 계속 순환하거나 문자열의 길이가 0이 되면서 종료 되는걸 볼 수 있습니다. 그러면, 이것으로 뭘 할 수 있을까요? 0과 1로만으로는 할 수 있는게 얼마 없을텐데요...
+
+### 3.4. 2 태그 시스템
+순환 태그 시스템으로는 2 태그 시스템을 구동 할 수 있습니다[^9]. 2 태그 시스템은 뭘까요?
+
+2 태그 시스템은, 순환 태그 시스템과 유사하게, 특정 단어를 읽으면 특정 단어를 생산하는 오토마타입니다. 하지만, 순환 태그 시스템과는 다르게, 2 태그 시스템은 이진수가 아닌, 단어들을 사용 할 수 있고, 1개의 앞 단어를 없애는 순환 태그 시스템과는 달리 2 태그 시스템은 2개[^10]의 단어를 삭제 후 단어를 생산합니다.
+<div class='TwoTag'></div>
+
+위는 실제로 동작하는 2 태그 시스템입니다. `Start Word`와 `Production Rule`은 다음 규칙을 지키면서 입력 하면 됩니다.
+
+Start Word   
+* 모든 값은 알파벳으로 이루어져야 합니다.
+    
+Prodution Rule
+* 입력 받는 기호와 생산 하는 기호는 알파벳로 이루어져야 합니다.
+* 룰의 첫 글자는 `(`, 마지막 글자는 `)`이어야 합니다.
+* 생산하는 값들의 사이에는 콤마<sub>,</sub>만 들어가야 합니다.
+* 입력 받는 기호는 한글자입니다.
+* 입력 받는 기호가 중복 되지 않아야 합니다.
+* 입력 받는 기호와 생산 하는 기호 사이에는 콜론<sub>:</sub>만 들어가야 합니다.
+* 입력 받는 기호가 `H`라면, 2 태그 시스템은 작동을 정지합니다.
+
+이 순환 태그 시스템은 2 태그 시스템을 구동 할 수 있습니다. 특정 기호를 이진수로 치환하고, 순환 하는 생산 규칙에 생산 규칙을 적용 시키는 [**방식**](https://medium.com/@barvinograd1/cyclic-tag-system-1-line-of-turing-complete-code-cebe8e18658f)으로 2 태그 시스템의 기호를 완전히 대체 할 수 있습니다.   
+### 3.5. 종점
+2 태그 시스템은 튜링 머신을 [**가동합니다**](https://dl.acm.org/doi/epdf/10.1145/321203.321206). 튜링 머신의 헤드의 앞과 뒤 문자를 자연수로 치환하여, 2 태그 시스템에 정수로 기입, 그 정수를 비트 연산하여 헤드를 움직이는 방식으로 튜링 머신을 구현했습니다!  
+  
+이것으로 Rule 110이 튜링 완전한 오토마타라는것을 알 수 있었습니다.
+
+## 4. 드디어 하는 HTML과 CSS 이야기
+약간 논점을 잃을뻔 했지만, 이 글의 중점은 HTML과 CSS가 함께 있으면 튜링 완전하다는 사실입니다!  
+  
+위에서 말한 바와 같이, HTML과 CSS의 튜링 완전을 구현하기 위해서는 Rule 110을 구현하면 해결 됩니다. 근데, 대체 무슨 수로 그걸 구현하나요? HTML과 CSS는 이렇다할 제어문을 가지고 있진 않은데...
+
+### 4.1. CSS의 특이한 선택자
+CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소의 형제를 대상으로 하는 선택자입니다. 예를 들면 이런식 입니다.
 
 [^1]: 실제로는 무한한 길이의 테이프를 구현할 수 없으므로, 어떤 기계가 유한한 저장 공간을 가졌지만, 이후에 무한하게 저장 공간을 추가 할 수 있다면, 이 기계를 느슨하게 튜링 완전하다 봅니다.
 [^2]: 이는 단일 테이프 튜링 머신을 다중 테이프 튜링 머신으로 확장 시키고, 업 다운 카운터로 단순화, 카운터 머신으로 단순화, 그리고 이 카운터 머신을 현재 컴퓨터에 가까운 레지스터 머신으로 확장 함에 증명되었습니다. 정확한 내용은 [**처치-튜링 명제**](https://en.wikipedia.org/wiki/Church%E2%80%93Turing_thesis)를 살펴보세요.
@@ -167,6 +209,8 @@ Rule 110을 언어로서 사용하기 위해서, 특정 글라이더를 `0`과 `
 [^6]: 1차원에 놓인 3개의 셀의 상태는 총 8가지<sub>2³</sub> 입니다
 [^7]: 그래서 `00000000`부터 `11111111`까지, Rule 0부터 Rule 255까지 존재합니다. 이중 실질적으로 사용되는 Rule의 종류는 적습니다. Rule 30, Rule 90, Rule 184 등이 그중에서 연구가 활발히 이루어진 기초 세포 자동자입니다.
 [^8]: 이 외에도 데이터 번역, 연산자 생산, 초기조건 등의 요소들이 활용되지만, 이해하기 힘들뿐더러, 저도 이해 하지 못했기에 여기까지 설명 드리겠습니다. 참고 : [**Reproducing the cyclic tag system developed by Matthew Cook with Rule 110 using the phases f1_1**](https://uwe-repository.worktribe.com/output/970133)
+[^9]: 애초에, 순환 태그 시스템은 Rule 110과 태그 시스템을 연결 해주기 위해 나온 개념입니다. 태그 시스템의 변형이라고 할 수 있습니다.
+[^10]: 2 태그 시스템의 2는 삭제하는 단어 개수입니다. 그래서 보통은 [**Tag System**](https://en.wikipedia.org/wiki/Tag_system)으로 불립니다.
 <!-- [^8]: 참고 : [http://delta.cs.cinvestav.mx/~mcintosh/comun/texlet/texlet.html](http://delta.cs.cinvestav.mx/~mcintosh/comun/texlet/texlet.html) -->
 <style>
 *{
@@ -408,6 +452,46 @@ Rule 110을 언어로서 사용하기 위해서, 특정 글라이더를 `0`과 `
 	height: 3.375rem;
 	background-color: #f0f0f0;
 }
+.tagsystem {
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    gap: 1rem;
+}
+.product {
+	display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+.Headtext {
+	line-height: 2rem;
+    font-size: 1.5rem;
+    width: 2rem;
+    height: 2rem;
+    resize: none;
+    text-align: center;
+    font-weight: bold;
+}
+.producttext {
+	line-height: 2rem;
+    font-size: 1.5rem;
+    width: 15rem;
+    height: 2rem;
+    resize: none;
+    text-align: center;
+    font-weight: bold;
+}
+.word {
+	width: 50rem;
+    height: 3rem;
+    line-height: 3rem;
+    resize: none;
+    font-size: 1.2rem;
+	font-weight: bold;
+    overflow-x: auto;
+}
 .BitNot {
 	overflow-x: auto;
 	-ms-overflow-style: none;
@@ -420,6 +504,16 @@ Rule 110을 언어로서 사용하기 위해서, 특정 글라이더를 `0`과 `
 }
 .Rule110 {
 	display: grid;
+	overflow-x: auto;
+	-ms-overflow-style: none;
+	-webkit-scrollbar { display: none;}
+}
+.Cyclic {
+	overflow-x: auto;
+	-ms-overflow-style: none;
+	-webkit-scrollbar { display: none;}
+}
+.TwoTag {
 	overflow-x: auto;
 	-ms-overflow-style: none;
 	-webkit-scrollbar { display: none;}
@@ -683,6 +777,13 @@ Rule 110을 언어로서 사용하기 위해서, 특정 글라이더를 `0`과 `
 				}
 			}
 		}
+		SetPreset(preset){
+			let inputList = this.MainHTML.querySelectorAll('input');
+			inputList[0].value = preset[0];
+			inputList[1].value = preset[1];
+			this.TextToTuple();
+			this.TextToPreset();
+		}
 	}
 	class Rule{ // ⮓ ⮡
 		constructor(query, preset){
@@ -767,10 +868,6 @@ Rule 110을 언어로서 사용하기 위해서, 특정 글라이더를 `0`과 `
 			let ruleIndicatorList = this.MainHTML.querySelectorAll('div.ruleElement > div:nth-child(5)');
 			for(let index=0; index<8; index++)
 				ruleIndicatorList[index].className = this.rulebinary[index] ? "Activecell" : "cell";
-			// for(let index in ruleElementList){
-			// 	let ruleIndicator = ruleElementList[index].querySelector("div:nth-child(5)");
-			// 	ruleIndicator.className = this.rulebinary[index] ? "Activecell" : "cell";
-			// }
 			let describeNumModel = this.MainHTML.querySelector('input.describeNum');
 			describeNumModel.value = this.rulebinaryToNum();
 		}
@@ -864,6 +961,223 @@ Rule 110을 언어로서 사용하기 위해서, 특정 글라이더를 `0`과 `
 			this.automataUpdate();
 		}
 	}
+	class TagSystem{
+		constructor(query, isCyclic, preset){
+			this.MainHTML = document.querySelector(query);
+			this.HTMLconstruct();
+			this.isCyclic = isCyclic;
+			this.Startword = preset[0];
+			this.Nowword = this.Startword;
+			this.ProductionRule = preset[1];
+			this.CyclicIndex = 0;
+			this.PresetUpdate();
+		}
+		HTMLconstruct(){
+			let inputtrayModel = document.createElement("div");
+			inputtrayModel.className = 'inputtray';
+			this.MainHTML.appendChild(inputtrayModel);
+			let Names = ['Start Word', 'Production Rule'];
+			for(let i=0; i<2; i++){
+				let inputandcommitModel = document.createElement("div");
+				inputandcommitModel.className = 'inputandcommit';
+				inputandcommitModel.innerHTML = Names[i];
+				inputtrayModel.appendChild(inputandcommitModel);
+				let inputtextModel = document.createElement("input");
+				inputtextModel.className = 'inputtext';
+				inputtextModel.type = 'text';
+				inputandcommitModel.appendChild(inputtextModel);
+				let buttonModel = document.createElement("button");
+				buttonModel.className = 'commitbutton';
+				buttonModel.innerHTML = '⇁';
+				inputandcommitModel.appendChild(buttonModel);
+			}
+			this.MainHTML.querySelectorAll("button")[0].onclick = this.getStartWord.bind(this);
+			this.MainHTML.querySelectorAll("button")[1].onclick = this.getProductionRule.bind(this);
+			let tagsystemModel = document.createElement("div");
+			tagsystemModel.className = 'tagsystem';
+			this.MainHTML.appendChild(tagsystemModel);
+			let productModel = document.createElement("div");
+			productModel.className = 'product';
+			tagsystemModel.appendChild(productModel);
+			productModel.innerHTML += "When Head is";
+			let HeadtextModel = document.createElement("textarea");
+			HeadtextModel.className = 'Headtext';
+			HeadtextModel.readOnly = true;
+			productModel.appendChild(HeadtextModel);
+			productModel.innerHTML += "Product";
+			let producttextModel = document.createElement("textarea");
+			producttextModel.className = 'producttext';
+			producttextModel.readOnly = true;
+			productModel.appendChild(producttextModel);
+			let wordModel = document.createElement("textarea");
+			wordModel.className = 'word';
+			wordModel.readOnly = true;
+			tagsystemModel.appendChild(wordModel);
+			let controllerModel = document.createElement('div');
+			let nextActModel = document.createElement('button');
+			nextActModel.className = 'nextAct';
+			nextActModel.innerHTML = '→';
+			nextActModel.onclick = this.Act.bind(this);
+			controllerModel.appendChild(nextActModel);
+			let refreshModel = document.createElement('button');
+			refreshModel.className = 'refresh';
+			refreshModel.innerHTML = '↻';
+			refreshModel.onclick = this.Refresh.bind(this);
+			controllerModel.appendChild(refreshModel);
+			controllerModel.className = 'controller';
+			this.MainHTML.appendChild(controllerModel);
+		}
+		PresetUpdate(){
+			let StartDisplay = this.MainHTML.querySelectorAll('input')[0];
+			let ProductionDisplay = this.MainHTML.querySelectorAll('input')[1];
+			StartDisplay.value = this.Startword;
+			if(this.isCyclic)
+				ProductionDisplay.value = '('+this.ProductionRule.join()+')';
+			else{
+				let keyList = Object.keys(this.ProductionRule);
+				ProductionDisplay.value += '(';
+				for(let index=0; index<keyList.length; index++)
+					ProductionDisplay.value += keyList[index] + ':' + this.ProductionRule[keyList[index]] + ',';
+				ProductionDisplay.value = ProductionDisplay.value.slice(0, ProductionDisplay.value.length-1);
+				ProductionDisplay.value += ')';
+			}
+			this.DisplayUpdate();
+		}
+		DisplayUpdate(){
+			let HeadDisplay = this.MainHTML.querySelectorAll('textarea')[0];
+			let ProductDisplay = this.MainHTML.querySelectorAll('textarea')[1];
+			let WordDisplay = this.MainHTML.querySelectorAll('textarea')[2];
+			if(this.isCyclic){
+				HeadDisplay.innerHTML = '1';
+				ProductDisplay.innerHTML = this.ProductionRule[this.CyclicIndex];
+				WordDisplay.innerHTML = this.Nowword;
+			}
+			else{
+				HeadDisplay.innerHTML = this.Nowword[0];
+				if(this.Nowword[0] in this.ProductionRule)
+					ProductDisplay.innerHTML = this.ProductionRule[this.Nowword[0]] == 'H' ? 'STOP' : this.ProductionRule[this.Nowword[0]];
+				else
+					ProductDisplay.innerHTML = 'STOP';
+				WordDisplay.innerHTML = this.Nowword;
+			}
+		}
+		Refresh(){
+			if(this.isCyclic){
+				this.CyclicIndex = 0;
+				this.Nowword = this.Startword;
+			}
+			else{
+				this.Nowword = this.Startword;
+			}
+			this.DisplayUpdate();
+		}
+		getStartWord(){
+			let startwordinput = this.MainHTML.querySelectorAll('input')[0].value;
+			try{
+				if(this.isCyclic){
+					const binaryregExp = /[^0-1]/;
+					if(binaryregExp.test(startwordinput))
+						throw 'NonBinary';
+				}
+				else{
+					const nonbinaryregExp = /[^A-z]/;
+					if(binaryregExp.test(startwordinput))
+						throw 'NonNonBinary';
+				}
+				this.Startword = startwordinput;
+				this.Nowword = this.Startword;
+			}
+			catch(err){
+				switch(err){
+					case 'NonBinary':
+						alert("Start Word의 양식이 적절하지 않습니다: 값이 이진수가 아님");
+						break;
+					case 'NonNonBinary':
+						alert("Start Word의 양식이 적절하지 않습니다: 값이 알파벳이 아님");
+					default:
+						alert(err);
+				}
+			}
+			this.DisplayUpdate();
+			this.Refresh();
+		}
+		getProductionRule(){
+			let productionruleinput = this.MainHTML.querySelectorAll('input')[1].value;
+			try{
+				if(this.isCyclic){
+					if(productionruleinput[0] != '(' || productionruleinput[productionruleinput.length-1] != ')')
+						throw "Nobracket";
+					const binaryregExp = /[^0-1,]/;
+					if(binaryregExp.test(productionruleinput.slice(1, productionruleinput.length-1)))
+						throw 'NonBinary';
+					this.ProductionRule = productionruleinput.slice(1, productionruleinput.length-1).split(',');
+				}
+				else{
+					if(productionruleinput[0] != '(' || productionruleinput[productionruleinput.length-1] != ')')
+						throw "Nobracket";
+					const binaryregExp = /[^A-z,:]/;
+					if(binaryregExp.test(productionruleinput.slice(1, productionruleinput.length-1)))
+						throw 'UndueString';
+					let Prerefine = productionruleinput.slice(1, productionruleinput.length-1).split(',');
+					let res = {};
+					if(Prerefine.length == 0)
+						throw 'NoRule';
+					for(let index=0; index<Prerefine.length; index++){
+						if(Prerefine[index].length == 0)
+							throw 'NoRule';
+						if(Prerefine[index][1] != ':')
+							throw "UndueForm";
+						if(Prerefine[index][0] in res)
+							throw "DuplicatedKey"
+						res[Prerefine[index][0]] = Prerefine[index].slice(2);
+					}
+					this.ProductionRule = res;
+				}
+			}
+			catch(err){
+				switch(err){
+					case 'Nobracket':
+						alert("Production Rule의 양식이 적절하지 않습니다: 괄호 없음");
+						break;
+					case 'NonBinary':
+						alert("Production Rule의 양식이 적절하지 않습니다: 0, 1, ',' 이외의 값이 있음");
+						break;
+					case 'UndueString':
+						alert("Production Rule의 양식이 적절하지 않습니다: 알파벳, ',', ':' 이외의 값이 있음");
+						break;
+					case 'NoRule':
+						alert('Production Rule의 양식이 적절하지 않습니다: Rule이 비어있음');
+						break
+					case 'UndueForm':
+						alert("Production Rule의 양식이 적절하지 않습니다: 입력 받는 기호가 한글자가 아니거나, 콜론이 제 위치에 있지 않음");
+						break;
+					case 'DuplicatedKey':
+						alert("Production Rule의 양식이 적절하지 않습니다: 입력 받는 기호가 중복됨.");
+					default:
+						alert(err);
+				}
+			}
+			this.DisplayUpdate();
+			this.Refresh();
+		}
+		Act(){
+			if(this.Nowword.length != 0){
+				if(this.isCyclic){
+					if(this.Nowword[0] == '1')
+						this.Nowword += this.ProductionRule[this.CyclicIndex];
+					this.CyclicIndex = (this.CyclicIndex+1)%this.ProductionRule.length;
+					this.Nowword = this.Nowword.slice(1, this.Nowword.length);
+				}
+				else{
+					if(this.Nowword[0] in this.ProductionRule){
+						this.Nowword += this.ProductionRule[this.Nowword[0]];
+						this.Nowword = this.Nowword.slice(2, this.Nowword.length);
+					}
+				}
+			}
+			this.DisplayUpdate();
+		}
+	}
 	let BitNotdiv = new TuringMachine('div.BitNot', [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1], 'A');
 	BitNotdiv.CellUpdate();
 	BitNotdiv.HeadUpdate();
@@ -874,6 +1188,7 @@ Rule 110을 언어로서 사용하기 위해서, 특정 글라이더를 `0`과 `
 	BitNotdiv.TupletoActTable(['B', 'B', 'B', 'N', 'B']);
 	
 	let UniversalTuringMachine = new TuringMachine('div.Universal', [-1, -1, -1, -1, -1], 'A');
+	UniversalTuringMachine.SetPreset(["(A,0,0,R,A);(A,1,1,R,A);(A,B,B,N,B);(B,B,B,N,B)", "110101010"]);
 	UniversalTuringMachine.CellUpdate();
 	UniversalTuringMachine.HeadUpdate();
 	UniversalTuringMachine.HeadDisplayUpdate();
@@ -882,5 +1197,7 @@ Rule 110을 언어로서 사용하기 위해서, 특정 글라이더를 `0`과 `
 	RuleMachine.automata[0][19] = true;
 	RuleMachine.automataUpdate();
 	
+	let cyclicsystem = new TagSystem('div.Cyclic', true, ["11001", ['010', '000', '1111']]);
+	let twotagsystem = new TagSystem('div.TwoTag', false, ["baa", {'a':'ccbaH', 'b':'cca', 'c':'cc'}]);
 
 </script>
