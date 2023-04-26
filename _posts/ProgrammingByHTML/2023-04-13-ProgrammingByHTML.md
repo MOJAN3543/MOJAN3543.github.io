@@ -1009,15 +1009,18 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소의 형�
 			let HeadtextModel = document.createElement("textarea");
 			HeadtextModel.className = 'Headtext';
 			HeadtextModel.readOnly = true;
+			HeadtextModel.style.opacity = 1;
 			productModel.appendChild(HeadtextModel);
 			productModel.innerHTML += "Product";
 			let producttextModel = document.createElement("textarea");
 			producttextModel.className = 'producttext';
 			producttextModel.readOnly = true;
+			producttextModel.style.opacity = 1;
 			productModel.appendChild(producttextModel);
 			let wordModel = document.createElement("textarea");
 			wordModel.className = 'word';
 			wordModel.readOnly = true;
+			wordModel.style.opacity = 1;
 			tagsystemModel.appendChild(wordModel);
 			let controllerModel = document.createElement('div');
 			let nextActModel = document.createElement('button');
