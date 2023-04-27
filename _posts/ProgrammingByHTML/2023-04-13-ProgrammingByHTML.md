@@ -454,22 +454,23 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소의 형�
 	background-color: #f0f0f0;
 }
 .tagsystem {
-	display: flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 1.5rem;
     font-weight: bold;
     gap: 1rem;
+    margin-bottom: -2rem;
 }
 .product {
-	display: flex;
+    display: flex;
     gap: 1rem;
     margin-top: 2rem;
 }
 .Headtext {
-	overflow: hidden;
-	opacity: 1;
-	line-height: 2rem;
+    overflow: hidden;
+    line-height: 1rem;
+    border: solid;
     font-size: 1.5rem;
     width: 2rem;
     height: 2rem;
@@ -478,9 +479,9 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소의 형�
     font-weight: bold;
 }
 .producttext {
-	overflow: hidden;
-	opacity: 1;
-	line-height: 2rem;
+    overflow: hidden;
+    line-height: 1rem;
+    border: solid;
     font-size: 1.5rem;
     width: 15rem;
     height: 2rem;
@@ -489,11 +490,11 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소의 형�
     font-weight: bold;
 }
 .word {
-	overflow: hidden;
-	opacity: 1;
-	width: 50rem;
-    height: 3rem;
-    line-height: 3rem;
+    overflow: hidden;
+    width: 50rem;
+    height: 2rem;
+    line-height: 1rem;
+    border: solid;
     resize: none;
     font-size: 1.2rem;
 	font-weight: bold;
