@@ -21,6 +21,10 @@
 	z-index: 1;
 	background-color : #ffffff;
 }
+.Activecell {
+	z-index: 1;
+	background-color : #10dc36;
+}
 .head {
 	position: absolute;
 	background-color : #000000;
@@ -34,6 +38,48 @@
 	height : 2.5rem;
 	background-color : #ffffff;
 	line-height: 3rem;
+}
+.inputtray {
+	border: none;
+	box-shadow: none;
+	background-color: #ffffff;
+	padding: 0.5rem;
+	margin: auto;
+	display: flex;
+	flex-flow: column wrap;
+	place-content: center;
+	align-items: flex-end;
+	font-weight: bold;
+	text-align: center;
+	font-size: 1.2rem;
+}
+.inputandcommit{
+	margin-top: auto;
+}
+.inputtext{
+	margin-left: 1rem;
+	width: 15rem;
+}
+.commitbutton{
+	margin-left: 1.5rem;
+	border: none;
+	box-shadow: none;
+	background-color: #ffffff;
+	font-weight: bold;
+	font-size: 1.5rem;
+	text-align: center;
+}
+.commitbutton:hover{
+	transform: rotate(130deg) translatex(0.5rem);
+	transition: 0.4s;
+}
+.commitbutton:active{
+	color: #088A08;
+	transform: rotate(130deg) translatex(0.5rem) scale(1.1);
+	transition: 0.1s;
+}
+.commitbutton:focus{
+	    outline: none;
 }
 .controller {
 	border: none;
@@ -54,7 +100,6 @@
 	background-color: #ffffff;
 	padding: 0.1rem;
 	margin: auto;
-	display: flex;
 	font-weight: bold;
 	text-align: center;
 	font-size: 2rem;
@@ -65,15 +110,40 @@
 }
 .nextAct:active{
 	transform: translatex(0.3rem) rotate(10deg);
-	transition: 0.1s;
+	transition: 0.2s;
 }
-.refresh {
+.nextAct:focus{
+	    outline: none;
+}
+.nextLine {
 	border: none;
 	box-shadow: none;
 	background-color: #ffffff;
 	padding: 0.1rem;
 	margin: auto;
-	display: flex;
+	line-height: 1;
+	font-weight: bold;
+	text-align: center;
+	font-size: 2rem;
+}
+.nextLine:hover{
+	transform: rotate(-20deg);
+	transition: 0.4s;
+}
+.nextLine:active{
+	transform: rotate(20deg) translatey(0.3rem);
+	transition: 0.2s;
+}
+.nextLine:focus{
+	    outline: none;
+}
+.refresh {
+	outline: none;
+	border: none;
+	box-shadow: none;
+	background-color: #ffffff;
+	padding: 0.1rem;
+	margin: auto;
 	font-weight: bold;
 	text-align: center;
 	font-size: 2rem;
@@ -85,6 +155,9 @@
 .refresh:active{
 	transform: scale(1.2);
 	transition: 0.1s;
+}
+.refresh:focus{
+	outline: none;
 }
 .autoAct {
 	border: none;
@@ -101,4 +174,139 @@
 	transform: rotate(360deg);
 	transform-origin: 52.5% 52.5%;
 	transition: 2s;
+}
+.automata {
+	position: relative;
+	display: grid;
+	grid-template: repeat(4, 2rem) / repeat(20, 2rem);
+	/* grid-template-rows: repeat(4, 2rem);
+	grid-template-columns: repeat(15, 2rem); */
+	place-items: stretch;
+	place-content: space-evenly;
+	margin: auto;
+	outline: none;
+	width: 45.25rem;
+	height: 9.25rem;
+	background-color: #f0f0f0;
+	font-weight: bold;
+	text-align: center;
+	font-size: 1.5rem;
+	line-height: 2rem;
+}
+.describe {
+	margin: auto;
+	place-content: center;
+	font-weight: bold;
+	font-size: 2rem;
+}
+.describeNum{
+	width: 5rem;
+	height: 2rem;
+	border: none;
+	border-bottom: 0.2rem solid black;
+	text-align: center;
+	font-weight: bold;
+	font-size: 2rem;
+}
+.describeNum:focus{
+	outline: none;
+}
+.rule {
+	position: relative;
+	display: grid;
+	grid-template: 3.375rem / repeat(8, 5.0625rem);
+	place-items: stretch;
+	place-content: space-evenly;
+	margin: auto;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	outline: none;
+	width: 47.25rem;
+	height: 3rem;
+}
+.ruleElement {
+	position: relative;
+	display: grid;
+	grid-template: repeat(2, 1.5rem)/ repeat(3, 1.5rem);
+	place-items: stretch;
+	place-content: space-evenly;
+	margin: auto;
+	box-sizing: border-box;
+	outline: none;
+	width: 5.0625rem;
+	height: 3.375rem;
+	background-color: #f0f0f0;
+}
+.tagsystem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    gap: 1rem;
+    margin-bottom: -2rem;
+}
+.product {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+.Headtext {
+    overflow: hidden;
+    line-height: 1rem;
+    border: solid;
+    font-size: 1.5rem;
+    width: 2rem;
+    height: 2rem;
+    resize: none;
+    text-align: center;
+    font-weight: bold;
+}
+.producttext {
+    overflow: hidden;
+    line-height: 1rem;
+    border: solid;
+    font-size: 1.5rem;
+    width: 15rem;
+    height: 2rem;
+    resize: none;
+    text-align: center;
+    font-weight: bold;
+}
+.word {
+    overflow: hidden;
+    width: 50rem;
+    height: 2rem;
+    line-height: 1rem;
+    border: solid;
+    resize: none;
+    font-size: 1.2rem;
+	font-weight: bold;
+    overflow-x: auto;
+}
+.BitNot {
+	overflow-x: auto;
+	-ms-overflow-style: none;
+	-webkit-scrollbar { display: none;}
+}
+.Universal {
+	overflow-x: auto;
+	-ms-overflow-style: none;
+	-webkit-scrollbar { display: none;}
+}
+.Rule110 {
+	display: grid;
+	overflow-x: auto;
+	-ms-overflow-style: none;
+	-webkit-scrollbar { display: none;}
+}
+.Cyclic {
+	overflow-x: auto;
+	-ms-overflow-style: none;
+	-webkit-scrollbar { display: none;}
+}
+.TwoTag {
+	overflow-x: auto;
+	-ms-overflow-style: none;
+	-webkit-scrollbar { display: none;}
 }
