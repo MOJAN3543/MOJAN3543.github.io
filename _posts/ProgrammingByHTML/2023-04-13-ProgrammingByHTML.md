@@ -216,5 +216,7 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소의 형�
 [^10]: 애초에, 순환 태그 시스템은 Rule 110과 태그 시스템을 연결 해주기 위해 나온 개념입니다. 태그 시스템의 변형이라고 할 수 있습니다.
 [^11]: 2 태그 시스템의 2는 삭제하는 단어 개수입니다. 그래서 보통은 [**Tag System**](https://en.wikipedia.org/wiki/Tag_system)으로 불립니다.
 <!-- [^8]: 참고 : [http://delta.cs.cinvestav.mx/~mcintosh/comun/texlet/texlet.html](http://delta.cs.cinvestav.mx/~mcintosh/comun/texlet/texlet.html) -->
-<script scr="/assets/post-script/ProgrammingByHTML/TuringMachine.js"></script>
-<link rel="stylesheet" href="/assets/post-style/ProgrammingByHTML/style.css" type="text/css">
+
+
+<script scr="assets/post-script/ProgrammingByHTML/TuringMachine.js"></script>
+<link rel="stylesheet" href="assets/post-style/ProgrammingByHTML/style.css" type="text/css">
