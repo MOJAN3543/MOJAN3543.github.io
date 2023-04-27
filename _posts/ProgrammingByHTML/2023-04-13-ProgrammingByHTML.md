@@ -218,5 +218,6 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소의 형�
 <!-- [^8]: 참고 : [http://delta.cs.cinvestav.mx/~mcintosh/comun/texlet/texlet.html](http://delta.cs.cinvestav.mx/~mcintosh/comun/texlet/texlet.html) -->
 
 
-<script scr="assets/post-script/ProgrammingByHTML/TuringMachine.js"></script>
-<link rel="stylesheet" href="assets/post-style/ProgrammingByHTML/style.css" type="text/css">
+<script src="/assets/post-script/ProgrammingByHTML/TuringMachine.js"></script>
+
+<link rel="stylesheet" href="/assets/post-style/ProgrammingByHTML/style.css" type="text/css">
