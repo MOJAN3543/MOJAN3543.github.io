@@ -166,14 +166,19 @@ Prodution Rule
 * 생산하는 값들의 사이에는 콤마<sub>,</sub>만 들어가야합니다.
 * 룰에는 `(`, `)`, `,`, `0`, `1` 만 포함되어야 합니다.
 
-이런 규칙들로 이루어진 예제가 입력되어 있습니다. 예제를 살펴보면, `11001`에서 시작하여 문자열을 생산하다가, `10` -> `0010` -> `010` -> `10`을 계속 순환하는 것을 알 수 있습니다. 만약 시작 문자열을 `010`으로 바꾸면 어떻게 될까요? 두번째 생산 규칙인 `000`이 생산된 뒤, `1`이 더이상 남지 않아 생산이 멈추고 문자열의 길이가 0이 되며 종료 되는 것을 볼 수 있습니다.  
-  
-이 순환 시스템은 무슨 역할을 하는걸까요?
 
+
+이런 규칙들로 이루어진 예제가 입력되어 있습니다. 예제를 살펴보면, `11001`에서 시작하여 문자열을 생산하다가, `10` → `0010` → `010` → `10`을 계속 순환하는 것을 알 수 있습니다.  
+  
+만약 시작 문자열을 `010`으로 바꾸면 어떻게 될까요? 두번째 생산 규칙인 `000`이 생산된 뒤, `1`이 더이상 남지 않아 생산이 멈추고 문자열의 길이가 0이 되며 종료 되는 것을 볼 수 있습니다.  
+  
+이 순환 태그 시스템은 `0`과 `1`로 이루어진 이진수가 아닌, 더 범용적인 기호를 사용하기 위해서 또 다른 시스템을 구동합니다.
 ### 3.4. 2 태그 시스템
 순환 태그 시스템으로는 2 태그 시스템<sub>2-Tag System</sub>을 구동 할 수 있습니다[^10]. 2 태그 시스템은 뭘까요?
 
-2 태그 시스템은 순환 태그 시스템과 유사하게 특정 기호를 읽고 생산 규칙에 따라 특정 기호를 생산하는 오토마타입니다. 하지만, 순환 태그 시스템과는 달리 한 기호에 대해 한 가지 생산 규칙을 가지고 있고, 이진수가 아닌 단어를 사용한다는 특징이 있습니다. 또한, 단어를 생산할때 1개의 앞 기호를 지우는 순환 태그 시스템과는 달리, 2 태그 시스템은 2개의 기호를 지운 뒤 기호를 생산합니다.
+2 태그 시스템은 순환 태그 시스템과 유사하게 특정 기호를 읽고 생산 규칙에 따라 특정 기호를 생산하는 오토마타입니다.  
+  
+하지만, 순환 태그 시스템과는 달리 한 기호에 대해 한 가지 생산 규칙을 가지고 있고, 이진수가 아닌 단어를 사용한다는 특징이 있습니다. 또한, 단어를 생산할때 1개의 앞 기호를 지우는 순환 태그 시스템과는 달리, 2 태그 시스템은 2개의 기호를 지운 뒤 기호를 생산합니다.
 <div class='TwoTag'></div>
 
 위는 실제로 동작하는 **2 태그 시스템**입니다. `Start Word`와 `Production Rule`은 다음 규칙을 지키면서 입력 하면 됩니다.
@@ -190,19 +195,109 @@ Prodution Rule
 * 입력 받는 기호와 생산 하는 기호 사이에는 콜론<sub>:</sub>만 들어가야 합니다.
 * 입력 받는 기호가 `H`라면, 2 태그 시스템은 작동을 정지합니다.
 
-이 순환 태그 시스템은 2 태그 시스템을 구동 할 수 있습니다. 특정 기호를 이진수로 치환하고, 순환 하는 생산 규칙에 생산 규칙을 적용 시키는 [**방식**](https://medium.com/@barvinograd1/cyclic-tag-system-1-line-of-turing-complete-code-cebe8e18658f)으로 2 태그 시스템의 기호를 완전히 대체 할 수 있습니다.   
+이 순환 태그 시스템은 2 태그 시스템을 구동 할 수 있습니다. 특정 기호를 이진수로 치환하고, 순환 하는 생산 규칙에 생산 규칙을 적용 시키는 [**방식**](https://medium.com/@barvinograd1/cyclic-tag-system-1-line-of-turing-complete-code-cebe8e18658f)으로 2 태그 시스템의 기호를 완전히 대체 할 수 있습니다. 
+
+예를 들어 보겠습니다. 위의 2 태그 시스템 시뮬레이터에서 사용된 예제인 `baa` 예제를 순환 태그 시스템으로 변경하자면, 우선 2 태그 시스템에서 사용된 기호들을 이진수로 변환 해야 합니다.
+```
+a : 1000
+b : 0100
+c : 0010
+H : 0001
+```
+다음과 같이 기호를 이진수로 변환 하는데, 첫번째 기호는 `1000`, 그 다음 기호는 `0100` ... 이렇게 변환합니다.  
+  
+그리고 생산 규칙도 변환 하여 변환한 기호의 순서에 따라 정렬 합니다.
+```
+a → ccbaH
+b → cca
+c → cc
+(0010 0010 0100 1000 0001, 0010 0010 1000, 0010 0010, - , - , - , - , -)
+```
+이렇게 기호를 `a`, `b`, `c` 순서로 변환 했다면, 순환 태그 시스템의 생성 규칙 또한 `a`, `b`, `c` 순서로 변환 합니다. 그리고 남는 생성 규칙 칸에는 `(사용된 기호의 수 × 2)` 칸이 될 때 까지 빈칸을 채웁니다.   
+```
+Start Word : 010010001000
+Production Rule : (00100010010010000001,001000101000,00100010,,,,,)
+```
+이것이 2 태그 시스템을 순환 태그 시스템으로 구동하는 방법입니다. 위로 올라가서 직접 실행 해보세요! 8번 생산 할때마다 2 태그 시스템 에서의 결과가 나옵니다[^12].
 ### 3.5. 종점
-2 태그 시스템은 튜링 머신을 [**가동합니다**](https://dl.acm.org/doi/epdf/10.1145/321203.321206). 튜링 머신의 헤드의 앞과 뒤 문자를 자연수로 치환하여, 2 태그 시스템에 정수로 기입, 그 정수를 비트 연산하여 헤드를 움직이는 방식으로 튜링 머신을 구현했습니다!  
+![TagsystemUniversal](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/TagsystemUniversal.png?raw=true"TagsystemUniversal")
+<span style="font-size:50%">[Universality of Tag Systems With P = 2, p.17](https://dl.acm.org/doi/epdf/10.1145/321203.321206)</span>
+{: .text-center} 
+2 태그 시스템은 튜링 머신을 [**가동합니다**](https://dspace.mit.edu/handle/1721.1/6107). 튜링 머신의 헤드의 앞과 뒤 문자를 이진수로 치환한 정수로 생각하고, 이 두 자연수 `a`, `b`를, 2 태그 시스템에 정수로 기입, 그 정수를 비트 연산하여 헤드를 움직이는 방식으로 튜링 머신을 구현했습니다!  
   
 이것으로 Rule 110이 튜링 완전한 오토마타라는것을 알 수 있었습니다.
 
 ## 4. HTML과 CSS 이야기
-약간 논점을 잃을뻔 했지만, 이 글의 중점은 HTML과 CSS가 함께 있으면 튜링 완전하다는 사실입니다!  
-  
-위에서 말한 바와 같이, HTML과 CSS의 튜링 완전을 구현하기 위해서는 Rule 110을 구현하면 해결 됩니다. 근데, 대체 무슨 수로 그걸 구현하나요? HTML과 CSS는 이렇다할 제어문을 가지고 있진 않은데...
+약간 논점을 잃을뻔 했지만, 이 글의 중점은 HTML과 CSS가 함께 있으면 튜링 완전하다는 사실입니다! 그래서 HTML과 CSS로 Rule 110을 구현한다면 튜링 완전하다고 볼 수 있겠네요!   
+   
+하지만, HTML과 CSS는 앞서 언급했듯이 프로그래밍 언어가 아닙니다. 즉, 이렇다할 제어문이 없습니다. 그러면 어떻게 Rule 110을 구현 할 수 있는걸까요?
 
 ### 4.1. CSS의 특이한 선택자
-CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소의 형제를 대상으로 하는 선택자입니다. 예를 들면 이런식 입니다.
+CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소를 왼쪽에 둔 한 요소를 선택하는 선택자입니다. 예를 들면 이런식 입니다.
+```HTML
+{% raw %}<head>
+    <style>
+        .Mario {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="Mario">Mario</div>
+    <div>Luigi</div>
+    <div>Wario</div>
+    <div>Waluigi</div>
+</body>{% endraw %}
+```
+![MarioOnly](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/MarioOnly.png?raw=true "MarioOnly")
+{: .text-center}  
+슈퍼 마리오 제작진이 극적인 제작비 절감을 위해, 인기 캐릭터인 마리오만 클래스를 지정해줬다고 가정해 봅시다. 이 상황에서, `Luigi` 클래스를 지정하지 않은채, 루이지만 폰트 색상을 초록색으로 바꿀 수 있을까요?  
+```HTML
+{% raw %}<head>
+    <style>
+        .Mario {
+            color: red;
+        }
+        .Mario + div {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="Mario">Mario</div>
+    <div>Luigi</div>
+    <div>Wario</div>
+    <div>Waluigi</div>
+</body>{% endraw %}
+```
+![MarioNLuigi](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/MarioNluigi.png?raw=true "MarioNLuigi")
+{: .text-center}  
+정답은 `+` 선택자를 이용하여 `Mario` 클래스 옆에 있는 `div`를 지정해주는 방식입니다.   
+```HTML
+{% raw %}<head>
+    <style>
+        .Mario {
+            color: red;
+        }
+        .Mario + div {
+            color: green;
+        }
+        .Mario + div + div + div {
+            color: purple;
+        }
+    </style>
+</head>
+<body>
+    <div class="Mario">Mario</div>
+    <div>Luigi</div>
+    <div>Wario</div>
+    <div>Waluigi</div>
+</body>{% endraw %}
+```
+![Waluigi](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/Waluigi.png?raw=true "Waluigi")
+{: .text-center}  
+이런식으로 `+` 선택자 뒤 또 다른 `+` 선택자를 이용해 더 뒤에 있는 요소도 선택 가능합니다!
+
 
 [^1]: 실제로는 무한한 길이의 테이프를 구현할 수 없으므로, 어떤 기계가 유한한 저장 공간을 가졌지만, 이후에 무한하게 저장 공간을 추가 할 수 있다면, 이 기계를 느슨하게 튜링 완전하다 봅니다.
 [^2]: 업그레이드 버전이라고는 했지만, 튜링 머신답게 튜링 머신은 범용 튜링 머신을 구동할 수 있습니다!
@@ -214,7 +309,8 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소의 형�
 [^8]: 그래서 `00000000`부터 `11111111`까지, Rule 0부터 Rule 255까지 존재합니다. 이중 실질적으로 사용되는 Rule의 종류는 적습니다. Rule 30, Rule 90, Rule 184 등이 그중에서 연구가 활발히 이루어진 기초 세포 자동자입니다.
 [^9]: 이 외에도 데이터 번역, 연산자 생산, 초기조건 등의 요소들이 활용되지만, 이해하기 힘들뿐더러, 저도 이해 하지 못했기에 여기까지 설명 드리겠습니다. 참고 : [**Reproducing the cyclic tag system developed by Matthew Cook with Rule 110 using the phases f1_1**](https://uwe-repository.worktribe.com/output/970133)
 [^10]: 애초에, 순환 태그 시스템은 Rule 110과 태그 시스템을 연결 해주기 위해 나온 개념입니다. 태그 시스템의 변형이라고 할 수 있습니다.
-[^11]: 2 태그 시스템의 2는 삭제하는 단어 개수입니다. 그래서 보통은 [**Tag System**](https://en.wikipedia.org/wiki/Tag_system)으로 불립니다.
+[^11]: 2 태그 시스템의 2는 삭제하는 단어 개수입니다. 보통은 [**Tag System**](https://en.wikipedia.org/wiki/Tag_system)으로 불립니다.
+[^12]: `H` 기호가 나왔을때 생산을 멈추지는 않습니다. 그래서 `H` 기호 이후에는 적절한 값이 나오지 않습니다.
 <!-- [^8]: 참고 : [http://delta.cs.cinvestav.mx/~mcintosh/comun/texlet/texlet.html](http://delta.cs.cinvestav.mx/~mcintosh/comun/texlet/texlet.html) -->
 
 
