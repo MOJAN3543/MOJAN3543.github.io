@@ -140,6 +140,7 @@ Rule 110의 의미도 이 패턴을 의미합니다. `111`부터 `000`까지의 
 이 시뮬레이터에서 보기는 힘들겠지만, 다음 세대를 생산하고 생산하다 보면, 조금씩 규칙이 보이기 시작합니다.   
    
 ![Rule110Glider](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/Glider-classification-in-Rule-110.png?raw=true"Rule110Glider")
+{: .text-center} 
 <span style="font-size:50%">[Determining a Regular Language by Glider-Based Structures called Phases - Scientific Figure on ResearchGate.](https://www.researchgate.net/figure/Glider-classification-in-Rule-110_fig1_220440959)</span>
 {: .text-center} 
 이렇게 몇 세대에 걸쳐서 좌측, 또는 우측으로 움직이거나 움직이지 않는 규칙들이 보입니다. 이를 글라이더라고 합니다.   
@@ -221,6 +222,8 @@ Production Rule : (00100010010010000001,001000101000,00100010,,,,,)
 이것이 2 태그 시스템을 순환 태그 시스템으로 구동하는 방법입니다. 위로 올라가서 직접 실행 해보세요! 8번 생산 할때마다 2 태그 시스템 에서의 결과가 나옵니다[^12].
 ### 3.5. 종점
 ![TagsystemUniversal](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/TagsystemUniversal.png?raw=true"TagsystemUniversal")
+{: .text-center}  
+
 <span style="font-size:50%">[Universality of Tag Systems With P = 2, p.17](https://dl.acm.org/doi/epdf/10.1145/321203.321206)</span>
 {: .text-center} 
 2 태그 시스템은 튜링 머신을 [**가동합니다**](https://dspace.mit.edu/handle/1721.1/6107). 튜링 머신의 헤드의 앞과 뒤 문자를 이진수로 치환한 정수로 생각하고, 이 두 자연수 `a`, `b`를, 2 태그 시스템에 정수로 기입, 그 정수를 비트 연산하여 헤드를 움직이는 방식으로 튜링 머신을 구현했습니다!  
@@ -235,7 +238,7 @@ Production Rule : (00100010010010000001,001000101000,00100010,,,,,)
 ### 4.1. CSS의 특이한 선택자
 CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소를 왼쪽에 둔 한 요소를 선택하는 선택자입니다. 예를 들면 이런식 입니다.
 ```HTML
-{% raw %}<head>
+<head>
     <style>
         .Mario {
             color: red;
@@ -247,7 +250,7 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소를 왼�
     <div>Luigi</div>
     <div>Wario</div>
     <div>Waluigi</div>
-</body>{% endraw %}
+</body>
 ```
 ![MarioOnly](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/MarioOnly.png?raw=true "MarioOnly")
 {: .text-center}  
