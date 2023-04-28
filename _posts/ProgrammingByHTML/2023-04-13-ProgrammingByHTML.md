@@ -237,8 +237,8 @@ Production Rule : (00100010010010000001,001000101000,00100010,,,,,)
 
 ### 4.1. CSS의 특이한 선택자
 CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소를 왼쪽에 둔 한 요소를 선택하는 선택자입니다. 예를 들면 이런식 입니다.
-```HTML
-<head>
+```
+{% raw %}<head>
     <style>
         .Mario {
             color: red;
@@ -250,12 +250,12 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소를 왼�
     <div>Luigi</div>
     <div>Wario</div>
     <div>Waluigi</div>
-</body>
+</body>{% endraw %}
 ```
 ![MarioOnly](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/MarioOnly.png?raw=true "MarioOnly")
 {: .text-center}  
 슈퍼 마리오 제작진이 극적인 제작비 절감을 위해, 인기 캐릭터인 마리오만 클래스를 지정해줬다고 가정해 봅시다. 이 상황에서, `Luigi` 클래스를 지정하지 않은채, 루이지만 폰트 색상을 초록색으로 바꿀 수 있을까요?  
-```HTML
+```
 {% raw %}<head>
     <style>
         .Mario {
@@ -276,7 +276,7 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소를 왼�
 ![MarioNLuigi](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/MarioNluigi.png?raw=true "MarioNLuigi")
 {: .text-center}  
 정답은 `+` 선택자를 이용하여 `Mario` 클래스 옆에 있는 `div`를 지정해주는 방식입니다.   
-```HTML
+```
 {% raw %}<head>
     <style>
         .Mario {
