@@ -335,7 +335,7 @@ else
     content = "Not Checked!";
 ```
 또한, CSS에서 사용한 `*` 태그는 특정 태그를 가진 요소만 지정하지 않고, 옆에 있는 요소가 무슨 태그를 가졌든, 무조건 지정합니다. 
-### 4.3 input:checked++
+### 4.3. input:checked++
 ```
 <head>
     <style>
