@@ -372,7 +372,7 @@ else
 
 Rule 110을 HTML과 CSS로 구현한 결과입니다! `+` 선택자를 여러개 사용해서 `switch` 제어문 비슷한 역할을 하게 했습니다.   
 
-### 4.4 조금만 더 늘려봅시다
+### 4.4. 조금만 더 늘려봅시다
 ![Rule110ByHTML](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/Rule110ByHTML.png?raw=true "Rule110ByHTML")
 {: .text-center} 
 
