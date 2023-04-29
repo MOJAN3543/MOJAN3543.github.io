@@ -321,13 +321,14 @@
 	content: 'Not Checked!';
 }
 .Rule110Mini{
-	display: grid;
+    display: grid;
     grid-template: repeat(2, 2rem) / repeat(3, 2rem);
     place-items: stretch;
     place-content: space-evenly;
     background-color: #f0f0f0;
     width: 7rem;
     height: 4.75rem;
+    margin: auto 0;
 }
 .Rule110Mini input{
     width: 2rem;
