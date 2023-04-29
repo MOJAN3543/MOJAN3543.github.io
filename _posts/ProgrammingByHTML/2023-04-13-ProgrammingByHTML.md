@@ -301,7 +301,7 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 요소를 이전에
 {: .text-center}  
 이런식으로 `+` 선택자 뒤 또 다른 `+` 선택자를 이용해 다른 조건을 추가 할 수 있습니다.
 
-### 4.2. 응용
+### 4.2. input:checked+*
 이를 다른 방식으로 응용해보겠습니다. 바로 `input`과의 응용입니다.   
    
 ```
@@ -317,14 +317,62 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 요소를 이전에
 </head>
 <body>
     <input type="checkbox">
-    <a></a>
+    <small></small>
 </body>{% endraw %}
 ```
 
-<div class='CheckNotCheck'><input type="checkbox"><a></a></div>
+<div class='CheckNotCheck'><input type="checkbox"><small></small></div>
     
-이는 
+이는 `input` 태그의 `:checked` 선택자를 이용한 체크박스 입니다. 직접 클릭해보세요!   
+   
+이는 Javascript 없이 체크를 감지하고, 내부 HTML을 변경 할 수 있습니다! CSS로 `input` 태그가 `:checked` 선택자를 가지고 있으면 뒤에 있는 태그의 `content`를 `'Checked!`로 수정합니다. 반대의 경우에는 `:not(:checked)`로 감지합니다.  
+  
+마치 다음과 같은 조건문을 실행하는 것과 같습니다.   
+```
+if(checked)
+    content = "Checked!";
+else
+    content = "Not Checked!";
+```
+   
+### 4.3 input:checked+input:checked+input:not(:checked)+*
+```
+<head>
+    <style>
+        input:checked+input:checked+input:not(:checked)+*{
+            background-color: #10dc36;
+        }
+        input:checked+input:not(:checked)+input:checked+*{
+            background-color: #10dc36;
+        }
+        input:checked+input:not(:checked)+input:not(:checked)+*{
+            background-color: #ffffff;
+        }
+        input:not(:checked)+input:checked+input:checked+*{
+            background-color: #10dc36;
+        }
+        input:not(:checked)+input:checked+input:not(:checked)+*{
+            background-color: #10dc36;
+        }
+        input:not(:checked)+input:not(:checked)+input:checked+*{
+            background-color: #10dc36;
+        }
+        input:not(:checked)+input:not(:checked)+input:not(:checked)+*{
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox">
+    <input type="checkbox">
+    <input type="checkbox">
+    <input type="checkbox">
+</body>
+```
 
+<div class="Rule110Mini"><input type="checkbox"><input type="checkbox"><input type="checkbox"></div>
+
+오직 HTML과 CSS로 구현한 결과입니다! `+` 선택자를 여러개 사용해서 `switch` 제어문 비슷한 역할을 하게 했습니다.
 
 [^1]: 실제로는 무한한 길이의 테이프를 구현할 수 없으므로, 어떤 기계가 유한한 저장 공간을 가졌지만, 이후에 무한하게 저장 공간을 추가 할 수 있다면, 이 기계를 느슨하게 튜링 완전하다 봅니다.
 [^2]: 업그레이드 버전이라고는 했지만, 튜링 머신답게 튜링 머신은 범용 튜링 머신을 구동할 수 있습니다!
