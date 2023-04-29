@@ -11,7 +11,7 @@ last_modified_at: 2023-04-29
 ## 1. 인터렉티브 콘텐츠 만들기
 포스팅에 콘텐츠를 넣어야 하니, 우선 인터랙티브 콘텐츠를 만들도록 하겠습니다!   
    
-![YachtDice](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/MarkdownInteraction/Yachtdice.jpg?raw=true"Yacht Dice") 
+![YachtDice](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/MarkdownInteraction/Yachtdice.jpg?raw=true"YachtDice") 
 {:.text-center} 
 
 이번 포스팅에 예제로 만드는 인터랙티브 콘텐츠는 [**Yacht Dice**](https://en.wikipedia.org/wiki/Yacht_(dice_game)) 1인 게임을 제작해 보겠습니다.
