@@ -236,7 +236,7 @@ Production Rule : (00100010010010000001,001000101000,00100010,,,,,)
 하지만, HTML과 CSS는 앞서 언급했듯이 프로그래밍 언어가 아닙니다. 즉, 이렇다할 제어문이 없습니다. 그러면 어떻게 Rule 110을 구현 할 수 있는걸까요?
 
 ### 4.1. CSS의 특이한 선택자
-CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소를 왼쪽에 둔 한 요소를 선택하는 선택자입니다. 예를 들면 이런식 입니다.
+CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 요소를 이전에 둔 한 요소를 선택하는 선택자입니다. 예를 들면 이런식 입니다.
 ```
 {% raw %}<head>
     <style>
@@ -275,7 +275,7 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소를 왼�
 ```
 ![MarioNLuigi](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/MarioNluigi.png?raw=true "MarioNLuigi")
 {: .text-center}  
-정답은 `+` 선택자를 이용하여 `Mario` 클래스 옆에 있는 `div`를 지정해주는 방식입니다.   
+위는 `+` 선택자를 이용하여 `Mario` 클래스 옆에 있는 `div`를 지정해주었습니다. `+` 선택자는 이렇게 `(선택자 1) + (선택자 2)` 형식으로 사용되며, `(선택자 1)`을 형제로 가지고 있으며 `(선택자 2)`를 만족하는 요소를 선택하는 선택자 입니다. 
 ```
 {% raw %}<head>
     <style>
@@ -299,7 +299,31 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 한 요소를 왼�
 ```
 ![Waluigi](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/Waluigi.png?raw=true "Waluigi")
 {: .text-center}  
-이런식으로 `+` 선택자 뒤 또 다른 `+` 선택자를 이용해 더 뒤에 있는 요소도 선택 가능합니다!
+이런식으로 `+` 선택자 뒤 또 다른 `+` 선택자를 이용해 다른 조건을 추가 할 수 있습니다.
+
+### 4.2. 응용
+이를 다른 방식으로 응용해보겠습니다. 바로 `input`과의 응용입니다.   
+   
+```
+{% raw %}<head>
+    <style>
+        input:checked+*::before{
+            content: 'Checked!';
+        }
+        input:not(:checked)+*::before{
+            content: 'Not Checked!';
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox">
+    <a></a>
+</body>{% endraw %}
+```
+
+<div class='CheckNotCheck'><input type="checkbox"><a></a></div>
+    
+이는 
 
 
 [^1]: 실제로는 무한한 길이의 테이프를 구현할 수 없으므로, 어떤 기계가 유한한 저장 공간을 가졌지만, 이후에 무한하게 저장 공간을 추가 할 수 있다면, 이 기계를 느슨하게 튜링 완전하다 봅니다.
