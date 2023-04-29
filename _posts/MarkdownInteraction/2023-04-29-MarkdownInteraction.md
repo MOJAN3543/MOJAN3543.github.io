@@ -54,3 +54,7 @@ last_modified_at: 2023-04-29
 ```
 일단 기초 `<div>` 구성은 이렇습니다! 점수표와 플레이 요소, 플레이 요소는 또 주사위 표시부와 조작부로 분리됩니다.  
   
+![NoCSS](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/MarkdownInteraction/NoCSS.png?raw=true "NoCSS") 
+{:.text-center} 
+
+기초적인 골격만 다져놓은 모습입니다. 여기에 추가적인 CSS 작업을 거치면....
