@@ -310,3 +310,9 @@
 	-ms-overflow-style: none;
 	-webkit-scrollbar { display: none;}
 }
+.CheckNotCheck input:checked+*::before{
+	content: 'Checked!';
+}
+.CheckNotCheck input:not(:checked)+*::before{
+	content: 'Not Checked!';
+}
