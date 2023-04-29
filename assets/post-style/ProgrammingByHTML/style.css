@@ -281,7 +281,8 @@
     border: solid;
     resize: none;
     font-size: 1.2rem;
-	font-weight: bold;
+    font-weight: bold;
+    text-align: center;
     overflow-x: auto;
 }
 .BitNot {
