@@ -275,7 +275,7 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 요소를 이전에
 ```
 ![MarioNLuigi](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/MarioNluigi.png?raw=true "MarioNLuigi")
 {: .text-center}  
-위는 `+` 선택자를 이용하여 `Mario` 클래스 옆에 있는 `div`를 지정해주었습니다. `+` 선택자는 이렇게 `(선택자 1) + (선택자 2)` 형식으로 사용되며, `(선택자 1)`을 형제로 가지고 있으며 `(선택자 2)`를 만족하는 요소를 선택하는 선택자 입니다. 
+위는 `+` 선택자를 이용하여 `Mario` 클래스 옆에 있는 `div`를 지정해주었습니다. `+` 선택자는 이렇게 `(선택자 1) + (선택자 2)` 형식으로 사용되며, `(선택자 1)`을 형제로 가지고 있으며 `(선택자 2)`를 만족하는 바로 다음에 오는 요소를 선택하는 선택자 입니다. 
 ```
 {% raw %}<head>
     <style>
@@ -299,7 +299,7 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 요소를 이전에
 ```
 ![Waluigi](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/Waluigi.png?raw=true "Waluigi")
 {: .text-center}  
-이런식으로 `+` 선택자 뒤 또 다른 `+` 선택자를 이용해 다른 조건을 추가 할 수 있습니다. 즉, 바로 옆에 있는 요소가 아닌 더 옆에 있는 요소도 지정 할 수 있습니다.
+이런식으로 `+` 선택자 뒤 또 다른 `+` 선택자를 이용해 다른 조건을 추가 할 수 있습니다. 즉, 바로 다음에 있는 요소가 아닌 더 에 있는 요소도 지정 할 수 있습니다.
 
 ### 4.2. input:checked
 이를 다른 방식으로 응용해보겠습니다. 바로 `input`과의 응용입니다.   
@@ -372,8 +372,39 @@ else
 
 <div class="Rule110Mini"><input type="checkbox"><input type="checkbox"><input type="checkbox"><input type="checkbox"></div>
 
-Rule 110을 HTML과 CSS로 구현한 결과입니다! `+` 선택자를 여러개 사용해서 `switch` 제어문 비슷한 역할을 하게 했습니다.
+Rule 110을 HTML과 CSS로 구현한 결과입니다! `+` 선택자를 여러개 사용해서 `switch` 제어문 비슷한 역할을 하게 했습니다.   
 
+### 4.4 조금만 더 늘려봅시다
+![Rule110ByHTML](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/Rule110ByHTML.png?raw=true "Rule110ByHTML")
+{: .text-center} 
+
+<span style="font-size:50%">[Rule 110 By HTML](https://mojan3543.github.io/Rule110ByHTML)</span>
+{: .text-center}  
+하하! 실제로 동작하지 않는 이미지입니다. [**이 곳**](https://mojan3543.github.io/Rule110ByHTML)에서 실제로 해볼 수 있습니다!   
+   
+개발자 도구를 켜보면, `<script>`가 없는걸 알 수 있습니다! 스크립트의 힘이 들어가지 않았다는 걸 의미하죠. 그러므로, HTML과 CSS, 그리고 사람의 클릭으로 튜링 완전한 Rule 110을 구현했습니다!   
+   
+![whyusejs](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/whyusejs.png?raw=true "WhyUseJS")
+{: .text-center} 
+
+이제 Javascript의 시대는 끝났습니다. HTML과 CSS로 Javascript와 동등한 기능을 할 수 있는데 Javascript를 왜쓰나요?
+
+## 5. 다른 곳에서 구현된 Rule 110
+이전에 서술했듯, Rule 110은 튜링 완전을 증명하기에 아주 쉬운 오토마타이기에, 튜링 동치계의 `Hello, World!` 같은 느낌입니다. 그래서 HTML과 CSS의 경우 말고도 다른 곳에서도 많이 구현됩니다.   
+   
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">This video demonstrates my design for a mechanism in <a href="https://twitter.com/hashtag/BabaIsYou?src=hash&amp;ref_src=twsrc%5Etfw">#BabaIsYou</a> which implements Cellular Automaton Rule 110, which suffices to prove the game is Turing-Complete!<br><br>The write-up is here: <a href="https://t.co/EE7vB8S26H">https://t.co/EE7vB8S26H</a><br><br>Feel free to ask any questions!<a href="https://twitter.com/babaisyou_?ref_src=twsrc%5Etfw">@babaisyou_</a> <a href="https://twitter.com/ESAdevlog?ref_src=twsrc%5Etfw">@ESAdevlog</a> <a href="https://t.co/EzOeTuZga5">pic.twitter.com/EzOeTuZga5</a></p>&mdash; Matthew Rodriguez (@mattar0d) <a href="https://twitter.com/mattar0d/status/1109987662608384000?ref_src=twsrc%5Etfw">March 25, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+위는 [**Baba is you**](https://store.steampowered.com/app/736260/Baba_Is_You/?l=koreana)에서 Rule 110을 구현한 장면입니다. 관련 설명은 [**여기**](https://udaqueness.blog/2019/03/25/baba-is-you%EB%8A%94-%ED%8A%9C%EB%A7%81%EC%99%84%EC%A0%84%ED%95%98%EB%8B%A4/)에서 볼 수 있습니다.   
+   
+{% include video id="QKnSRw_X2w4" provider="youtube" %}  
+심지어는 구슬의 흐름으로 Rule 110을 구현 하는 경우도 있습니다!   
+  
+## 6. 마치며
+이 게시물에서는 튜링 머신, 튜링 완전, Rule 110과 HTML의 튜링 완전성에 대해 알아보았습니다.   
+   
+블로그 게시를 얼마 안했지만, 제가 그동안 쓴 게시물 중에서 가장 공을 많이 들였습니다. 아니, 게시물이 아니라 제가 살면서 쓴 글 전체를 통틀어도 여기에 제일 많은 노력을 쏟은것 같습니다. '이해가 어려운 오토마타 부분에서 인터렉티브 요소를 만들어야겠다' 라고 생각은 했는데, 생각보다 많은 오토마타가 있었고... Tag System을 구현하는 중에 그냥 그만두고 마무리 지을까... 했지만! 끝내 구현했습니다!   
+   
+국내 블로그에는 HTML과 CSS, 그리고 Rule 110에 대해서 다룬 블로그가 얼마 없는것 같아 이렇게 글을 쓰게 되었습니다. 이 글을 보고 조금이나마 궁금했던 점들을 해소했으면 좋겠습니다.
 [^1]: 실제로는 무한한 길이의 테이프를 구현할 수 없으므로, 어떤 기계가 유한한 저장 공간을 가졌지만, 이후에 무한하게 저장 공간을 추가 할 수 있다면, 이 기계를 느슨하게 튜링 완전하다 봅니다.
 [^2]: 업그레이드 버전이라고는 했지만, 튜링 머신답게 튜링 머신은 범용 튜링 머신을 구동할 수 있습니다!
 [^3]: 이는 단일 테이프 튜링 머신을 다중 테이프 튜링 머신으로 확장 시키고, 업 다운 카운터로 단순화, 카운터 머신으로 단순화, 그리고 이 카운터 머신을 현재 컴퓨터에 가까운 레지스터 머신으로 확장 함에 증명되었습니다. 정확한 내용은 [**처치-튜링 명제**](https://en.wikipedia.org/wiki/Church%E2%80%93Turing_thesis)를 살펴보세요.
