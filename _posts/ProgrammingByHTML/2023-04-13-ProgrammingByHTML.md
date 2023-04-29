@@ -299,9 +299,9 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 요소를 이전에
 ```
 ![Waluigi](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/Waluigi.png?raw=true "Waluigi")
 {: .text-center}  
-이런식으로 `+` 선택자 뒤 또 다른 `+` 선택자를 이용해 다른 조건을 추가 할 수 있습니다.
+이런식으로 `+` 선택자 뒤 또 다른 `+` 선택자를 이용해 다른 조건을 추가 할 수 있습니다. 즉, 바로 옆에 있는 요소가 아닌 더 옆에 있는 요소도 지정 할 수 있습니다.
 
-### 4.2. input:checked+*
+### 4.2. input:checked
 이를 다른 방식으로 응용해보겠습니다. 바로 `input`과의 응용입니다.   
    
 ```
@@ -334,8 +334,8 @@ if(checked)
 else
     content = "Not Checked!";
 ```
-   
-### 4.3 input:checked+input:checked+input:not(:checked)+*
+또한, CSS에서 사용한 `*` 태그는 특정 태그를 가진 요소만 지정하지 않고, 옆에 있는 요소가 무슨 태그를 가졌든, 무조건 지정합니다. 
+### 4.3 input:checked++
 ```
 <head>
     <style>
@@ -370,9 +370,9 @@ else
 </body>
 ```
 
-<div class="Rule110Mini"><input type="checkbox"><input type="checkbox"><input type="checkbox"></div>
+<div class="Rule110Mini"><input type="checkbox"><input type="checkbox"><input type="checkbox"><input type="checkbox"></div>
 
-오직 HTML과 CSS로 구현한 결과입니다! `+` 선택자를 여러개 사용해서 `switch` 제어문 비슷한 역할을 하게 했습니다.
+Rule 110을 HTML과 CSS로 구현한 결과입니다! `+` 선택자를 여러개 사용해서 `switch` 제어문 비슷한 역할을 하게 했습니다.
 
 [^1]: 실제로는 무한한 길이의 테이프를 구현할 수 없으므로, 어떤 기계가 유한한 저장 공간을 가졌지만, 이후에 무한하게 저장 공간을 추가 할 수 있다면, 이 기계를 느슨하게 튜링 완전하다 봅니다.
 [^2]: 업그레이드 버전이라고는 했지만, 튜링 머신답게 튜링 머신은 범용 튜링 머신을 구동할 수 있습니다!
