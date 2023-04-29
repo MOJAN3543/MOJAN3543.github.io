@@ -3,8 +3,6 @@ title: 저는 HTML로 프로그래밍 해요
 toc: true
 toc_sticky: true
 last_modified_at: 2023-04-13
-style: "/assets/post-style/ProgrammingByHTML/style.css"
-script: "/assets/post-script/ProgrammingByHTML/TuringMachine.js"
 ---
 ![저는HTML로프로그래밍해요](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/HTMLisnotProgrammingLang.jpg?raw=true "저는HTML로 프로그래밍해요")
 {: .text-center}    
