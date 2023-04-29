@@ -319,3 +319,50 @@
 .CheckNotCheck input:not(:checked)+*::before{
 	content: 'Not Checked!';
 }
+.Rule110Mini{
+	display: grid;
+    grid-template: repeat(2, 2rem) / repeat(3, 2rem);
+    place-items: stretch;
+    place-content: space-evenly;
+    background-color: #f0f0f0;
+    width: 7rem;
+    height: 4.75rem;
+}
+.Rule110Mini input{
+    width: 2rem;
+    height: 2rem;
+    margin: 0rem;
+    appearance: none;
+    outline: 0;
+    background-color: #ffffff;
+}
+.Rule110Mini input:nth-child(4){
+	margin-left: 2.25rem;
+}
+.Rule110Mini input:checked {
+    background-color: #10dc36;
+}
+.Rule110Mini input:checked+input:checked+input:checked+*{
+	background-color: #ffffff;
+}
+.Rule110Mini input:checked+input:checked+input:not(:checked)+*{
+	background-color: #10dc36;
+}
+.Rule110Mini input:checked+input:not(:checked)+input:checked+*{
+	background-color: #10dc36;
+}
+.Rule110Mini input:checked+input:not(:checked)+input:not(:checked)+*{
+	background-color: #ffffff;
+}
+.Rule110Mini input:not(:checked)+input:checked+input:checked+*{
+	background-color: #10dc36;
+}
+.Rule110Mini input:not(:checked)+input:checked+input:not(:checked)+*{
+	background-color: #10dc36;
+}
+.Rule110Mini input:not(:checked)+input:not(:checked)+input:checked+*{
+	background-color: #10dc36;
+}
+.Rule110Mini input:not(:checked)+input:not(:checked)+input:not(:checked)+*{
+	background-color: #ffffff;
+}
