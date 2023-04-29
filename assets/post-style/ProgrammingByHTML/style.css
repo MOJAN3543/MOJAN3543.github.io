@@ -310,6 +310,9 @@
 	-ms-overflow-style: none;
 	-webkit-scrollbar { display: none;}
 }
+.CheckNotCheck{
+	text-align: center;
+}
 .CheckNotCheck input:checked+*::before{
 	content: 'Checked!';
 }
