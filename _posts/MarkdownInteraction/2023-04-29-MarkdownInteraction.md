@@ -27,7 +27,7 @@ last_modified_at: 2023-04-29
 
 제가 떠올린 요트 다이스의 구성 요소는 이렇게 생겼습니다. 위 사진에서 알 수 있듯, 점수표와 플레이 부분을 다른 요소로 분리 한다는것이 이번 요트 다이스 구현의 핵심입니다.
 
-### 1.3 천리길도 `<div>` 부터
+### 1.3. 천리길도 `<div>` 부터
 ```
 {% raw %}<!DOCTYPE html>
 <html lang="ko">
@@ -58,3 +58,364 @@ last_modified_at: 2023-04-29
 {:.text-center} 
 
 기초적인 골격만 다져놓은 모습입니다. 여기에 추가적인 CSS 작업을 거치면....
+
+![WithCSS](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/MarkdownInteraction/WithCSS.png?raw=true "WithCSS") 
+{:.text-center} 
+ 
+역시 CSS의 힘이네요.   
+
+### 1.4. JavaScript 넣기
+이를 동작시켜줄 JavaScript도 적용시켜 줍니다.
+<details>
+<summary>HTML 코드 보기</summary>
+
+```
+{% raw %}<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="style.css">
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+		<title>Yacht!</title>
+		<script>
+			function Reroll(){
+				let DiceList = document.querySelectorAll('div.Dice > div');
+				let RerollDiceCount = 0;
+				for(let index=0; index<5; index++)
+					RerollDiceCount += DiceList[index].classList.contains("Reroll") ? 1 : 0;
+				if(RerollCount != 3 && RerollDiceCount){
+					const DiceDict = {1: '⚀', 2:'⚁', 3:'⚂', 4:'⚃', 5:'⚄', 6:'⚅'};
+					let DiceResult = [];
+					for(let index=0; index<5; index++){
+						DiceResult.push(Math.floor((Math.random()*6+1)));
+					}
+					for(let index=0; index<5; index++)
+						if(DiceList[index].classList.contains("Reroll"))
+							DiceList[index].innerHTML = DiceDict[DiceResult[index]];
+					RerollUncheck();
+					UpdateScoreTable();
+					RerollCountUp();
+				}
+			}
+			function DiceEval(){
+				const DiceDict = {'⚀':1, '⚁':2, '⚂':3, '⚃':4, '⚄':5, '⚅':6};
+				let DiceList = document.querySelectorAll('div.Dice > div');
+				let DiceResult = [0, 0, 0, 0, 0, 0];
+				let EvalList = [];
+				for(let index=0; index<5; index++)
+					DiceResult[DiceDict[DiceList[index].innerHTML]-1]++;
+				for(let index=0; index<6; index++) // Aces ~ Sixes
+					EvalList.push(DiceResult[index]*(index+1));
+				EvalList.push(EvalList.slice(0, 6).reduce(function add(sum, currValue){return sum+currValue;}, 0)); // Choice
+				EvalList.push(DiceResult.includes(4)||DiceResult.includes(5) ? EvalList[6] : 0); // 4 of a Kind
+				EvalList.push(DiceResult.includes(2)&&DiceResult.includes(3) ? EvalList[6] : 0); // Full House
+				let DiceBoolList = [];
+				for(let index=0; index<6; index++)
+					DiceBoolList.push(!!DiceResult[index] ? 1 : 0);
+				EvalList.push(JSON.stringify(DiceBoolList.slice(0, 4)) === "[1,1,1,1]"||JSON.stringify(DiceBoolList.slice(1, 5)) === "[1,1,1,1]"||JSON.stringify(DiceBoolList.slice(2, 6)) === "[1,1,1,1]" ? 15 : 0); // Small Straight;
+				EvalList.push(JSON.stringify(DiceResult) === "[0,1,1,1,1,1]" || JSON.stringify(DiceResult) === "[1,1,1,1,1,0]" ? 30 : 0); // Large Straight;
+				EvalList.push(DiceResult.includes(5) ? 50 : 0); // Yacht
+				return EvalList;
+			}
+			function UpdateScoreTable(){
+				let ScoreList = document.querySelectorAll('div.ScoreElement');
+				let EvalList = DiceEval();
+				for(let index=0; index<12; index++)
+					if(!ScoreList[index].classList.contains('Fixed') && !ScoreList[index].classList.contains('Bonus'))
+						ScoreList[index].querySelector('button').innerHTML = EvalList[index];
+			}
+			function UpdateTotal(){
+				let Sum = 0;
+				let AcetoSixCount = 0;
+				let ScoreList = document.querySelectorAll('div.ScoreElement');
+				let Bonus = document.querySelectorAll('div.Bonus > div');
+				for(let index=0; index<12; index++){
+					if(ScoreList[index].classList.contains('Fixed')){
+						Sum += Number(ScoreList[index].querySelector('button').innerHTML);
+						if(index <= 5)
+							AcetoSixCount++;
+					}
+					if(index == 5){
+						Bonus[0].innerHTML = Sum + ' / 63';
+						if(Sum>=63)
+							Bonus[1].innerHTML = "+ 35";
+						else if(AcetoSixCount == 6)
+							Bonus[1].innerHTML = "+ 0";
+					}
+					else if(index == 11)
+						ScoreList[12].querySelector('button').innerHTML = Sum;
+				}
+			}
+			function RoundCountUp(){
+				let Counter = document.querySelectorAll('div.Round > div')[1];
+				RoundCount++;
+				if(RoundCount != 13)
+					Counter.innerHTML = '■'.repeat(RoundCount) + '□'.repeat(12-RoundCount);
+			}
+			function RerollCountUp(){
+				let Counter = document.querySelector('div.Controller > div');
+				RerollCount++;
+				Counter.innerHTML = '● '.repeat(RerollCount) + '○ '.repeat(3-RerollCount);
+			}
+			function RerollUncheck(){
+				let DiceList = document.querySelectorAll('div.Dice > div');
+				for(let index=0; index<5; index++){
+					if(DiceList[index].classList.contains('Reroll')){
+						DiceList[index].classList.remove('Reroll');
+						DiceList[index].animate({transform: 'translate(0, -10rem)'}, {duration: 500, easing: 'ease', fill: 'forwards'});
+					}
+				}
+			}
+			function QuickReroll(){
+				let DiceList = document.querySelectorAll('div.Dice > div');
+				for(let index=0; index<5; index++){
+					DiceList[index].classList.add('Reroll');
+					DiceList[index].animate({transform: 'translate(0, 20rem)'}, {duration: 400, easing: 'ease', fill: 'forwards'});
+					DiceList[index].animate({transform: 'translate(0, 0)'}, {duration: 2400, easing: 'ease-out', fill: 'forwards'});
+				}
+			}
+			function RerollToggle(index){
+				if(RerollCount != 3){
+					let DiceList = document.querySelectorAll('div.Dice > div');
+					if(DiceList[index].classList.contains('Reroll')){
+						DiceList[index].classList.remove('Reroll');
+						DiceList[index].animate({transform: 'translate(0, -10rem)'}, {duration: 500, easing: 'ease', fill: 'forwards'});
+					}
+					else{
+						DiceList[index].classList.add('Reroll');
+						DiceList[index].animate({transform: 'translate(0, 0)'}, {duration: 500, easing: 'ease', fill: 'forwards'});
+					}
+				}
+			}
+			function ScoreCheck(index){
+				let ScoreList = document.querySelectorAll('div.ScoreElement');
+				if(!ScoreList[index].classList.contains('Fixed')){
+					ScoreList[index].classList.add('Fixed');
+					NewRound();
+				}
+			}
+			function NewRound(){
+				RerollCount = 0;
+				RoundCountUp();
+				if(RoundCount==13){
+					RerollCount = 3;
+					let Resetbutton = document.querySelector('div.Controller > button');
+					Resetbutton.innerHTML = "Game Over : Restart";
+					Resetbutton.onclick = Reset;
+				}
+				else{
+					QuickReroll();
+					Reroll();
+					UpdateTotal();
+				}
+			}
+			function Reset(){
+				RerollCount = 0;
+				RoundCount = 0;
+				let ScoreList = document.querySelectorAll('div.ScoreElement');
+				let Bonus = document.querySelectorAll('div.Bonus > div');
+				let Resetbutton = document.querySelector('div.Controller > button');
+				Resetbutton.innerHTML = "🎲";
+				Resetbutton.onclick = Reroll;
+				for(let index=0; index<12; index++){
+					if(ScoreList[index].classList.contains('Fixed'))
+						ScoreList[index].classList.remove('Fixed');
+					ScoreList[index].querySelector('button').innerHTML = '';
+				}
+				Bonus[0].innerHTML = '0 / 63';
+				Bonus[1].innerHTML = '';
+				ScoreList[12].querySelector('button').innerHTML = '';
+				NewRound();
+			}
+			let RerollCount = 0;
+			let RoundCount = 0;
+		</script>
+	</head>
+	<body onload="NewRound()">
+		<div class='Yacht'>
+			<div class='Score'>
+				<div class='Round'>
+					<div>
+						Rounds
+					</div>
+					<div>
+						□□□□□□□□□□□□
+					</div>
+				</div>
+				<div class='ScoreElement' onclick="ScoreCheck(0)">
+					<div class="DiceMark">
+						⚀
+					</div>
+					Aces
+					<button>
+						
+					</button>
+				</div>
+				<div class='ScoreElement' onclick="ScoreCheck(1)">
+					<div class="DiceMark">
+						⚁
+					</div>
+					Deuces
+					<button>
+						
+					</button>
+				</div>
+				<div class='ScoreElement' onclick="ScoreCheck(2)">
+					<div class="DiceMark">
+						⚂
+					</div>
+					Threes
+					<button>
+						
+					</button>
+				</div>
+				<div class='ScoreElement' onclick="ScoreCheck(3)">
+					<div class="DiceMark">
+						⚃
+					</div>
+					Fours
+					<button>
+						
+					</button>
+				</div>
+				<div class='ScoreElement' onclick="ScoreCheck(4)">
+					<div class="DiceMark">
+						⚄
+					</div>
+					Fives
+					<button>
+						
+					</button>
+				</div>
+				<div class='ScoreElement' onclick="ScoreCheck(5)">
+					<div class="DiceMark">
+						⚅
+					</div>
+					Sixes
+					<button>
+						
+					</button>
+				</div>
+				<div class='Bonus'>
+					Subtotal
+					<div>
+						0 / 63
+					</div>
+				</div>
+				<div class='Bonus'>
+					+35 Bonus
+					<div>
+						
+					</div>
+				</div>
+				<div class='ScoreElement' onclick="ScoreCheck(6)">
+					<div class="DiceMark">
+						
+					</div>
+					Choice
+					<button>
+						
+					</button>
+				</div>
+				<div class='ScoreElement' onclick="ScoreCheck(7)">
+					<div class="DiceMark">
+						⚃⚃⚃⚃
+					</div>
+					4 of a Kind
+					<button>
+						
+					</button>
+				</div>
+				<div class='ScoreElement' onclick="ScoreCheck(8)">
+					<div class="DiceMark">
+						⚁⚁⚂⚂⚂
+					</div>
+					Full House
+					<button>
+						
+					</button>
+				</div>
+				<div class='ScoreElement' onclick="ScoreCheck(9)">
+					<div class="DiceMark">
+						⚁⚂⚃⚄
+					</div>
+					Small Straight
+					<button>
+						
+					</button>
+				</div>
+				<div class='ScoreElement' onclick="ScoreCheck(10)">
+					<div class="DiceMark">
+						⚀⚁⚂⚃⚄
+					</div>
+					Large Straight
+					<button>
+						
+					</button>
+				</div>
+				<div class='ScoreElement' onclick="ScoreCheck(11)">
+					<div class="DiceMark">
+						⚅⚅⚅⚅⚅
+					</div>
+					Yacht
+					<button>
+						
+					</button>
+				</div>
+				<div class='ScoreElement Total'>
+					Total
+					<button>
+						
+					</button>
+				</div>
+			</div>
+			<div class='Play'>
+				<div class='Dice'>
+					<div class='Reroll' onclick='RerollToggle(0)'>
+						⚀
+					</div>
+					<div class='Reroll' onclick='RerollToggle(1)'>
+						⚀
+					</div>
+					<div class='Reroll' onclick='RerollToggle(2)'>
+						⚀
+					</div>
+					<div class='Reroll' onclick='RerollToggle(3)'>
+						⚀
+					</div>
+					<div class='Reroll' onclick='RerollToggle(4)'>
+						⚀
+					</div>
+				</div>
+				<div class='Line'>
+					<div>
+						Hold
+					</div>
+					<div>
+						Reroll
+					</div>
+				</div>
+				<div class='Controller'>
+					<button onclick='Reroll()'>
+						🎲
+					</button>
+					<div>
+						○ ○ ○
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>{% endraw %}
+```
+</details>
+
+대충 이렇게 구현이 완료되었습니다! 이대로 웹 사이트에 게시하면 Yacht Dice를 즐길 수 있습니다!   
+  
+하지만, 이 글의 목적은 Markdown 환경에서 인터렉티브 요소로써 이를 게시 하는것이기 때문에, 추가 과정을 거쳐야 합니다!
+	
+## 2. 인터렉티브 콘텐츠를 수정하기
+위에서 서술 했듯, 이 요소들을 그대로 Markdown에 넣는 것이 아닌, JavaScript를 이용해 DOM 요소를 조작, 이후에 해당 콘텐츠를 생산해야 합니다. 이를 위한 수정을 해봅시다.
+	
+## 2.1. 너저분한 함수들을 Class화
+여기저기 나뉘어진 함수를 한 Class로 묶어놓습니다. 어차피 한 게임에 관련된 내용이니 Class에 다 넣으면 보기 좋잖아요!
