@@ -68,7 +68,7 @@ last_modified_at: 2023-04-29
 이를 동작시켜줄 JavaScript도 적용시켜 줍니다.
 <details>
 <summary>HTML 코드 보기</summary>
-
+   
 ```
 {% raw %}<!DOCTYPE html>
 <html lang="ko">
