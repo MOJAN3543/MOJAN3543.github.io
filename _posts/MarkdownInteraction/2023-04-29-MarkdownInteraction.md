@@ -741,8 +741,10 @@ HTMLconstruct(){
 이렇게 마무리 지으면 PC 환경에서는 잘 작동 하지만, 모바일 환경에서는 블로그 너비가 늘어납니다.  
 
 ![Mobile](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/MarkdownInteraction/moblie.png?raw=true "Mobile") 
+{:.text-center}   
+<span style="font-size:50%">어우 신경쓰여</span> 
 {:.text-center} 
-
+   
 그래서, `.Yacht` 요소에 `.Game` 요소를 씌우고 다음과 같은 CSS를 적용 시킵니다.
 ```
 .Game{
