@@ -65,7 +65,7 @@ last_modified_at: 2023-04-29
 역시 CSS의 힘이네요.   
 
 ### 1.4. JavaScript 넣기
-이를 동작시켜줄 JavaScript도 적용시켜 줍니다.
+이를 동작시켜줄 JavaScript도 적용시켜 줍니다.  
 <details>
 <summary>HTML 코드 보기</summary>
 <div markdown="1">
@@ -433,7 +433,7 @@ last_modified_at: 2023-04-29
 위에서 서술 했듯, 이 요소들을 그대로 Markdown에 넣는 것이 아닌, JavaScript를 이용해 DOM 요소를 조작, 이후에 해당 콘텐츠를 생산해야 합니다. 이를 위한 수정을 해봅시다.
 	
 ### 2.1. 너저분한 함수들을 Class화
-여기저기 나뉘어진 함수를 한 Class로 묶어놓습니다. 어차피 한 게임에 관련된 내용이니 Class에 다 넣으면 보기 좋잖아요!
+여기저기 나뉘어진 함수를 한 Class로 묶어놓습니다. 어차피 한 게임에 관련된 내용이니 Class에 다 넣으면 보기 좋잖아요!  
 <details>
 <summary>JavaScript 코드 보기</summary>
 <div markdown="1">
@@ -609,9 +609,10 @@ class YachtDice{
 ```
 </div>
 </details>
-
+   
+이러면 훨씬 깔끔합니다! 그리고, Yacht Dice 게임을 만약 여러개 게시한다면, `new YachtDice()`로 추가적으로 게시 하면 됩니다.
 ### 2.2. DOM 생산을 위한 함수 작성
-DOM 요소 생산을 위해서, 함수 작성과 코드 수정을 해줍니다. 게시 환경이 어떻게 될지 모르니, HTML 파일 전체에서 검색했던 `querySelector`를 `div` 내부에서만 검색하도록 변경해줍니다. 그리고 Class에서 선언했던 함수들 중, `onclick`으로 불러지는 함수가 있다면, `onclick`에 this를 바인딩 해줍니다. 마치 이런식입니다
+DOM 요소 생산을 위해서, 함수 작성과 코드 수정을 해줍니다. 게시 환경이 어떻게 될지 모르니, HTML 파일 전체에서 검색했던 `querySelector`를 `div` 내부에서만 검색하도록 변경해줍니다. 그리고 Class에서 선언했던 함수들 중, `onclick`으로 불러지는 함수가 있다면, `onclick`에 this를 바인딩 해줍니다. 마치 이런식입니다  
 <details>
 <summary>JavaScript 코드 보기</summary>
 <div markdown="1">
@@ -702,6 +703,7 @@ HTMLconstruct(){
 ```
 </div>
 </details>
+  
 이렇게 함수를 적용시킨다면, JavaScript에 `let Game = new YachtDice('div.Yacht'); Game.HTMLconstruct();` 이것으로 Yacht Dice 게임을 생산해냅니다!
 
 ## 3. Markdown에 적용시키기
@@ -735,10 +737,19 @@ HTMLconstruct(){
 <style> ... </style>
 ```
 
+### 3.3. 모바일 환경 고려하기
+이렇게 마무리 지으면 PC 환경에서는 잘 작동 하지만, 모바일 환경에서는 블로그 너비가 늘어납니다.  
+![Mobile](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/MarkdownInteraction/moblie.png?raw=true "Mobile") 
+{:.text-center} 
+
+그래서, `.Yacht` 요소에 `overflow-x: auto` 를 적용 시킵니다.
+	
 ## 4. 끝!
 
-<div class='Yacht'></div>
-
+<div class='Game'>
+	<div class='Yacht'></div>
+</div>
+	
 다음과 같이 진행 했다면, 여기 결과물입니다! 재밌게 즐기세요~[^1]
 
 	
