@@ -2,6 +2,11 @@
 	font-family: 'Noto Sans KR', sans-serif;
 	
 }
+.Game{
+	overflow-x: auto;
+	-ms-overflow-style: none;
+	-webkit-scrollbar { display: none;}	
+}
 .Yacht{
     display: flex;
     border: 0.5rem solid;
