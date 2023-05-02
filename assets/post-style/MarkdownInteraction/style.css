@@ -3,10 +3,11 @@
 	
 }
 .Yacht{
-	display: flex;
+    display: flex;
     border: 0.5rem solid;
     justify-content: space-around;
     width: 50rem;
+    overflow-x: auto;
 }
 .Score {
 	display: grid;
