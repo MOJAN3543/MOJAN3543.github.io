@@ -432,5 +432,183 @@ last_modified_at: 2023-04-29
 ## 2. 인터렉티브 콘텐츠를 수정하기
 위에서 서술 했듯, 이 요소들을 그대로 Markdown에 넣는 것이 아닌, JavaScript를 이용해 DOM 요소를 조작, 이후에 해당 콘텐츠를 생산해야 합니다. 이를 위한 수정을 해봅시다.
 	
-## 2.1. 너저분한 함수들을 Class화
+### 2.1. 너저분한 함수들을 Class화
 여기저기 나뉘어진 함수를 한 Class로 묶어놓습니다. 어차피 한 게임에 관련된 내용이니 Class에 다 넣으면 보기 좋잖아요!
+<details>
+<summary>JavaScript 코드 보기</summary>
+<div markdown="1">
+```
+class YachtDice{
+	constructor(){
+		this.RerollCount = 0;
+		this.RoundCount = 0;
+	}
+	Reroll(){
+		let DiceList = document.querySelectorAll('div.Dice > div');
+		let RerollDiceCount = 0;
+		for(let index=0; index<5; index++)
+			RerollDiceCount += DiceList[index].classList.contains("Reroll") ? 1 : 0;
+		if(this.RerollCount != 3 && RerollDiceCount){
+			const DiceDict = {1: '⚀', 2:'⚁', 3:'⚂', 4:'⚃', 5:'⚄', 6:'⚅'};
+			let DiceResult = [];
+			for(let index=0; index<5; index++){
+				DiceResult.push(Math.floor((Math.random()*6+1)));
+			}
+			for(let index=0; index<5; index++){
+				if(DiceList[index].classList.contains("Reroll")){
+					DiceList[index].innerHTML = DiceDict[DiceResult[index]];
+					this.DiceRotate(index);
+				}
+			}
+			this.RerollUncheck();
+			this.UpdateScoreTable();
+			this.RerollCountUp();
+		}
+	}
+	DiceEval(){
+		const DiceDict = {'⚀':1, '⚁':2, '⚂':3, '⚃':4, '⚄':5, '⚅':6};
+		let DiceList = document.querySelectorAll('div.Dice > div');
+		let DiceResult = [0, 0, 0, 0, 0, 0];
+		let EvalList = [];
+		for(let index=0; index<5; index++)
+			DiceResult[DiceDict[DiceList[index].innerHTML]-1]++;
+		for(let index=0; index<6; index++) // Aces ~ Sixes
+			EvalList.push(DiceResult[index]*(index+1));
+		EvalList.push(EvalList.slice(0, 6).reduce(function add(sum, currValue){return sum+currValue;}, 0)); // Choice
+		EvalList.push(DiceResult.includes(4)||DiceResult.includes(5) ? EvalList[6] : 0); // 4 of a Kind
+		EvalList.push(DiceResult.includes(2)&&DiceResult.includes(3) ? EvalList[6] : 0); // Full House
+		let DiceBoolList = [];
+		for(let index=0; index<6; index++)
+			DiceBoolList.push(!!DiceResult[index] ? 1 : 0);
+		EvalList.push(JSON.stringify(DiceBoolList.slice(0, 4)) === "[1,1,1,1]"||JSON.stringify(DiceBoolList.slice(1, 5)) === "[1,1,1,1]"||JSON.stringify(DiceBoolList.slice(2, 6)) === "[1,1,1,1]" ? 15 : 0); // Small Straight;
+		EvalList.push(JSON.stringify(DiceResult) === "[0,1,1,1,1,1]" || JSON.stringify(DiceResult) === "[1,1,1,1,1,0]" ? 30 : 0); // Large Straight;
+		EvalList.push(DiceResult.includes(5) ? 50 : 0); // Yacht
+		return EvalList;
+	}
+	UpdateScoreTable(){
+		let ScoreList = document.querySelectorAll('div.ScoreElement');
+		let EvalList = this.DiceEval();
+		for(let index=0; index<12; index++)
+			if(!ScoreList[index].classList.contains('Fixed') && !ScoreList[index].classList.contains('Bonus'))
+				ScoreList[index].querySelector('button').innerHTML = EvalList[index];
+	}
+	UpdateTotal(){
+		let Sum = 0;
+		let AcetoSixCount = 0;
+		let ScoreList = document.querySelectorAll('div.ScoreElement');
+		let Bonus = document.querySelectorAll('div.Bonus > div');
+		for(let index=0; index<12; index++){
+			if(ScoreList[index].classList.contains('Fixed')){
+				Sum += Number(ScoreList[index].querySelector('button').innerHTML);
+				if(index <= 5)
+					AcetoSixCount++;
+			}
+			if(index == 5){
+				Bonus[0].innerHTML = Sum + ' / 63';
+				if(Sum>=63){
+					Bonus[1].innerHTML = "+ 35";
+					Sum += 35;
+				}
+				else if(AcetoSixCount == 6)
+					Bonus[1].innerHTML = "+ 0";
+			}
+			else if(index == 11)
+				ScoreList[12].querySelector('button').innerHTML = Sum;
+		}
+	}
+	RoundCountUp(){
+		let Counter = document.querySelectorAll('div.Round > div')[1];
+		this.RoundCount++;
+		if(this.RoundCount != 13)
+			Counter.innerHTML = '■'.repeat(this.RoundCount) + '□'.repeat(12-this.RoundCount);
+	}
+	RerollCountUp(){
+		let Counter = document.querySelector('div.Controller > div');
+		this.RerollCount++;
+		Counter.innerHTML = '● '.repeat(this.RerollCount) + '○ '.repeat(3-this.RerollCount);
+	}
+	RerollUncheck(){
+		let DiceList = document.querySelectorAll('div.Dice > div');
+		for(let index=0; index<5; index++){
+			if(DiceList[index].classList.contains('Reroll')){
+				DiceList[index].classList.remove('Reroll');
+				DiceList[index].animate({transform: 'translate(0, -10rem)'}, {duration: 500, easing: 'ease', fill: 'forwards'});
+			}
+		}
+	}
+	QuickReroll(){
+		let DiceList = document.querySelectorAll('div.Dice > div');
+		for(let index=0; index<5; index++){
+			DiceList[index].classList.add('Reroll');
+			DiceList[index].animate({transform: 'translate(0, 20rem)'}, {duration: 400, easing: 'ease', fill: 'forwards'});
+			DiceList[index].animate({transform: 'translate(0, 0)'}, {duration: 2400, easing: 'ease-out', fill: 'forwards'});
+		}
+	}
+	RerollToggle(index){
+		if(this.RerollCount != 3){
+			let DiceList = document.querySelectorAll('div.Dice > div');
+			if(DiceList[index].classList.contains('Reroll')){
+				DiceList[index].classList.remove('Reroll');
+				DiceList[index].animate({transform: 'translate(0, -10rem)'}, {duration: 500, easing: 'ease', fill: 'forwards'});
+			}
+			else{
+				DiceList[index].classList.add('Reroll');
+				DiceList[index].animate({transform: 'translate(0, 0)'}, {duration: 500, easing: 'ease', fill: 'forwards'});
+			}
+		}
+	}
+	ScoreCheck(index){
+		let ScoreList = document.querySelectorAll('div.ScoreElement');
+		if(!ScoreList[index].classList.contains('Fixed')){
+			ScoreList[index].classList.add('Fixed');
+			this.NewRound();
+		}
+	}
+	NewRound(){
+		this.RerollCount = 0;
+		this.UpdateTotal();
+		this.RoundCountUp();
+		if(this.RoundCount==13){
+			this.RerollCount = 3;
+			let Resetbutton = document.querySelector('div.Controller > button');
+			Resetbutton.innerHTML = "Game Over : Restart";
+			Resetbutton.onclick = Reset;
+		}
+		else{
+			this.QuickReroll();
+			this.Reroll();
+		}
+	}
+	Reset(){
+		this.RerollCount = 0;
+		this.RoundCount = 0;
+		let ScoreList = document.querySelectorAll('div.ScoreElement');
+		let Bonus = document.querySelectorAll('div.Bonus > div');
+		let Resetbutton = document.querySelector('div.Controller > button');
+		Resetbutton.innerHTML = "🎲";
+		Resetbutton.onclick = Reroll;
+		for(let index=0; index<12; index++){
+			if(ScoreList[index].classList.contains('Fixed'))
+				ScoreList[index].classList.remove('Fixed');
+			ScoreList[index].querySelector('button').innerHTML = '';
+		}
+		Bonus[0].innerHTML = '0 / 63';
+		Bonus[1].innerHTML = '';
+		ScoreList[12].querySelector('button').innerHTML = '';
+		this.NewRound();
+	}
+	DiceRotate(index){
+		let DiceList = document.querySelectorAll('div.Dice > div');
+		let TurnRandom = Math.round(Math.random());
+		if(TurnRandom)
+			DiceList[index].animate([{transform: 'rotate(0deg)'}, {transform: 'rotate(2160deg)'}], {duration: 1000, easing: 'linear', fill: 'both'});
+		else
+			DiceList[index].animate([{transform: 'rotate(0deg)'}, {transform: 'rotate(-2160deg)'}], {duration: 1000, easing: 'linear', fill: 'both'});
+	}
+}
+```
+</div>
+</details>
+### 2.2 DOM 생산을 위한 함수 작성
+DOM 요소 생산을 위해서, 함수 작성과 코드 수정을 해줍니다. 게시 환경이 어떻게 될지 모르니, HTML 파일 전체에서 검색했던 `querySelector`를 `div` 내부에서만 검색하도록 변경해줍니다.
+	
