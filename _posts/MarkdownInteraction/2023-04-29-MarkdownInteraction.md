@@ -609,6 +609,140 @@ class YachtDice{
 ```
 </div>
 </details>
-### 2.2 DOM 생산을 위한 함수 작성
-DOM 요소 생산을 위해서, 함수 작성과 코드 수정을 해줍니다. 게시 환경이 어떻게 될지 모르니, HTML 파일 전체에서 검색했던 `querySelector`를 `div` 내부에서만 검색하도록 변경해줍니다.
+
+### 2.2. DOM 생산을 위한 함수 작성
+DOM 요소 생산을 위해서, 함수 작성과 코드 수정을 해줍니다. 게시 환경이 어떻게 될지 모르니, HTML 파일 전체에서 검색했던 `querySelector`를 `div` 내부에서만 검색하도록 변경해줍니다. 그리고 Class에서 선언했던 함수들 중, `onclick`으로 불러지는 함수가 있다면, `onclick`에 this를 바인딩 해줍니다. 마치 이런식입니다
+<details>
+<summary>JavaScript 코드 보기</summary>
+<div markdown="1">
+
+```
+HTMLconstruct(){
+	let ScoreModel = document.createElement('div');
+	ScoreModel.className = 'Score';
+	let RoundModel = document.createElement('div');
+	RoundModel.className = 'Round';
+	let RoundDiv1Model = document.createElement('div');
+	RoundDiv1Model.innerHTML = 'Rounds';
+	RoundModel.appendChild(RoundDiv1Model);
+	let RoundDiv2Model = document.createElement('div');
+	RoundDiv2Model.innerHTML = '□□□□□□□□□□□□';
+	RoundModel.appendChild(RoundDiv2Model);
+	ScoreModel.appendChild(RoundModel);
+	const ScoreString = [['⚀', 'Aces'], ['⚁', 'Deuces'], ['⚂', 'Threes'], ['⚃', 'Fours'], ['⚄', 'Fives'], ['⚅', 'Sixes'], ['', 'Choice'], ['⚃⚃⚃⚃', '4 of a Kind'], ['⚁⚁⚂⚂⚂', 'Full House'], ['⚁⚂⚃⚄', 'Small Straight'], ['⚀⚁⚂⚃⚄', 'Large Straight'], ['⚅⚅⚅⚅⚅',' Yacht']];
+	for(let index=0; index<12; index++){
+		let ScoreElementModel = document.createElement('div');
+		ScoreElementModel.className = 'ScoreElement';
+		let DiceMarkModel = document.createElement('div');
+		DiceMarkModel.className = 'DiceMark';
+		DiceMarkModel.innerHTML = ScoreString[index][0];
+		ScoreElementModel.appendChild(DiceMarkModel);
+		ScoreElementModel.innerHTML += ScoreString[index][1];
+		let ButtonModel = document.createElement('button');
+		ButtonModel.innerHTML = 0;
+		ButtonModel.onclick = () => this.ScoreCheck(index);
+		ScoreElementModel.appendChild(ButtonModel);
+		ScoreModel.appendChild(ScoreElementModel);
+		if(index==5){
+			let Bonus1Model = document.createElement('div');
+			Bonus1Model.className = 'Bonus';
+			Bonus1Model.innerHTML = 'Subtotal';
+			let Bonus1divModel = document.createElement('div');
+			Bonus1divModel.innerHTML = '0 / 63';
+			Bonus1Model.appendChild(Bonus1divModel);
+			let Bonus2Model = document.createElement('div');
+			Bonus2Model.className = 'Bonus';
+			Bonus2Model.innerHTML = '+35 Bonus';
+			let Bonus2divModel = document.createElement('div');
+			Bonus2Model.appendChild(Bonus2divModel);
+			ScoreModel.appendChild(Bonus1Model);
+			ScoreModel.appendChild(Bonus2Model);
+		}
+	}
+	let TotalModel = document.createElement('div');
+	TotalModel.className = 'ScoreElement Total';
+	TotalModel.innerHTML = 'Total';
+	let TotalButtonModel = document.createElement('button');
+	TotalButtonModel.innerHTML = '0';
+	TotalModel.appendChild(TotalButtonModel);
+	ScoreModel.appendChild(TotalModel);
+	this.MainHTML.appendChild(ScoreModel);
+	let PlayModel = document.createElement('div');
+	PlayModel.className = 'Play';
+	let DiceModel = document.createElement('div');
+	DiceModel.className = 'Dice';
+	for(let index=0; index<5; index++){
+		let DicedivModel = document.createElement('div');
+		DicedivModel.innerHTML = '⚀';
+		DicedivModel.onclick = () => this.RerollToggle(index);
+		DiceModel.appendChild(DicedivModel);
+	}
+	PlayModel.appendChild(DiceModel);
+	let LineModel = document.createElement('div');
+	LineModel.className = 'Line';
+	let Linediv1Model = document.createElement('div');
+	Linediv1Model.innerHTML = 'Hold';
+	LineModel.appendChild(Linediv1Model);
+	let Linediv2Model = document.createElement('div');
+	Linediv2Model.innerHTML = 'Reroll';
+	LineModel.appendChild(Linediv2Model);
+	PlayModel.appendChild(LineModel);
+	let ControllerModel = document.createElement('div');
+	ControllerModel.className = 'Controller';
+	let RerollModel = document.createElement('button');
+	RerollModel.innerHTML = '🎲';
+	RerollModel.onclick = this.Reroll.bind(this);
+	ControllerModel.appendChild(RerollModel);
+	let ControllerdivModel = document.createElement('div');
+	ControllerdivModel.innerHTML = '○ ○ ○';
+	ControllerModel.appendChild(ControllerdivModel);
+	PlayModel.appendChild(ControllerModel);
+	this.MainHTML.appendChild(PlayModel);
+	}
+```
+</div>
+</details>
+이렇게 함수를 적용시킨다면, JavaScript에 `let Game = new YachtDice('div.Yacht'); Game.HTMLconstruct();` 이것으로 Yacht Dice 게임을 생산해냅니다!
+
+## 3. Markdown에 적용시키기
+이제 만든 게임을 Markdown에 적용 시키도록 합시다.
+
+### 3.1. 냅다 `<div>` 만들기
+원하는 위치에 그냥 `<div>`를 만들어 줍니다! 혹시 모르니 주변 글과는 한칸씩 띄어서 쓰도록 합시다.
+```
+<div class='Yacht'></div>
+```
+
+### 3.2. JavaScript & CSS 적용
+`<div>`에 들어갈 내용을 생산해줄 JavaScript와 CSS를 적용해야 합니다. 적용 방법은 대략 2가지가 있습니다.   
+  
+* `<script>`와 `<style>`을 통채로 입력해서 적용하기
+* 글 외부에 작성 후 불러오기
+  
+쉬운 방법은 전자의 방법이지만, 블로그 글이 깔끔하고, 유지보수 측면에서 유리한 후자의 방법을 적용하겠습니다.  
+   
+일단 다른곳에 위의 JavaScript와 CSS를 저장해줍니다. 저는 [**JavaScript**](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/assets/post-script/MarkdownInteraction/Yacht.js)와 [**CSS**](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/assets/post-style/MarkdownInteraction/style.css)를 독립된 폴더에 저장했습니다.  
+   
+그리고 위의 JavaScript와 CSS를 적용 시키기 위해, 글의 최하단에 다음과 같이 작성합니다.  
+```
+<script src="/assets/post-script/MarkdownInteraction/Yacht.js"></script>
+
+<link rel="stylesheet" href="/assets/post-style/MarkdownInteraction/style.css" type="text/css">
+```
+만약에 후자의 방법을 하지 않고, 전자의 방법을 사용 한다면, 글의 최하단에 다음과 같은 방식으로 작성하면 됩니다.  
+```
+<script> ... </script>
+<style> ... </style>
+```
+
+## 4. 끝!
+
+<div class='Yacht'><div>
+다음과 같이 진행 했다면, 여기 결과물입니다! 재밌게 즐기세요~[^1]
+
 	
+[^1]: 약간 TMI이긴 하지만,[ **Yacht Dice AI**](https://github.com/ho94949/yacht-dice)에 의하면, AI가 가장 최적의 플레이를 한다면 평균 191.77점을 낸다고 합니다. 이를 기준으로 도전해보세요!
+	
+<script src="/assets/post-script/MarkdownInteraction/Yacht.js"></script>
+
+<link rel="stylesheet" href="/assets/post-style/MarkdownInteraction/style.css" type="text/css">
