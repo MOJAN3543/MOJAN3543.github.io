@@ -742,7 +742,14 @@ HTMLconstruct(){
 ![Mobile](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/MarkdownInteraction/moblie.png?raw=true "Mobile") 
 {:.text-center} 
 
-그래서, `.Yacht` 요소에 `overflow-x: auto` 를 적용 시킵니다.
+그래서, `.Yacht` 요소에 `.Game` 요소를 씌우고 다음과 같은 CSS를 적용 시킵니다.
+```
+.Game{
+	overflow-x: auto;
+	-ms-overflow-style: none;
+	-webkit-scrollbar { display: none;}	
+}
+```
 	
 ## 4. 끝!
 
