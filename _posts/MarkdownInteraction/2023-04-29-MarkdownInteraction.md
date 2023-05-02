@@ -739,6 +739,7 @@ HTMLconstruct(){
 
 ### 3.3. 모바일 환경 고려하기
 이렇게 마무리 지으면 PC 환경에서는 잘 작동 하지만, 모바일 환경에서는 블로그 너비가 늘어납니다.  
+
 ![Mobile](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/MarkdownInteraction/moblie.png?raw=true "Mobile") 
 {:.text-center} 
 
