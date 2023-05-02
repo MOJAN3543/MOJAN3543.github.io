@@ -5,8 +5,6 @@ class YachtDice{
     this.MainHTML = document.querySelector(query);
   }
   HTMLconstruct(){
-    let GameModel = document.createElement('div');
-    GameModel.className = 'Game';
     let ScoreModel = document.createElement('div');
     ScoreModel.className = 'Score';
     let RoundModel = document.createElement('div');
@@ -55,7 +53,7 @@ class YachtDice{
     TotalButtonModel.innerHTML = '0';
     TotalModel.appendChild(TotalButtonModel);
     ScoreModel.appendChild(TotalModel);
-    GameModel.appendChild(ScoreModel);
+    this.MainHTML.appendChild(ScoreModel);
     let PlayModel = document.createElement('div');
     PlayModel.className = 'Play';
     let DiceModel = document.createElement('div');
@@ -86,8 +84,7 @@ class YachtDice{
     ControllerdivModel.innerHTML = '○ ○ ○';
     ControllerModel.appendChild(ControllerdivModel);
     PlayModel.appendChild(ControllerModel);
-    GameModel.appendChild(PlayModel);
-    this.MainHTML.appendChild(GameModel);
+    this.MainHTML.appendChild(PlayModel);
   }
   Reroll(){
     let DiceList = this.MainHTML.querySelectorAll('div.Dice > div');
@@ -253,7 +250,7 @@ class YachtDice{
   }
 }
 window.onload = function(){
-  let Yacht = new YachtDice('div.Game');
+  let Yacht = new YachtDice('div.Yacht');
   Yacht.HTMLconstruct();
   Yacht.NewRound();
 }
