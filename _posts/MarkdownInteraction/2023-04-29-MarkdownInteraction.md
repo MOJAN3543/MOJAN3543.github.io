@@ -68,7 +68,8 @@ last_modified_at: 2023-04-29
 이를 동작시켜줄 JavaScript도 적용시켜 줍니다.
 <details>
 <summary>HTML 코드 보기</summary>
-   
+<div markdown="1">
+
 ```
 {% raw %}<!DOCTYPE html>
 <html lang="ko">
@@ -89,9 +90,12 @@ last_modified_at: 2023-04-29
 					for(let index=0; index<5; index++){
 						DiceResult.push(Math.floor((Math.random()*6+1)));
 					}
-					for(let index=0; index<5; index++)
-						if(DiceList[index].classList.contains("Reroll"))
+					for(let index=0; index<5; index++){
+						if(DiceList[index].classList.contains("Reroll")){
 							DiceList[index].innerHTML = DiceDict[DiceResult[index]];
+							DiceRotate(index);
+						}
+					}
 					RerollUncheck();
 					UpdateScoreTable();
 					RerollCountUp();
@@ -137,8 +141,10 @@ last_modified_at: 2023-04-29
 					}
 					if(index == 5){
 						Bonus[0].innerHTML = Sum + ' / 63';
-						if(Sum>=63)
+						if(Sum>=63){
 							Bonus[1].innerHTML = "+ 35";
+							Sum += 35;
+						}
 						else if(AcetoSixCount == 6)
 							Bonus[1].innerHTML = "+ 0";
 					}
@@ -196,6 +202,7 @@ last_modified_at: 2023-04-29
 			}
 			function NewRound(){
 				RerollCount = 0;
+				UpdateTotal();
 				RoundCountUp();
 				if(RoundCount==13){
 					RerollCount = 3;
@@ -206,7 +213,6 @@ last_modified_at: 2023-04-29
 				else{
 					QuickReroll();
 					Reroll();
-					UpdateTotal();
 				}
 			}
 			function Reset(){
@@ -226,6 +232,14 @@ last_modified_at: 2023-04-29
 				Bonus[1].innerHTML = '';
 				ScoreList[12].querySelector('button').innerHTML = '';
 				NewRound();
+			}
+			function DiceRotate(index){
+				let DiceList = document.querySelectorAll('div.Dice > div');
+				let TurnRandom = Math.round(Math.random());
+				if(TurnRandom)
+					DiceList[index].animate([{transform: 'rotate(0deg)'}, {transform: 'rotate(2160deg)'}], {duration: 1000, easing: 'linear', fill: 'both'});
+				else
+					DiceList[index].animate([{transform: 'rotate(0deg)'}, {transform: 'rotate(-2160deg)'}], {duration: 1000, easing: 'linear', fill: 'both'});
 			}
 			let RerollCount = 0;
 			let RoundCount = 0;
@@ -408,6 +422,7 @@ last_modified_at: 2023-04-29
 	</body>
 </html>{% endraw %}
 ```
+</div>
 </details>
 
 대충 이렇게 구현이 완료되었습니다! 이대로 웹 사이트에 게시하면 Yacht Dice를 즐길 수 있습니다!   
