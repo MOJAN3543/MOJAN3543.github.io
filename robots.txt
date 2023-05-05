@@ -1,0 +1,4 @@
+ser-agent: *
+Allow: /
+
+Sitemap: https://mojan3543.github.io/sitemap.xml
