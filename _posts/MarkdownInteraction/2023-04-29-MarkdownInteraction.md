@@ -763,7 +763,7 @@ HTMLconstruct(){
 다음과 같이 진행 했다면, 여기 결과물입니다! 재밌게 즐기세요~[^1]
 
 	
-[^1]: 약간 TMI이긴 하지만,[ **Yacht Dice AI**](https://github.com/ho94949/yacht-dice)에 의하면, AI가 가장 최적의 플레이를 한다면 평균 191.77점을 낸다고 합니다. 이를 기준으로 도전해보세요!
+[^1]: 약간 TMI이긴 하지만, [**Yacht Dice AI**](https://github.com/ho94949/yacht-dice)에 의하면, AI가 가장 최적의 플레이를 한다면 평균 191.77점을 낸다고 합니다. 이를 기준으로 도전해보세요!
 	
 <script src="/assets/post-script/MarkdownInteraction/Yacht.js"></script>
 
