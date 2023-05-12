@@ -5,7 +5,7 @@ toc_sticky: true
 categories:
   - 토이 프로젝트
 tags:
-  - [인코딩, 디코딩, 한글]
+  - [한글, 인코딩, 디코딩]
 last_modified_at: 2023-04-05
 ---
 ![이진수](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/EncodeByKorean/EnKORdeTitle.png?raw=true "이진수")
