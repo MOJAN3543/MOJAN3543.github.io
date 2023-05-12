@@ -5,7 +5,7 @@ toc_sticky: true
 categories:
   - 설명
 tags:
-  - [Python, KS X 1001, 브루트 포스]
+  - [Python, 완성형 한글, 브루트 포스]
 last_modified_at: 2023-02-11
 ---
 
