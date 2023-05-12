@@ -2,6 +2,10 @@
 title: "긱블 말랑이체. 출력 불가능한 글자는?"
 toc: true
 toc_sticky: true
+categories:
+  - 설명
+tags:
+  - [Python, KS X 1001, 브루트 포스]
 last_modified_at: 2023-02-11
 ---
 
