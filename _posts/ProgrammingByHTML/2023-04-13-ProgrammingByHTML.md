@@ -3,7 +3,7 @@ title: 저는 HTML로 프로그래밍 해요
 toc: true
 toc_sticky: true
 categories:
-  - 
+  - 설명
 tags:
   - [HTML, 튜링 완전성, 오토마타]
 last_modified_at: 2023-04-13
