@@ -459,6 +459,44 @@
   }
 }
 
+/* About Tags */
+
+.page__taxonomy {
+    font-size: 0.9rem;
+}
+
+.page__taxonomy > span {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.page__taxonomy-item-category {
+    color: #ffffff;
+    background-color: #5480fb;
+    border-radius: 5%;
+    text-decoration-line: none;
+    padding: 0 0.3rem 0 0.3rem;
+    white-space: nowrap;
+}
+
+.page__taxonomy-item-tag {
+    color: #ffffff;
+    background-color: #5480fb;
+    border-radius: 5%;
+    text-decoration-line: none;
+    padding: 0 0.3rem 0 0.3rem;
+    white-space: nowrap;
+}
+
+.page__taxonomy-item-category:before {
+    content: "# ";
+}
+
+.page__taxonomy-item-tag:before {
+    content: "+ ";
+}
+
 /*
    Wide Pages
    ========================================================================== */
