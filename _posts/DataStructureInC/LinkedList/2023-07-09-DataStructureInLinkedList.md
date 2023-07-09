@@ -16,5 +16,57 @@ last_modified_at: 2023-04-05
 
 ## 1. 연결 리스트
 우선, 모든 자료형을 구현하기 위한 기초인 연결 리스트입니다. 연결 리스트는 노드 단위로 구성되어, 한 노드가 다른 노드를 가르켜 줄줄이 이어지는 구조를 띄고 있습니다.  
+  
+![LinkedList](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/LinkedList.png?raw=true "LinkedList")
+  
+연결 리스트는 대체로 2가지 요소로 만들어집니다. 저장할 **데이터**와 다음 노드를 가리키는 **포인터**입니다.  
 
-연결 리스트는 대체로 2가지 요소로 만들어집니다. 저장할 **데이터**와 다음 노드를 가리키는 **포인터**입니다. 
+그러므로 C에서의 구현은 자기 참조 구조체로 노드를 구현하고, 그 뒤 관련 연산 함수를 구현합니다.  
+
+**Source Code**
+```c
+{% raw %}#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct _NODE{
+	int data;
+	struct _NODE* next; 
+} NODE;
+
+void init(NODE* head){
+    head = NULL;
+}
+
+void insertFirst(NODE* head, int data){
+    NODE* newNode = (NODE *)malloc(sizeof(NODE));
+    newNode->data = data;
+    newNode->next = head;
+    head = newNode;
+}
+
+// void insertMiddle(NODE* head, int index, int data){
+//     if(index)
+//         insert(head->next, index-1, data);
+//     else{
+        
+//     }
+// }
+
+// void insertLast(NODE* head, int data){
+    
+// }
+
+void TraverseNode(NODE* head){
+    for(NODE* ptr = head; ptr->next; ptr=ptr->next)
+        printf("%d ->", ptr->data);
+}
+
+int main(){
+    NODE* linkedList;
+    init(linkedList);
+    insertFirst(linkedList, 4);
+    insertFirst(linkedList, 1);
+    insertFirst(linkedList, 3);
+    TraverseNode(linkedList);
+}{% endraw %}
+``` 
