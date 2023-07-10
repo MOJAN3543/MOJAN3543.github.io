@@ -36,40 +36,56 @@ typedef struct _NODE{
 	struct _NODE* next; 
 } NODE;
 
-void init(NODE* head){
-    head = NULL;
+NODE* newLinkedList(){
+    NODE* newNode = (NODE *)malloc(sizeof(NODE));
+    newNode->next = NULL;
+    return newNode;
 }
 
 void insertFirst(NODE* head, int data){
     NODE* newNode = (NODE *)malloc(sizeof(NODE));
     newNode->data = data;
-    newNode->next = head;
-    head = newNode;
+    newNode->next = head->next;
+    head->next = newNode;
 }
 
-// void insertMiddle(NODE* head, int index, int data){
-//     if(index)
-//         insert(head->next, index-1, data);
-//     else{
-        
-//     }
-// }
+void insertMiddle(NODE* head, int index, int data){
+    NODE* newNode = (NODE *)malloc(sizeof(NODE));
+    newNode->data = data;
+    NODE* ptr = head;
+    for(int i=0; i<index; i++)
+        ptr = ptr->next;
+    newNode->next = ptr->next;
+    ptr->next = newNode;
+}
 
-// void insertLast(NODE* head, int data){
-    
-// }
+void insertLast(NODE* head, int data){
+    NODE* newNode = (NODE *)malloc(sizeof(NODE));
+    newNode->data = data;
+    newNode->next = NULL;
+    for(NODE* ptr = head;; ptr=ptr->next){
+        if(!(ptr->next)){
+            ptr->next = newNode;
+            break;
+        }
+    }
+}
 
 void TraverseNode(NODE* head){
-    for(NODE* ptr = head; ptr->next; ptr=ptr->next)
-        printf("%d ->", ptr->data);
+    for(NODE* ptr = head->next; ptr; ptr=ptr->next)
+        printf("%d -> ", ptr->data);
 }
 
 int main(){
     NODE* linkedList;
-    init(linkedList);
-    insertFirst(linkedList, 4);
-    insertFirst(linkedList, 1);
-    insertFirst(linkedList, 3);
+    linkedList = newLinkedList();
+    // insertFirst(linkedList, 4);
+    // insertFirst(linkedList, 1);
+    // insertFirst(linkedList, 3);
+    insertLast(linkedList, 3);
+    insertLast(linkedList, 1);
+    insertLast(linkedList, 4);
+    insertMiddle(linkedList, 1, 2);
     TraverseNode(linkedList);
 }{% endraw %}
 ``` 
