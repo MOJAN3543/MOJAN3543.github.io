@@ -63,7 +63,7 @@ void insertLast(NODE* head, int data){
     NODE* newNode = (NODE *)malloc(sizeof(NODE));
     newNode->data = data;
     newNode->next = NULL;
-    for(NODE* ptr = head;; ptr=ptr->next){
+    for(NODE* ptr=head; ; ptr=ptr->next){
         if(!(ptr->next)){
             ptr->next = newNode;
             break;
@@ -71,21 +71,60 @@ void insertLast(NODE* head, int data){
     }
 }
 
-void TraverseNode(NODE* head){
+void deleteFirst(NODE* head){
+    NODE* ptr = head->next;
+    head->next = ptr->next;
+    free(ptr);
+}
+
+void deleteMiddle(NODE* head, int index){
+    NODE* ptr = head;
+    for(int i=0; i<index; i++)
+        ptr = ptr->next;
+    NODE* removeNode = ptr->next;
+    ptr->next = removeNode->next;
+    free(removeNode);
+}
+
+void deleteLast(NODE* head){
+    for(NODE* ptr=head; ; ptr=ptr->next){
+        if(!((ptr->next)->next)){
+            free((ptr->next)->next);
+            ptr->next = NULL;
+            break;
+        }
+    }
+}
+
+void traverseNode(NODE* head){
     for(NODE* ptr = head->next; ptr; ptr=ptr->next)
         printf("%d -> ", ptr->data);
+    puts("");
 }
 
 int main(){
     NODE* linkedList;
     linkedList = newLinkedList();
-    // insertFirst(linkedList, 4);
-    // insertFirst(linkedList, 1);
-    // insertFirst(linkedList, 3);
-    insertLast(linkedList, 3);
-    insertLast(linkedList, 1);
-    insertLast(linkedList, 4);
-    insertMiddle(linkedList, 1, 2);
-    TraverseNode(linkedList);
+    
+    insertFirst(linkedList, 4);
+    insertFirst(linkedList, 2);
+    insertMiddle(linkedList, 1, 3);
+    insertLast(linkedList, 5);
+    insertFirst(linkedList, 1);
+    
+    traverseNode(linkedList);
+    
+    deleteFirst(linkedList);
+    deleteMiddle(linkedList, 2);
+    deleteLast(linkedList);
+    
+    traverseNode(linkedList);
 }{% endraw %}
-``` 
+```
+구현한 연결 리스트의 연산은 가장 앞과 뒤, 그리고 원하는 위치에 값을 삽입하는 `insert`와 값을 삭제하는 `delete`, 그리고 노드를 순회하는 `traverseNode`를 구현했습니다[^1].
+
+
+
+
+
+[^1]: 추상 자료형의 연산을 구현하는 중, 에러를 핸들링 하는 코드를 작성하기도 하지만, 이 포스트에서는 동작을 위한 코드만 작성하여 최소화 했다고 알립니다.
