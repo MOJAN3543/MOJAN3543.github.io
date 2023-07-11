@@ -301,7 +301,7 @@ CSS에는 `+`라는 선택자가 있습니다. 이는 어떤 요소를 이전에
 ```
 ![Waluigi](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/Waluigi.png?raw=true "Waluigi")
 {: .text-center}  
-이런식으로 `+` 선택자 뒤 또 다른 `+` 선택자를 이용해 다른 조건을 추가 할 수 있습니다. 즉, 바로 다음에 있는 요소가 아닌 더 에 있는 요소도 지정 할 수 있습니다.
+이런식으로 `+` 선택자 뒤 또 다른 `+` 선택자를 이용해 다른 조건을 추가 할 수 있습니다. 즉, 바로 다음에 있는 요소가 아닌 더 뒤에 있는 요소도 지정 할 수 있습니다.
 
 ### 4.2. input:checked
 이를 다른 방식으로 응용해보겠습니다. 바로 `input`과의 응용입니다.   
