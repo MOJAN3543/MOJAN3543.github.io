@@ -146,7 +146,120 @@ int main(){
 그러므로 변형된 원형 연결 리스트라고도 불리는 방식을 활용합니다. 이는 헤드가 가장 뒤 노드를 가르키는 방식이며, 시간 복잡도 $O(1)$로 가장 앞 노드[^2]와 가장 뒤 노드를 구할 수 있습니다. 이 포스트에서는 변형된 원형 연결 리스트를 구현하겠습니다.
 
 **Source Code**
+```c
+{% raw %}#include <stdio.h>
+#include <stdlib.h>
 
+typedef struct _NODE{
+	int data;
+	struct _NODE* next; 
+} NODE;
+
+NODE* newLinkedList(){
+    NODE* newNode = (NODE *)malloc(sizeof(NODE));
+    newNode->next = NULL;
+    return newNode;
+}
+
+void insertFirst(NODE* head, int data){
+    NODE* newNode = (NODE *)malloc(sizeof(NODE));
+    newNode->data = data;
+    if(head->next == NULL){
+        head->next = newNode;
+        newNode->next = newNode;
+    }
+    else{
+        newNode->next = ((head->next)->next);
+        (head->next)->next = newNode;
+    }
+}
+
+void insertMiddle(NODE* head, int index, int data){
+    NODE* newNode = (NODE *)malloc(sizeof(NODE));
+    newNode->data = data;
+    if(head->next == NULL){
+        head->next = newNode;
+        newNode->next = newNode;
+        return;
+    }
+    NODE* ptr = head->next;
+    for(int i=0; i<index; i++)
+        ptr = ptr->next;
+    newNode->next = ptr->next;
+    ptr->next = newNode;
+}
+
+void insertLast(NODE* head, int data){
+    NODE* newNode = (NODE *)malloc(sizeof(NODE));
+    newNode->data = data;
+    if(head->next == NULL){
+        head->next = newNode;
+        newNode->next = newNode;
+    }
+    else{
+        newNode->next = ((head->next)->next);
+        (head->next)->next = newNode;
+        head->next = newNode;
+    }
+}
+
+void deleteFirst(NODE* head){
+    NODE* ptr = (head->next)->next;
+    (head->next)->next = ptr->next;
+    free(ptr);
+}
+
+void deleteMiddle(NODE* head, int index){
+    NODE* ptr = head->next;
+    for(int i=0; i<index; i++)
+        ptr = ptr->next;
+    NODE* removeNode = ptr->next;
+    if(removeNode == head->next)
+        head->next = ptr;
+    ptr->next = removeNode->next;
+    free(removeNode);
+}
+
+void deleteLast(NODE* head){
+    for(NODE* ptr=(head->next)->next; ; ptr=ptr->next){
+        if(ptr->next == head->next){
+            ptr->next = (head->next)->next;
+            free(head->next);
+            head->next = ptr;
+            break;
+        }
+    }
+}
+
+void traverseNode(NODE* head){
+    NODE *ptr = (head->next)->next;
+    do{
+        printf("%d -> ", ptr->data);
+        ptr = ptr->next;
+    }
+    while(ptr != (head->next)->next);
+    puts("");
+}
+
+int main(){
+    NODE* linkedList;
+    linkedList = newLinkedList();
+    
+    insertFirst(linkedList, 4);
+    insertFirst(linkedList, 2);
+    insertMiddle(linkedList, 1, 3);
+    insertLast(linkedList, 5);
+    insertFirst(linkedList, 1);
+    
+    traverseNode(linkedList);
+    
+    deleteFirst(linkedList);
+    deleteMiddle(linkedList, 2);
+    deleteLast(linkedList);
+    
+    traverseNode(linkedList);
+}{% endraw %}
+```
 
 
 [^1]: 추상 자료형의 연산을 구현하는 중, 에러를 핸들링 하는 코드를 작성하기도 하지만, 이 포스트에서는 동작을 위한 코드만 작성하여 최소화 했습니다.
