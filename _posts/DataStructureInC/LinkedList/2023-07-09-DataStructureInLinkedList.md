@@ -22,7 +22,9 @@ last_modified_at: 2023-04-05
 ![LinkedList](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/LinkedList.png?raw=true "LinkedList")
 {: .text-center}  
 
-연결 리스트는 대체로 2가지 요소로 만들어 집니다. 저장할 **데이터**와 다음 노드를 가리키는 **포인터**입니다.   
+연결 리스트의 노드는 대체로 2가지 요소로 만들어 집니다. 저장할 **데이터**와 다음 노드를 가리키는 **포인터**입니다.  
+  
+그리고 연결 리스트 자체를 가르키는 목적으로 사용되는 **헤드**가 있습니다. 헤드는 대부분 연결 리스트의 가장 첫번째 노드를 가르키고 있으며, 삽입, 삭제 연산에 따라 가르키는 노드가 달라지기도 합니다. 
 
 그리고 연결 리스트를 포인터의 개수, 가르키는 위치에 따라 총 3가지로 나눌 수 있습니다. **단순 연결 리스트**, **원형 연결 리스트**, **이중 연결 리스트**입니다.
 
@@ -133,8 +135,19 @@ int main(){
 
 원형 연결 리스트를 이용하여 **원형 큐**를 구현 합니다.  
 
+![CircularLinkedList](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/CircularLinkedList.png?raw=true "CircularLinkedList")
+{: .text-center}  
+
+원형 연결 리스트는 삽입, 삭제 연산을 위해서는 가장 앞 노드와 가장 뒤 노드가 필요합니다. 하지만, 가장 뒤 노드를 구하는 연산의 시간 복잡도는 $O(N)$이므로 시간적으로 비효율적입니다.  
+
+![CircularLinkedListInsertionAtTheEnd](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/CircularLinkedListInsertionAtTheEnd.png?raw=true "CircularLinkedListInsertionAtTheEnd")
+{: .text-center}  
+
+그러므로 변형된 원형 연결 리스트라고도 불리는 방식을 활용합니다. 이는 헤드가 가장 뒤 노드를 가르키는 방식이며, 시간 복잡도 $O(1)$로 가장 앞 노드[^2]와 가장 뒤 노드를 구할 수 있습니다. 이 포스트에서는 변형된 원형 연결 리스트를 구현하겠습니다.
+
 **Source Code**
 
 
 
 [^1]: 추상 자료형의 연산을 구현하는 중, 에러를 핸들링 하는 코드를 작성하기도 하지만, 이 포스트에서는 동작을 위한 코드만 작성하여 최소화 했습니다.
+[^2]: 원형으로 연결되어 있어, 가장 뒤 노드의 다음 노드는 가장 앞 노드가 되게 됩니다.
