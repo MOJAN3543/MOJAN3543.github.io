@@ -265,11 +265,122 @@ int main(){
 또한, 노드를 순회 할때도, 헤드가 가장 뒤 노드를 가르키기에, 가장 앞 노드를 `ptr`로 지정 하는것을 고려해야 합니다.  
 
 ### 1.3. 이중 연결 리스트
+![DoubleLinkedList](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/DoubleLinkedList.png?raw=true "DoubleLinkedList")
+{: .text-center}  
+
 노드의 포인터가 두개인 **이중 연결 리스트**입니다.  
 
-이중 연결 리스트를 이용하여 **덱**, **트리**를 구현합니다.  
+이중 연결 리스트를 이용하여 **덱**을 구현합니다.  
 
 **Source Code**
+```c
+{% raw %}#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct _NODE{
+	int data;
+	struct _NODE* next;
+    struct _NODE* prev;
+} NODE;
+
+NODE* newLinkedList(){
+    NODE* newNode = (NODE *)malloc(sizeof(NODE));
+    newNode->next = NULL;
+    return newNode;
+}
+
+void insertFirst(NODE* head, int data){
+    NODE* newNode = (NODE*)malloc(sizeof(NODE));
+    newNode->data = data;
+    newNode->next = head->next;
+    newNode->prev = head;
+    if(head->next)
+        (head->next)->prev = newNode;
+    head->next = newNode;
+}
+
+void insertMiddle(NODE* head, int index, int data){
+    NODE* newNode = (NODE*)malloc(sizeof(NODE));
+    newNode->data = data;
+    NODE* ptr = head;
+    for(int i=0; i<index; i++)
+        ptr = ptr->next;
+    newNode->next = ptr->next;
+    newNode->prev = ptr;
+    if(ptr->next)
+        (ptr->next)->prev = newNode;
+    ptr->next = newNode;
+}
+
+void insertLast(NODE* head, int data){
+    NODE* newNode = (NODE*)malloc(sizeof(NODE));
+    newNode->data = data;
+    newNode->next = NULL;
+    for(NODE* ptr=head; ; ptr=ptr->next){
+        if(ptr->next == NULL){
+            ptr->next = newNode;
+            newNode->prev = ptr;
+            break;
+        }
+    }
+}
+
+void deleteFirst(NODE* head){
+    NODE* ptr = head->next;
+    head->next = ptr->next;
+    if(ptr->next)
+        (ptr->next)->prev = head;
+    free(ptr);
+}
+
+void deleteMiddle(NODE* head, int index){
+    NODE* ptr = head;
+    for(int i=0; i<index; i++)
+        ptr = ptr->next;
+    NODE* removeNode = ptr->next;
+    ptr->next = removeNode->next;
+    if(removeNode->next)
+        (removeNode->next)->prev = ptr;
+    free(removeNode);
+}
+
+void deleteLast(NODE* head){
+    for(NODE* ptr = head->next; ; ptr=ptr->next){
+        if(ptr->next == NULL){
+            (ptr->prev)->next = NULL;
+            free(ptr);
+            break;
+        }
+    }
+}
+
+void traverseNode(NODE* head){
+    for(NODE* ptr=head->next; ptr; ptr=ptr->next)
+        printf("%d -> ", ptr->data);
+    puts("");
+}
+
+int main(){
+    NODE* linkedList;
+    linkedList = newLinkedList();
+    
+    insertFirst(linkedList, 4);
+    insertFirst(linkedList, 2);
+    insertMiddle(linkedList, 1, 3);
+    insertLast(linkedList, 5);
+    insertFirst(linkedList, 1);
+    
+    traverseNode(linkedList);
+    
+    deleteFirst(linkedList);
+    deleteMiddle(linkedList, 2);
+    deleteLast(linkedList);
+    
+    traverseNode(linkedList);
+}{% endraw %}
+```
+이중 연결 리스트는 다른 연결 리스트들과는 다르게, 두가지의 포인터를 가지고 있습니다. 그러므로 노드를 삽입, 삭제할때 이전 노드의 포인터도 변경 해야 합니다.
+
 
 [^1]: 추상 자료형의 연산을 구현하는 중, 에러를 핸들링 하는 코드를 작성하기도 하지만, 이 포스트에서는 동작을 위한 코드만 작성하여 최소화 했습니다.
 [^2]: 원형으로 연결되어 있어, 가장 뒤 노드의 다음 노드는 가장 앞 노드가 되게 됩니다.
