@@ -379,7 +379,13 @@ int main(){
     traverseNode(linkedList);
 }{% endraw %}
 ```
-이중 연결 리스트는 다른 연결 리스트들과는 다르게, 두가지의 포인터를 가지고 있습니다. 그러므로 노드를 삽입, 삭제할때 이전 노드의 포인터도 변경 해야 합니다.
+이중 연결 리스트는 다른 연결 리스트들과는 다르게, 두가지의 포인터를 가지고 있습니다. 그러므로 노드를 삽입, 삭제할때 이전 노드의 포인터도 변경 해야 합니다.  
+
+## 2. 스택
+![Stack](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/Stack.png?raw=true "Stack")
+{: .text_center}  
+**스택**(Stack)은 후입선출 구조로 되어있는 자료구조 입니다. 한쪽 끝에서만 자료의 삽입<sub>push</sub>과 삭제<sub>pop</sub>가 일어납니다.  
+
 
 
 [^1]: 추상 자료형의 연산을 구현하는 중, 에러를 핸들링 하는 코드를 작성하기도 하지만, 이 포스트에서는 동작을 위한 코드만 작성하여 최소화 했습니다.
