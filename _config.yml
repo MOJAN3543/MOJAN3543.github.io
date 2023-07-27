@@ -27,6 +27,7 @@ repository               : "https://github.com/MOJAN3543/MOJAN3543.github.io" # 
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : "images/wheel.png"# path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title           : "다람쥐 헌 쳇바퀴에 타고파" # overrides the website title displayed in the masthead, use " " for no title
+futrue                   : true
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 200
 comments:
