@@ -386,6 +386,152 @@ int main(){
 {: .text_center}  
 **스택**(Stack)은 후입선출 구조로 되어있는 자료구조 입니다. 한쪽 끝에서만 자료의 삽입<sub>push</sub>과 삭제<sub>pop</sub>가 일어납니다.  
 
+### 2.1. 스택의 구현
+```c
+{% raw %}#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct _NODE{
+	int data;
+	struct _NODE* next; 
+} NODE;
+
+typedef struct _STACK{
+	NODE* top;
+} Stack;
+
+Stack* newStack(){
+	Stack* _newStack = (Stack *)malloc(sizeof(Stack));
+	_newStack->top = NULL;
+	return _newStack;
+}
+
+void push(Stack* S, int data){
+	NODE* newNode = (NODE *)malloc(sizeof(NODE));
+	newNode->data = data;
+	newNode->next = S->top;
+	S->top = newNode;
+}
+
+int pop(Stack* S){
+	NODE* ptr = S->top;
+	int ret = ptr->data;
+	S->top = ptr->next;
+	free(ptr);
+	return ret;
+}
+
+void traverseStack(Stack* S){
+	for(NODE* ptr = S->top; ptr; ptr=ptr->next)
+        	printf("%d -> ", ptr->data);
+	puts("");
+}
+
+int main(){
+	Stack* S;
+	
+	S = newStack();
+    
+	push(S, 1);
+	push(S, 2);
+	push(S, 3);
+	push(S, 4);
+	push(S, 5);
+    
+	traverseStack(S);
+    
+	pop(S);
+	pop(S);
+	pop(S);
+    
+	traverseStack(S);
+}{% endraw %}
+```
+
+스택은 단순 연결 리스트를 이용하여 구현합니다. 스택은 한 곳에서만 자료의 입력, 출력이 발생하므로, 가장 위 노드 (가장 최근에 생성된 노드)를 가리키며 해당 노드를 이용하여 연산합니다.  
+
+
+
+### 2.2. 실습
+스택을 직접 활용하기 위해서 백준 [**10828번 스택**](https://www.acmicpc.net/problem/10828)을 직접 구현해보겠습니다.  
+  
+```c
+{% raw %}#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct _NODE{
+	int data;
+	struct _NODE* next; 
+} NODE;
+
+typedef struct _STACK{
+	NODE* top;
+} Stack;
+
+Stack* newStack(){
+	Stack* _newStack = (Stack *)malloc(sizeof(Stack));
+	_newStack->top = NULL;
+	return _newStack;
+}
+
+void push(Stack* S, int data){
+	NODE* newNode = (NODE *)malloc(sizeof(NODE));
+	newNode->data = data;
+	newNode->next = S->top;
+	S->top = newNode;
+}
+
+int pop(Stack* S){
+	NODE* ptr = S->top;
+	if(ptr == NULL)
+		return -1;
+	int ret = ptr->data;
+	S->top = ptr->next;
+	free(ptr);
+	return ret;
+}
+
+int sizeofStack(Stack* S){
+	int ret = 0;
+	for(NODE* ptr = S->top; ptr; ptr=ptr->next)
+		ret++;
+	return ret;
+}
+
+int main(){
+	Stack* S;
+	
+	S = newStack();
+    
+	int N;
+	scanf("%d", &N);
+	for(int i=0; i<N; i++){
+		char input[6];
+		scanf("%s", input);
+		switch(input[0]){
+			case 'p':
+				if(input[1] == 'u'){ // push
+					int X;
+					scanf("%d", &X);
+					push(S, X);
+				}
+				else // pop
+					printf("%d\n", pop(S));
+				break;
+			case 's': // size
+				printf("%d\n", sizeofStack(S));
+				break;
+			case 'e': // empty
+				printf("%d\n", !(S->top));
+				break;
+			case 't': // top
+				printf("%d\n", S->top?(S->top)->data:-1);
+				break;
+		}
+	}
+}{% endraw %}
+```
+스택이 비었는지는 판별하는 `isEmpty` 함수는 `!(S->top)`로 대체 할 수 있습니다. 그리고 스택의 길이를 판별하는 `sizeofStack` 함수는 기존에 작성했던 `traverseStack`함수를 재활용하여 작성했습니다. 또한 `pop` 함수에 에러 핸들링 코드를 추가하여 문제를 풀기위한 코드를 작성했고, [<span style="color:#009874;font-weight:bold">맞았습니다!!</span>](https://www.acmicpc.net/source/66725063)
 
 
 [^1]: 추상 자료형의 연산을 구현하는 중, 에러를 핸들링 하는 코드를 작성하기도 하지만, 이 포스트에서는 동작을 위한 코드만 작성하여 최소화 했습니다.
