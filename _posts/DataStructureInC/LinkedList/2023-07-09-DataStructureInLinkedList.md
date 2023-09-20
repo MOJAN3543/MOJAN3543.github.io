@@ -531,7 +531,14 @@ int main(){
 	}
 }{% endraw %}
 ```
-스택이 비었는지는 판별하는 `isEmpty` 함수는 `!(S->top)`로 대체 할 수 있습니다. 그리고 스택의 길이를 판별하는 `sizeofStack` 함수는 기존에 작성했던 `traverseStack`함수를 재활용하여 작성했습니다. 또한 `pop` 함수에 에러 핸들링 코드를 추가하여 문제를 풀기위한 코드를 작성했고, [<span style="color:#009874;font-weight:bold">맞았습니다!!</span>](https://www.acmicpc.net/source/66725063)
+스택이 비었는지는 판별하는 `isEmpty` 함수는 `!(S->top)`로 대체 할 수 있습니다. 그리고 스택의 길이를 판별하는 `sizeofStack` 함수는 기존에 작성했던 `traverseStack`함수를 재활용하여 작성했습니다. 또한 `pop` 함수에 에러 핸들링 코드를 추가하여 문제를 풀기위한 코드를 작성했고, [<span style="color:#009874;font-weight:bold">맞았습니다!!</span>](https://www.acmicpc.net/source/66725063)  
+
+## 3. 큐
+![Queue](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/Queue.png?raw=true "Queue")
+{: .text-center}  
+**큐**(Queue)는 선입선출 구조로 이루어진 자료구조입니다. 한쪽 끝<sub>rear</sub>에서는 삽입<sub>enequeue</sub>만 일어나고, 다른쪽 끝<sub>front</sub>에서는 삭제<sub>dequeue</sub>만 일어납니다.  
+
+### 3.1. 큐의 구현
 
 
 [^1]: 추상 자료형의 연산을 구현하는 중, 에러를 핸들링 하는 코드를 작성하기도 하지만, 이 포스트에서는 동작을 위한 코드만 작성하여 최소화 했습니다.
