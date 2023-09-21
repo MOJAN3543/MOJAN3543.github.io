@@ -541,7 +541,169 @@ int main(){
 **큐**(Queue)는 선입선출 구조로 이루어진 자료구조입니다. 한쪽 끝<sub>rear</sub>에서는 삽입<sub>enequeue</sub>만 일어나고, 다른쪽 끝<sub>front</sub>에서는 삭제<sub>dequeue</sub>만 일어납니다.  
 
 ### 3.1. 큐의 구현
+```c
+{% raw %}#include <stdio.h>
+#include <stdlib.h>
 
+typedef struct _NODE{
+	int data;
+	struct _NODE* prev; 
+} NODE;
+
+typedef struct _QUEUE{
+    NODE* rear;
+    NODE* front;
+} Queue;
+
+Queue* newQueue(){
+    Queue* Q = (Queue*)malloc(sizeof(Queue));
+    Q->rear = Q->front = NULL;
+    return Q;
+}
+
+void enqueue(Queue* Q, int data){
+    NODE* newNode = (NODE*)malloc(sizeof(NODE));
+    newNode->data = data;
+	newNode->prev = NULL;
+    if(Q->rear)
+        (Q->rear)->prev = newNode;
+    else 
+        Q->front = newNode;
+    Q->rear = newNode;
+}
+
+int dequeue(Queue* Q){
+    NODE* ptr = Q->front;
+    int ret = ptr->data;
+    Q->front = ptr->prev;
+    if(Q->front == NULL)
+        Q->rear = NULL;
+    free(ptr);
+    return ret;
+}
+
+void traverseQueue(Queue* Q){
+    for(NODE* ptr = Q->front; ptr; ptr=ptr->prev)
+        printf("%d -> ", ptr->data);
+    puts("");
+}
+
+int main(){
+    Queue* Q;
+    
+    Q = newQueue();
+    
+    enqueue(Q, 1);
+    enqueue(Q, 2);
+    enqueue(Q, 3);
+    enqueue(Q, 4);
+    enqueue(Q, 5);
+    
+    traverseQueue(Q);
+    
+    dequeue(Q);
+    dequeue(Q);
+    dequeue(Q);
+    
+    traverseQueue(Q);
+}{% endraw %}
+```
+큐는 단순 연결 리스트를 이용하여 구현합니다. 큐는 스택과 다르게 자료의 입 출력이 다른 방향에서 일어납니다. 그러므로 입력받는 방향인 `rear`와 출력하는 방향인 `front`를 이용하여 연산합니다.  
+
+![QueueLinkedList](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/QueueLinkedList.png?raw=true "QueueLinkedList")
+{: .text_center}  
+큐 또한 스택과 비슷하게 각 노드가 자신의 앞 노드를 가리킵니다. 이로써 `dequeue`연산을 할때 시간복잡도 $O(N)$으로 해결할 수 있습니다. 그리고 스택과는 다르게 노드를 가리키는 포인터를 2개 사용하여 연산합니다.  
+
+### 3.2. 실습
+백준 [**10845번 큐**](https://www.acmicpc.net/problem/10845)를 구현해보면서 실습해 보겠습니다.
+```c
+{% raw %}#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct _NODE{
+	int data;
+	struct _NODE* prev; 
+} NODE;
+
+typedef struct _QUEUE{
+    NODE* rear;
+    NODE* front;
+} Queue;
+
+Queue* newQueue(){
+    Queue* Q = (Queue*)malloc(sizeof(Queue));
+    Q->rear = Q->front = NULL;
+    return Q;
+}
+
+void enqueue(Queue* Q, int data){
+    NODE* newNode = (NODE*)malloc(sizeof(NODE));
+    newNode->data = data;
+    newNode->prev = NULL;
+    if(Q->rear)
+        (Q->rear)->prev = newNode;
+    else 
+        Q->front = newNode;
+    Q->rear = newNode;
+}
+
+int dequeue(Queue* Q){
+    NODE* ptr = Q->front;
+    if(ptr == NULL)
+        return -1;
+    int ret = ptr->data;
+    Q->front = ptr->prev;
+    if(Q->front == NULL)
+        Q->rear = NULL;
+    free(ptr);
+    return ret;
+}
+
+int sizeofQueue(Queue* Q){
+    int ret =0;
+    for(NODE* ptr = Q->front; ptr; ptr=ptr->prev)
+        ret++;
+    return ret;
+}
+
+int main(){
+    Queue* Q;
+    
+    Q = newQueue();
+    
+    int N;
+    scanf("%d", &N);
+    for(int i=0; i<N; i++){
+        char input[6];
+		scanf("%s", input);
+		switch(input[0]){
+			case 'p':
+				if(input[1] == 'u'){ // push
+					int X;
+					scanf("%d", &X);
+					enqueue(Q, X);
+				}
+				else // pop
+					printf("%d\n", dequeue(Q));
+				break;
+			case 's': // size
+				printf("%d\n", sizeofQueue(Q));
+				break;
+			case 'e': // empty
+				printf("%d\n", !(Q->front));
+				break;
+			case 'f': // front
+				printf("%d\n", Q->front?(Q->front)->data:-1);
+				break;
+			case 'b': // back
+			    printf("%d\n", Q->rear?(Q->rear)->data:-1);
+		}
+    }
+}{% endraw %}
+```
+**10828번 스택** 문제와 유사하게, `dequeue`의 에러 핸들링과, `traverseQueue`의 응용으로 `sizeofQueue` 함수를 제작하여 문제를 [<span style="color:#009874;font-weight:bold">맞았습니다!!</span>](https://www.acmicpc.net/source/66976006)  
+
+## 4. 원형 큐
 
 [^1]: 추상 자료형의 연산을 구현하는 중, 에러를 핸들링 하는 코드를 작성하기도 하지만, 이 포스트에서는 동작을 위한 코드만 작성하여 최소화 했습니다.
 [^2]: 원형으로 연결되어 있어, 가장 뒤 노드의 다음 노드는 가장 앞 노드가 되게 됩니다.
