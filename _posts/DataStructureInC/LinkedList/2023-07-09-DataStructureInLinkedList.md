@@ -704,6 +704,12 @@ int main(){
 **10828번 스택** 문제와 유사하게, `dequeue`의 에러 핸들링과, `traverseQueue`의 응용으로 `sizeofQueue` 함수를 제작하여 문제를 [<span style="color:#009874;font-weight:bold">맞았습니다!!</span>](https://www.acmicpc.net/source/66976006)  
 
 ## 4. 원형 큐
+![CircularQueue](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/CircularQueue.png?raw=true "CircularQueue")
+{: .text-center}  
+원형 큐는 큐와 마찬가지로 선입선출 구조를 가진 자료구조입니다. 하지만 큐와는 다르게 가장 앞 노드와 가장 뒤 노드가 이어져 있어 하나의 포인터로 삽입, 삭제 연산을 할 수 있습니다.  
+### 4.1. 원형 큐의 구현
+
+
 
 [^1]: 추상 자료형의 연산을 구현하는 중, 에러를 핸들링 하는 코드를 작성하기도 하지만, 이 포스트에서는 동작을 위한 코드만 작성하여 최소화 했습니다.
 [^2]: 원형으로 연결되어 있어, 가장 뒤 노드의 다음 노드는 가장 앞 노드가 되게 됩니다.
