@@ -537,7 +537,7 @@ int main(){
 
 ## 3. 큐
 ![Queue](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/Queue.png?raw=true "Queue")
-{: .text-center}  
+{: .text_center}  
 **큐**(Queue)는 선입선출 구조로 이루어진 자료구조입니다. 한쪽 끝<sub>rear</sub>에서는 삽입<sub>enequeue</sub>만 일어나고, 다른쪽 끝<sub>front</sub>에서는 삭제<sub>dequeue</sub>만 일어납니다.  
 
 ### 3.1. 큐의 구현
@@ -705,10 +705,169 @@ int main(){
 
 ## 4. 원형 큐
 ![CircularQueue](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/CircularQueue.png?raw=true "CircularQueue")
-{: .text-center}  
+{: .text_center}  
 원형 큐는 큐와 마찬가지로 선입선출 구조를 가진 자료구조입니다. 하지만 큐와는 다르게 가장 앞 노드와 가장 뒤 노드가 이어져 있어 하나의 포인터로 삽입, 삭제 연산을 할 수 있습니다.  
 ### 4.1. 원형 큐의 구현
+```c
+{% raw %}#include <stdio.h>
+#include <stdlib.h>
 
+typedef struct _NODE{
+	int data;
+	struct _NODE* prev; 
+} NODE;
+
+typedef struct _CQUEUE{
+    NODE* rear;
+} CQueue;
+
+CQueue* newCircularQueue(){
+    CQueue* CQ = (CQueue*)malloc(sizeof(CQueue));
+    CQ->rear = NULL;
+    return CQ;
+}
+
+void enqueue(CQueue* CQ, int data){
+    NODE* newNode = (NODE*)malloc(sizeof(NODE));
+    newNode->data = data;
+    if(CQ->rear){
+        newNode->prev = (CQ->rear)->prev;
+        (CQ->rear)->prev = newNode;
+    }
+    else
+        newNode->prev = newNode;
+    CQ->rear = newNode;
+}
+
+int dequeue(CQueue* CQ){
+    NODE* ptr = (CQ->rear)->prev;
+    int ret = ptr->data;
+    if(CQ->rear == ptr)
+        CQ->rear = NULL;
+    else
+        (CQ->rear)->prev = ptr->prev;
+    free(ptr);
+    return ret;
+}
+
+void traverseCircularQueue(CQueue* CQ){
+    NODE* rear = (CQ->rear);
+    for(NODE* ptr = (CQ->rear)->prev; ptr != rear; ptr=ptr->prev)
+        printf("%d -> ", ptr->data);
+    printf("%d -> ", rear->data);
+    puts("");
+}
+
+int main(){
+    CQueue* CQ;
+    
+    CQ = newCircularQueue();
+    
+    enqueue(CQ, 1);
+    enqueue(CQ, 2);
+    enqueue(CQ, 3);
+    enqueue(CQ, 4);
+    enqueue(CQ, 5);
+    
+    traverseCircularQueue(CQ);
+    
+    dequeue(CQ);
+    dequeue(CQ);
+    dequeue(CQ);
+    
+    traverseCircularQueue(CQ);
+}{% endraw %}
+```
+원형 큐는 원형 연결 리스트를 이용하여 구현합니다. 원형 연결 리스트의 특성상 제일 끝과 끝이 하나의 정점으로 이어져 있습니다. 그러므로 가장 앞 노드<sub>front</sub>을 포인터로 지정 할 필요 없이 `(CQ->rear)->prev`로 사용합니다.  
+
+![CircularQueueLinkedList](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/CircularQueueLinkedList.png?raw=true "CircularQueueLinkedList")
+{: .text_center}  
+원형 큐는 [**1.2. 원형 연결 리스트**](https://mojan3543.github.io/DataStructureInLinkedList/#12-%EC%9B%90%ED%98%95-%EC%97%B0%EA%B2%B0-%EB%A6%AC%EC%8A%A4%ED%8A%B8)에 설명한 변형 원형 연결 리스트와 원리가 같습니다. 그러므로 `front`와 `rear`에 접근하는 시간 복잡도가 $O(1)$이 됩니다. 또한 원형 큐를 순회할때는 먼저 마지막 노드인 `rear`를 저장하고, `rear`가 나오기 전까지 노드를 이동하여 순회합니다.  
+### 4.2. 실습
+백준 [**1158번 요세푸스 문제**](https://www.acmicpc.net/problem/1158)를 풀어보며 원형 큐를 실습해 보겠습니다.
+```c
+{% raw %}#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct _NODE{
+	int data;
+	struct _NODE* prev; 
+} NODE;
+
+typedef struct _CQUEUE{
+    NODE* rear;
+} CQueue;
+
+CQueue* newCircularQueue(){
+    CQueue* CQ = (CQueue*)malloc(sizeof(CQueue));
+    CQ->rear = NULL;
+    return CQ;
+}
+
+void enqueue(CQueue* CQ, int data){
+    NODE* newNode = (NODE*)malloc(sizeof(NODE));
+    newNode->data = data;
+    if(CQ->rear){
+        newNode->prev = (CQ->rear)->prev;
+        (CQ->rear)->prev = newNode;
+    }
+    else
+        newNode->prev = newNode;
+    CQ->rear = newNode;
+}
+
+int dequeue(CQueue* CQ){
+    NODE* ptr = (CQ->rear)->prev;
+    int ret = ptr->data;
+    if(CQ->rear == ptr)
+        CQ->rear = NULL;
+    else
+        (CQ->rear)->prev = ptr->prev;
+    free(ptr);
+    return ret;
+}
+
+void rotateRear(CQueue* CQ){
+    CQ->rear = (CQ->rear)->prev;
+}
+
+int isEmpty(CQueue* CQ){
+    return !(CQ->rear);
+}
+
+void traverseCircularQueue(CQueue* CQ){
+    NODE* rear = (CQ->rear);
+    for(NODE* ptr = (CQ->rear)->prev; ptr != rear; ptr=ptr->prev)
+        printf("%d -> ", ptr->data);
+    printf("%d -> ", rear->data);
+    puts("");
+}
+
+int main(){
+    CQueue* CQ;
+    CQueue* result;
+    
+    CQ = newCircularQueue();
+    result = newCircularQueue();
+    
+    int N, K;
+    scanf("%d %d", &N, &K);
+    for(int i=0; i<N; i++)
+        enqueue(CQ, i+1);
+    
+    while(!isEmpty(CQ)){
+        for(int i=0; i<K-1; i++)
+            rotateRear(CQ);
+        enqueue(result, dequeue(CQ));
+    }
+    
+    printf("<");
+    while(!isEmpty(result)){
+        printf("%d", dequeue(result));
+        printf("%s", isEmpty(result)?">":", ");
+    }
+}{% endraw %}
+```
 
 
 [^1]: 추상 자료형의 연산을 구현하는 중, 에러를 핸들링 하는 코드를 작성하기도 하지만, 이 포스트에서는 동작을 위한 코드만 작성하여 최소화 했습니다.
