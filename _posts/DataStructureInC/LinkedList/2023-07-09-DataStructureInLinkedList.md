@@ -835,14 +835,6 @@ int isEmpty(CQueue* CQ){
     return !(CQ->rear);
 }
 
-void traverseCircularQueue(CQueue* CQ){
-    NODE* rear = (CQ->rear);
-    for(NODE* ptr = (CQ->rear)->prev; ptr != rear; ptr=ptr->prev)
-        printf("%d -> ", ptr->data);
-    printf("%d -> ", rear->data);
-    puts("");
-}
-
 int main(){
     CQueue* CQ;
     CQueue* result;
@@ -868,6 +860,9 @@ int main(){
     }
 }{% endraw %}
 ```
+해당 문제는 원래 큐를 이용하여 구현하는 경우가 많지만, 원형 큐를 이용하여 구현했습니다. 큐로 구현하는 경우는 큐 하나에 대해 $N*K$번 삽입과 삭제 연산을 해야합니다. 하지만 원형 큐를 이용하여 삽입, 삭제를 하지 않고 비교적 가벼운 `rotateRear()` 함수를 이용하여 `rear` 포인터를 직접 옮겨 $N$번의 삭제 연산만으로 구현이 가능합니다.  
+
+## 5. 덱
 
 
 [^1]: 추상 자료형의 연산을 구현하는 중, 에러를 핸들링 하는 코드를 작성하기도 하지만, 이 포스트에서는 동작을 위한 코드만 작성하여 최소화 했습니다.
