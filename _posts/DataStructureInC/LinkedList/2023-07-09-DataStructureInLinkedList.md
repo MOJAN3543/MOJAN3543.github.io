@@ -24,9 +24,9 @@ last_modified_at: 2023-04-05
 
 연결 리스트의 노드는 대체로 2가지 요소로 만들어 집니다. 저장할 **데이터**와 다음 노드를 가리키는 **포인터**입니다.  
   
-그리고 연결 리스트 자체를 가르키는 목적으로 사용되는 **헤드**가 있습니다. 헤드는 대부분 연결 리스트의 가장 첫번째 노드를 가르키고 있으며, 삽입, 삭제 연산에 따라 가르키는 노드가 달라지기도 합니다. 
+그리고 연결 리스트 자체를 가리키는 목적으로 사용되는 **헤드**가 있습니다. 헤드는 대부분 연결 리스트의 가장 첫번째 노드를 가리키고 있으며, 삽입, 삭제 연산에 따라 가리키는 노드가 달라지기도 합니다. 
 
-그리고 연결 리스트를 포인터의 개수, 가르키는 위치에 따라 총 3가지로 나눌 수 있습니다. **단순 연결 리스트**, **원형 연결 리스트**, **이중 연결 리스트**입니다.
+그리고 연결 리스트를 포인터의 개수, 가리키는 위치에 따라 총 3가지로 나눌 수 있습니다. **단순 연결 리스트**, **원형 연결 리스트**, **이중 연결 리스트**입니다.
 
 ### 1.1. 단순 연결 리스트
 가장 단순한 **단순 연결 리스트**입니다. 선 처럼 연결 되어있다 하여 **선형 연결 리스트**라고도 합니다.
@@ -143,7 +143,7 @@ int main(){
 ![CircularLinkedListInsertionAtTheEnd](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/CircularLinkedListInsertionAtTheEnd.png?raw=true "CircularLinkedListInsertionAtTheEnd")
 {: .text-center}  
 
-그러므로 변형된 원형 연결 리스트라고도 불리는 방식을 활용합니다. 이는 헤드가 가장 뒤 노드를 가르키는 방식이며, 시간 복잡도 $O(1)$로 가장 앞 노드[^2]와 가장 뒤 노드를 구할 수 있습니다. 이 포스트에서는 변형된 원형 연결 리스트를 구현하겠습니다.
+그러므로 변형된 원형 연결 리스트라고도 불리는 방식을 활용합니다. 이는 헤드가 가장 뒤 노드를 가리키는 방식이며, 시간 복잡도 $O(1)$로 가장 앞 노드[^2]와 가장 뒤 노드를 구할 수 있습니다. 이 포스트에서는 변형된 원형 연결 리스트를 구현하겠습니다.
 
 **Source Code**
 ```c
@@ -260,9 +260,9 @@ int main(){
     traverseNode(linkedList);
 }{% endraw %}
 ```
-이전에 구현한 선형 연결 리스트와는 달리 데이터 삽입시 연결 리스트가 비어있는지 확인 후 비어있다면 자기 자신을 가르키는 노드를 삽입합니다.  
+이전에 구현한 선형 연결 리스트와는 달리 데이터 삽입시 연결 리스트가 비어있는지 확인 후 비어있다면 자기 자신을 가리키는 노드를 삽입합니다.  
 
-또한, 노드를 순회 할때도, 헤드가 가장 뒤 노드를 가르키기에, 가장 앞 노드를 `ptr`로 지정 하는것을 고려해야 합니다.  
+또한, 노드를 순회 할때도, 헤드가 가장 뒤 노드를 가리키기에, 가장 앞 노드를 `ptr`로 지정 하는것을 고려해야 합니다.  
 
 ### 1.3. 이중 연결 리스트
 ![DoubleLinkedList](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/DoubleLinkedList.png?raw=true "DoubleLinkedList")
@@ -452,7 +452,7 @@ int main(){
 ![StackLinkedList](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/StackLinkedList.png?raw=true "StackLinkedList")
 {:.text_center}  
 
-스택이 연결 리스트로 이어져 있는 모습은 다음과 같습니다. `top`쪽에 있을수록 더 최근에 생성된 노드이고, 각 노드는 자신의 앞 노드(자신보다 먼저 생성된 노드)를 가르켜 삽입, 삭제 연산을 $O(N)$으로 구현합니다[^3]. 
+스택이 연결 리스트로 이어져 있는 모습은 다음과 같습니다. `top`쪽에 있을수록 더 최근에 생성된 노드이고, 각 노드는 자신의 앞 노드(자신보다 먼저 생성된 노드)를 가리켜 삽입, 삭제 연산을 $O(N)$으로 구현합니다[^3]. 
 
 ### 2.2. 실습
 스택을 직접 활용하기 위해서 백준 [**10828번 스택**](https://www.acmicpc.net/problem/10828)을 직접 구현해보겠습니다.  
@@ -706,7 +706,7 @@ int main(){
 ## 4. 원형 큐
 ![CircularQueue](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/CircularQueue.png?raw=true "CircularQueue")
 {: .text_center}  
-원형 큐는 큐와 마찬가지로 선입선출 구조를 가진 자료구조입니다. 하지만 큐와는 다르게 가장 앞 노드와 가장 뒤 노드가 이어져 있어 하나의 포인터로 삽입, 삭제 연산을 할 수 있습니다.  
+**원형 큐**(Circular Queue)는 큐와 마찬가지로 선입선출 구조를 가진 자료구조입니다. 하지만 큐와는 다르게 가장 앞 노드와 가장 뒤 노드가 이어져 있어 하나의 포인터로 삽입, 삭제 연산을 할 수 있습니다.  
 ### 4.1. 원형 큐의 구현
 ```c
 {% raw %}#include <stdio.h>
@@ -865,8 +865,106 @@ int main(){
 하지만 원형 큐를 이용하여 삽입, 삭제를 하지 않고 비교적 가벼운 `rotateRear()` 함수를 이용하여 `rear` 포인터를 직접 옮겨 $N$번의 삭제 연산만으로 구현이 가능합니다.  
 
 ## 5. 덱
+![Deque](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/Deque.png?raw=true "Deque")
+{: .text_center}  
+**덱**(Deque)은 앞으로도, 뒤로도 자료의 삽입과 삭제가 이루어지는 자료구조입니다. Double-ended Queue 라고도 불립니다. 스택과 큐의 특성을 모두 가지고 있습니다.  
+### 5.1. 덱의 구현
+```c
+{% raw %}#include <stdio.h>
+#include <stdlib.h>
 
+typedef struct _NODE{
+	int data;
+	struct _NODE* next;
+	struct _NODE* prev; 
+} NODE;
 
+typedef struct _DEQUE{
+    NODE* rear;
+    NODE* front;
+} Deque;
+
+Deque* newDeque(){
+    Deque* DQ = (Deque*)malloc(sizeof(Deque));
+    DQ->rear = DQ->front = NULL;
+    return DQ;
+}
+
+void addRear(Deque* DQ, int data){
+    NODE* newNode = (NODE*)malloc(sizeof(NODE));
+    newNode->data = data;
+    newNode->next = DQ->rear;
+    newNode->prev = NULL;
+    if(DQ->rear)
+        (DQ->rear)->prev = newNode;
+    else
+        DQ->front = newNode;
+    DQ->rear = newNode;
+}
+void addFront(Deque* DQ, int data){
+    NODE* newNode = (NODE*)malloc(sizeof(NODE));
+    newNode->data = data;
+    newNode->prev = DQ->front;
+    newNode->next = NULL;
+    if(DQ->front)
+        (DQ->front)->next = newNode;
+    else
+        DQ->rear = newNode;
+    DQ->front = newNode;
+}
+
+int deleteRear(Deque* DQ){
+    NODE* ptr = DQ->rear;
+    int ret = ptr->data;
+    DQ->rear = ptr->next;
+    free(ptr);
+    if(DQ->rear)
+        (DQ->rear)->prev = NULL;
+    else
+        DQ->front = NULL;
+    return ret;
+}
+int deleteFront(Deque* DQ){
+    NODE* ptr = DQ->front;
+    int ret = ptr->data;
+    DQ->front = ptr->prev;
+    free(ptr);
+    if(DQ->front)
+        (DQ->front)->next  = NULL;
+    else
+        DQ->rear = NULL;
+    return ret;
+}
+
+void traverseDeque(Deque* DQ){
+    for(NODE* ptr = DQ->front; ptr; ptr= ptr->prev)
+        printf("%d -> ", ptr->data);
+    puts("");
+}
+
+int main(){
+    Deque* DQ;
+    
+    DQ = newDeque();
+    
+    addFront(DQ, 3);
+    addFront(DQ, 2);
+    addFront(DQ, 1);
+    addRear(DQ, 4);
+    addRear(DQ, 5);
+    
+    traverseDeque(DQ);
+    
+    deleteFront(DQ);
+    deleteFront(DQ);
+    deleteRear(DQ);
+    
+    traverseDeque(DQ);
+}{% endraw %}
+```
+![DequeLinkedList](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/DequeLinkedList.png?raw=true "DequeLinkedList")
+{: .text_center}  
+덱은 이중 연결 리스트를 이용하여 구현합니다. 큐와 같이 제일 앞을 가리키는 포인터와 제일 뒤를 가리키는 포인터를 이용하여 연산합니다.
 
 [^1]: 추상 자료형의 연산을 구현하는 중, 에러를 핸들링 하는 코드를 작성하기도 하지만, 이 포스트에서는 동작을 위한 코드만 작성하여 최소화 했습니다.
 [^2]: 원형으로 연결되어 있어, 가장 뒤 노드의 다음 노드는 가장 앞 노드가 되게 됩니다.
