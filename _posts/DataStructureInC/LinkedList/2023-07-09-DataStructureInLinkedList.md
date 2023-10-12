@@ -452,7 +452,7 @@ int main(){
 ![StackLinkedList](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/StackLinkedList.png?raw=true "StackLinkedList")
 {:.text_center}  
 
-스택이 연결 리스트로 이어져 있는 모습은 다음과 같습니다. `top`쪽에 있을수록 더 최근에 생성된 노드이고, 각 노드는 자신의 앞 노드(자신보다 먼저 생성된 노드)를 가리켜 삽입, 삭제 연산을 $O(N)$으로 구현합니다[^3]. 
+스택이 연결 리스트로 이어져 있는 모습은 다음과 같습니다. `top`쪽에 있을수록 더 최근에 생성된 노드이고, 각 노드는 자신의 앞 노드(자신보다 먼저 생성된 노드)를 가리켜 삽입, 삭제 연산을 $O(1)$으로 구현합니다[^3]. 
 
 ### 2.2. 실습
 스택을 직접 활용하기 위해서 백준 [**10828번 스택**](https://www.acmicpc.net/problem/10828)을 직접 구현해보겠습니다.  
@@ -612,7 +612,7 @@ int main(){
 
 ![QueueLinkedList](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/QueueLinkedList.png?raw=true "QueueLinkedList")
 {: .text_center}  
-큐 또한 스택과 비슷하게 각 노드가 자신의 앞 노드를 가리킵니다. 이로써 `dequeue`연산을 할때 시간복잡도 $O(N)$으로 해결할 수 있습니다. 그리고 스택과는 다르게 노드를 가리키는 포인터를 2개 사용하여 연산합니다.  
+큐 또한 스택과 비슷하게 각 노드가 자신의 앞 노드를 가리킵니다. 이로써 `dequeue`연산을 할때 시간복잡도 $O(1)$으로 해결할 수 있습니다. 그리고 스택과는 다르게 노드를 가리키는 포인터를 2개 사용하여 연산합니다.  
 
 ### 3.2. 실습
 백준 [**10845번 큐**](https://www.acmicpc.net/problem/10845)를 구현해보면서 실습해 보겠습니다.
@@ -962,10 +962,138 @@ int main(){
     traverseDeque(DQ);
 }{% endraw %}
 ```
+덱은 이중 연결 리스트를 이용하여 구현합니다. 큐와 같이 제일 앞을 가리키는 포인터와 제일 뒤를 가리키는 포인터를 이용하여 연산합니다.  
+
 ![DequeLinkedList](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/DequeLinkedList.png?raw=true "DequeLinkedList")
 {: .text_center}  
-덱은 이중 연결 리스트를 이용하여 구현합니다. 큐와 같이 제일 앞을 가리키는 포인터와 제일 뒤를 가리키는 포인터를 이용하여 연산합니다.
+덱은 큐와 유사하게 자료의 삽입과 삭제가 다른 방향에서 이루어지므로, 두개의 포인터가 필요합니다. 해당 포인터를 이용하여 삽입, 삭제 연산에 $O(1)$이 소요됩니다.
+### 5.2. 실습
+백준 [**10866번 덱**](https://www.acmicpc.net/problem/10866)을 풀어보며 덱을 실습해 보겠습니다.
+```c
+{% raw %}#include <stdio.h>
+#include <stdlib.h>
 
+typedef struct _NODE{
+	int data;
+	struct _NODE* next;
+	struct _NODE* prev; 
+} NODE;
+
+typedef struct _DEQUE{
+    NODE* rear;
+    NODE* front;
+} Deque;
+
+Deque* newDeque(){
+    Deque* DQ = (Deque*)malloc(sizeof(Deque));
+    DQ->rear = DQ->front = NULL;
+    return DQ;
+}
+
+void addRear(Deque* DQ, int data){
+    NODE* newNode = (NODE*)malloc(sizeof(NODE));
+    newNode->data = data;
+    newNode->next = DQ->rear;
+    newNode->prev = NULL;
+    if(DQ->rear)
+        (DQ->rear)->prev = newNode;
+    else
+        DQ->front = newNode;
+    DQ->rear = newNode;
+}
+void addFront(Deque* DQ, int data){
+    NODE* newNode = (NODE*)malloc(sizeof(NODE));
+    newNode->data = data;
+    newNode->prev = DQ->front;
+    newNode->next = NULL;
+    if(DQ->front)
+        (DQ->front)->next = newNode;
+    else
+        DQ->rear = newNode;
+    DQ->front = newNode;
+}
+
+int deleteRear(Deque* DQ){
+    NODE* ptr = DQ->rear;
+    if(!ptr)
+        return -1;
+    int ret = ptr->data;
+    DQ->rear = ptr->next;
+    free(ptr);
+    if(DQ->rear)
+        (DQ->rear)->prev = NULL;
+    else
+        DQ->front = NULL;
+    return ret;
+}
+int deleteFront(Deque* DQ){
+    NODE* ptr = DQ->front;
+    if(!ptr)
+        return -1;
+    int ret = ptr->data;
+    DQ->front = ptr->prev;
+    free(ptr);
+    if(DQ->front)
+        (DQ->front)->next  = NULL;
+    else
+        DQ->rear = NULL;
+    return ret;
+}
+
+int sizeofDeque(Deque* DQ){
+    int ret = 0;
+    for(NODE* ptr= DQ->front; ptr; ptr=ptr->prev)
+        ret++;
+    return ret;
+}
+
+int main(){
+    Deque* DQ;
+    
+    DQ = newDeque();
+    
+    int N;
+    scanf("%d", &N);
+    for(int i=0; i<N; i++){
+        char input[11];
+        int X;
+        scanf("%s", input);
+        switch(input[0]){
+            case 'p':
+                switch(input[5]){
+                    case 'f': // push_front
+                        scanf("%d", &X);
+                        addFront(DQ, X);
+                        break;
+                    case 'b': // push_back
+                        scanf("%d", &X);
+                        addRear(DQ, X);
+                        break;
+                    case 'r': // pop_front
+                        printf("%d\n", deleteFront(DQ));
+                        break;
+                    case 'a': // pop_back
+                        printf("%d\n", deleteRear(DQ));
+                        break;
+                }
+                break;
+            case 's': // size
+                printf("%d\n", sizeofDeque(DQ));
+                break;
+            case 'e': // empty
+                printf("%d\n", !(DQ->front));
+                break;
+            case 'f': // front
+                printf("%d\n", DQ->front?(DQ->front)->data:-1);
+                break;
+            case 'b': // back
+                printf("%d\n", DQ->rear?(DQ->rear)->data:-1);
+                break;
+        }
+    }
+}{% endraw %}
+```
+위의 자료구조 구현 문제와 같이, `deleteFront`, `deleteRear`의 에러 핸들링과 `sizeofDeque`의 구현으로 [<span style="color:#009874;font-weight:bold">맞았습니다!!</span>](https://www.acmicpc.net/source/51111777)  
 [^1]: 추상 자료형의 연산을 구현하는 중, 에러를 핸들링 하는 코드를 작성하기도 하지만, 이 포스트에서는 동작을 위한 코드만 작성하여 최소화 했습니다.
 [^2]: 원형으로 연결되어 있어, 가장 뒤 노드의 다음 노드는 가장 앞 노드가 되게 됩니다.
 [^3]: 만약 노드가 자신의 앞 노드<sub>prev</sub>가 아닌 뒤 노드<sub>next</sub>를 가리킨다면 삽입, 삭제 연산에 $O(N)$이 소요됩니다.
