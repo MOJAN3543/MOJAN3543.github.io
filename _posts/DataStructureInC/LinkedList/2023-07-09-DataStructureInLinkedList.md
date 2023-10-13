@@ -1093,7 +1093,9 @@ int main(){
     }
 }{% endraw %}
 ```
-위의 자료구조 구현 문제와 같이, `deleteFront`, `deleteRear`의 에러 핸들링과 `sizeofDeque`의 구현으로 [<span style="color:#009874;font-weight:bold">맞았습니다!!</span>](https://www.acmicpc.net/source/51111777)  
+위의 자료구조 구현 문제와 같이, `deleteFront`, `deleteRear`의 에러 핸들링과 `sizeofDeque`의 구현으로 [<span style="color:#009874;font-weight:bold">맞았습니다!!</span>](https://www.acmicpc.net/source/51111777)   
+
+
 [^1]: 추상 자료형의 연산을 구현하는 중, 에러를 핸들링 하는 코드를 작성하기도 하지만, 이 포스트에서는 동작을 위한 코드만 작성하여 최소화 했습니다.
 [^2]: 원형으로 연결되어 있어, 가장 뒤 노드의 다음 노드는 가장 앞 노드가 되게 됩니다.
 [^3]: 만약 노드가 자신의 앞 노드<sub>prev</sub>가 아닌 뒤 노드<sub>next</sub>를 가리킨다면 삽입, 삭제 연산에 $O(N)$이 소요됩니다.
