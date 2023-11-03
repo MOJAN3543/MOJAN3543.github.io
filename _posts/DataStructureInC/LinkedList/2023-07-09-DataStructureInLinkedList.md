@@ -1095,6 +1095,22 @@ int main(){
 ```
 위의 자료구조 구현 문제와 같이, `deleteFront`, `deleteRear`의 에러 핸들링과 `sizeofDeque`의 구현으로 [<span style="color:#009874;font-weight:bold">맞았습니다!!</span>](https://www.acmicpc.net/source/51111777)   
 
+## 6. 트리
+![Tree](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/Tree.png?raw=true "Tree") 
+{: .text-center}  
+**트리**(Tree)는 한 노드에서 출발하여 다른 정점들을 순회하여 자기 자신에게 돌아오는 순환이 없는 연결 그래프입니다.  
+
+트리는 한 노드가 얼마나 많은 노드를 가리킬수 있는지. 즉 차수(Degree)에 따라 **트리**와 **이진 트리**로 나뉘게 됩니다. 트리가 이진트리의 상위 개념입니다.  
+
+### 6.1. 이진 트리
+![BinaryTree](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/BinaryTree.png?raw=true "BinaryTree") 
+{: .text-center}  
+
+**이진트리**(Binary Tree)는 트리의 종류중 차수가 2인, 자식 노드의 수가 최대 2인 트리입니다.  
+#### 6.1.1. 이진 트리의 구현
+![BinaryTreeLinkedList](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/BinaryTreeLinkedList.png?raw=true "BinaryTreeLinkedList") 
+{: .text-center}  
+
 
 [^1]: 추상 자료형의 연산을 구현하는 중, 에러를 핸들링 하는 코드를 작성하기도 하지만, 이 포스트에서는 동작을 위한 코드만 작성하여 최소화 했습니다.
 [^2]: 원형으로 연결되어 있어, 가장 뒤 노드의 다음 노드는 가장 앞 노드가 되게 됩니다.
