@@ -7,10 +7,15 @@ categories:
 tags:
   - [군대, 사지방, 개발]
 last_modified_at: 2023-08-26
----
+---  
+![NewsImage](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/CyberCafe/NewsImage.jpg?raw=true "NewsImage") 
+{: .text-center}  
+
+<span style="font-size:50%">[서울 용산 국방부 내 근무지원단 생활관 사이버지식정보방에서 장병들이 컴퓨터를 하고 있다. [연합뉴스]](https://www.edaily.co.kr/news/read?newsId=01784326612587912&mediaCodeNo=257&OutLnkChk=Y)</span>  
+{: .text-center}  
 **사이버 지식 정보방**. 줄여서 사지방이라고 불리는 이곳은, 인터넷이나 컴퓨터 장비가 한정된 군대 내에서 병사들이 자유롭게 인터넷과 컴퓨터 사용을 허용하는 공간입니다.  
 
-(어쩌구저쩌구 대충 미사여구)
+이 게시글에서는 사지방에서 컴퓨터 관련 자기 개발 활동은 무엇이 있는지, 그리고 관련 사이트들을 알려드리겠습니다.
 
 ## 1. 사지방의 현 주소
 2023년 현재 군대는 휴대폰을 허용해줌으로써, 병사들의 인터넷 사용이 비교적 자유로워졌습니다. 이에 따라 유일했던 인터넷 창구인 사지방의 인기도 자연스럽게 식어갔습니다. 사지방의 요금 무료화에도 사용률은 점점 줄어 [**1/3까지 줄어들게 되었습니다**](https://www.news1.kr/articles/4810415).  
