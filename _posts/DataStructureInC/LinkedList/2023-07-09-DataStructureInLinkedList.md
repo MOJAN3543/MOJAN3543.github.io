@@ -1108,10 +1108,156 @@ int main(){
 
 **이진트리**(Binary Tree)는 트리의 종류중 차수가 2인, 자식 노드의 수가 최대 2인 트리입니다.  
 #### 6.1.1. 이진 트리의 구현
+``` c
+{% raw %}#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct _NODE{
+    int data;
+    struct _NODE* left;
+    struct _NODE* right;
+} NODE;
+typedef NODE Tree;
+
+NODE* newTree(int data){
+    NODE* T = (NODE*)malloc(sizeof(NODE));
+    T->data = data;
+    T->left = T->right = NULL;
+    return T;
+}
+
+void connectTree(Tree* root, Tree* leftChild, Tree* rightChild){
+    root->left = leftChild;
+    root->right= rightChild;
+}
+
+void preorder(Tree* root){
+    if(!root)
+        return;
+    printf("%d ", root->data);
+    preorder(root->left);
+    preorder(root->right);
+}
+
+void inorder(Tree* root){
+    if(!root)
+        return;
+    inorder(root->left);
+    printf("%d ", root->data);
+    inorder(root->right);
+}
+
+void postorder(Tree* root){
+    if(!root)
+        return;
+    postorder(root->left);
+    postorder(root->right);
+    printf("%d ", root->data);
+}
+
+int main(){
+    Tree* root;
+    Tree* T[12];
+    for(int i=0; i<12; i++)
+        T[i] = newTree((i+1)%10);
+    root = T[0];
+    
+    connectTree(T[0], T[1], T[2]);
+    connectTree(T[1], T[3], T[4]);
+    connectTree(T[2], T[5], T[6]);
+    connectTree(T[3], T[7], T[8]);
+    connectTree(T[5], T[9], NULL);
+    connectTree(T[6], T[10], T[11]);
+    
+    preorder(root);
+    puts("");
+    inorder(root);
+    puts("");
+    postorder(root);
+    
+}{% endraw %}
+```
+트리는 이중 연결 리스트를 구현합니다. 트리의 가장 위 노드인 루트(root)노드를 이용하여 트리를 순회합니다.
 ![BinaryTreeLinkedList](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/BinaryTreeLinkedList.png?raw=true "BinaryTreeLinkedList") 
 {: .text-center}  
+이전의 추상 자료형과는 달리, 트리는 규격화된 삽입, 삭제 연산이 없습니다.[^4]  
+  
+하지만 노드를 탐색하는 트리 순회는 3가지 종류가 있습니다. 왼쪽 노드로 순회를 **L**, 현재 노드를 출력하는것을 **V**, 오른쪽 노드로 순회하는것을 **R**이라고 할 때, **VLR**인 전위 순회(Preorder Traversal), **LVR**인 중위 순회(Inorder Traversal), **LRV**인 후위 순회(Postorder Traversal)로 구성되어있습니다. 이러한 순회들은 재귀 함수로 구현되어 간단하게 표현 가능합니다.
 
+#### 6.1.2. 실습
+백준 [**1991 트리 순회**](https://www.acmicpc.net/problem/1991)를 풀어보며 이진 트리를 실습해 봅시다.
+```c
+{% raw %}#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct _NODE{
+    char data;
+    struct _NODE* left;
+    struct _NODE* right;
+} NODE;
+typedef NODE Tree;
+
+NODE* newTree(char data){
+    NODE* T = (NODE*)malloc(sizeof(NODE));
+    T->data = data;
+    T->left = T->right = NULL;
+    return T;
+}
+
+void connectTree(Tree* root, Tree* leftChild, Tree* rightChild){
+    root->left = leftChild;
+    root->right= rightChild;
+}
+
+void preorder(Tree* root){
+    if(!root)
+        return;
+    printf("%c", root->data);
+    preorder(root->left);
+    preorder(root->right);
+}
+
+void inorder(Tree* root){
+    if(!root)
+        return;
+    inorder(root->left);
+    printf("%c", root->data);
+    inorder(root->right);
+}
+
+void postorder(Tree* root){
+    if(!root)
+        return;
+    postorder(root->left);
+    postorder(root->right);
+    printf("%c", root->data);
+}
+
+int main(){
+    Tree* root;
+    Tree* T[26];
+    for(int i=0; i<26; i++)
+        T[i] = newTree('A'+i);
+    root = T[0];
+    
+    int N;
+    scanf("%d", &N);
+    for(int i=0; i<N; i++){
+        char L, N, R;
+        scanf(" %c %c %c", &N, &L, &R);
+        connectTree(T[N-'A'], L!='.'?T[L-'A']:NULL, R!='.'?T[R-'A']:NULL);
+    }
+    
+    preorder(root);
+    puts("");
+    inorder(root);
+    puts("");
+    postorder(root);
+}{% endraw %}
+```
+우선 트리의 노드를 전부 만들어 둔 뒤, 나중에 입력을 통해 노드들을 각각 잇는것으로 구현했습니다. 또한 이미 구현한 순회들을 이용하여 출력을 하면 [<span style="color:#009874;font-weight:bold">맞았습니다!!</span>](https://www.acmicpc.net/source/68927871)  
 
 [^1]: 추상 자료형의 연산을 구현하는 중, 에러를 핸들링 하는 코드를 작성하기도 하지만, 이 포스트에서는 동작을 위한 코드만 작성하여 최소화 했습니다.
 [^2]: 원형으로 연결되어 있어, 가장 뒤 노드의 다음 노드는 가장 앞 노드가 되게 됩니다.
 [^3]: 만약 노드가 자신의 앞 노드<sub>prev</sub>가 아닌 뒤 노드<sub>next</sub>를 가리킨다면 삽입, 삭제 연산에 $O(N)$이 소요됩니다.
+[^4]: 트리 자체만 놓고 쓰는 경우가 거의 없어 자연스럽게 사용되는 삽입, 삭제 연산이 없는것 같습니다. 트리의 응용형인 힙이나 이진 탑색 트리에는 자체적인 삽입, 삭제 규격이 정해져 있습니다.
