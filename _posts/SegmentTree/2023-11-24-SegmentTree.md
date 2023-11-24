@@ -1,5 +1,5 @@
 ---
-title: "여러분 제가 백준 점수 버그를 발견했습니다 이 코드를 다른곳에 5번 옮기고"
+title: "여러분 제가 백준 점수 버그를 발견했습니다 이 코드를 다른곳에 5번 옮기고 제출을 누르면..."
 toc: true
 toc_sticky: true
 categories:
@@ -8,14 +8,91 @@ tags:
   - [백준, 세그먼트 트리]
 last_modified_at: 2023-11-24
 ---
-국내의 알고리즘 문제 풀이 서비스를 제공하는 웹 사이트인 [**백준 온라인 저지**](https://www.acmicpc.net/)가 있습니다(이하 백준이라고 서술).  
+![Click](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/SegmentTree/Click.png?raw=true "Click") 
+{: .text-center}  
+국내의 알고리즘 문제 풀이 서비스를 제공하는 웹 사이트인 [**백준 온라인 저지**](https://www.acmicpc.net/)가 있습니다.  
 
-그리고 그 백준에 있는 문제들의 난이도를 매기고, 그 난이도를 기반으로 유저들에게 티어를 부여해주는 웹 사이트 [**Solved.ac**](https://solved.ac)이 있습니다(이하 솔브드라고 서술).  
+그리고 그 백준 온라인 저지에 있는 문제들의 난이도를 매기고, 그 난이도를 기반으로 유저들에게 티어를 부여해주는 웹 사이트 [**Solved.ac**](https://solved.ac)이 있습니다.  
 
-많은 유저들이 솔브드의 티어를 올리고, 이 티어를 바탕으로 많이 이야기하곤 합니다. 그래서 유저들은 티어 레이팅을 많이 주는 문제를 풀고, 빨리 티어를 올리기를 원합니다.  
+많은 유저들이 Solved.ac의 티어를 올리고, 이 티어를 바탕으로 많이 이야기하곤 합니다. 그래서 유저들은 티어 레이팅을 많이 주는 문제를 풀고, 빨리 티어를 올리기를 원합니다.  
 
 이 게시글에서는 알고 있으면 빠르게 티어를 올리는 데에 유리한 알고리즘중 하나인 세그먼트 트리에 대해서 알아보겠습니다.
 
 ## 1. 세그먼트 트리란?
+![SegmentTree](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/SegmentTree/SegmentTree.png?raw=true "Segment Tree") 
+{: .text-center}  
 
-**세그먼트 트리(Segment Tree)**는 자료구조의 일종으로, 이름에서 알 수 있듯, 트리 형태의 자료 구조입니다. 
+**세그먼트 트리(Segment Tree)**는 자료구조의 일종으로, 이름에서 알 수 있듯, 트리 형태의 자료 구조입니다. 정확히는 완전 이진 트리로 구성된 자료구조중 하나입니다.  
+
+세그먼트 트리는 다음과 같은 특징을 가지고 있습니다.
+* 세그먼트 트리는 여러개의 데이터에 대한 정보를 트리에 저장하여 이용합니다.
+* 세그먼트 트리의 리프 노드에는 여러개의 데이터에 해당하는 값이 저장되어 있습니다.
+* 부모노드는 자식 노드 구간에 대한 데이터를 가지고 있습니다.
+* 특정 구간 내의 데이터에 대한 처리(구간 합, 구간 곱 등...)와 특정 데이터 변경을 $O(\log N)$의 시간 복잡도로 해결 가능합니다.
+
+위 그림은 데이터 `1, 2, 3, 4, 5, 6, 7, 8`에 대한 세그먼트 트리이고, 각 구간은 자식 노드의 합을 가지고 있습니다!  
+
+## 2. 구현
+세그먼트 트리는 **생성**, **계산**, **갱신**으로 이루어져 있습니다.  
+
+이하 예시들은 위 그림과 같은 합 세그먼트 트리를 바탕으로 구현했습니다.  
+
+### 2.1. 기초
+```c
+{% raw %}#include <stdio.h>
+#define MAX_ARRAY_SIZE 1000001
+#define MAX_TREE_SIZE MAX_ARRAY_SIZE * 4
+int segTree[MAX_TREE_SIZE] = {0, };
+int arr[MAX_ARRAY_SIZE] = {0, };
+{% endraw %}
+```
+우선 입력할 데이터와 세그먼트 트리에 사용되는 배열을 전역 변수로 선언합니다. 모든 계산은 함수로 구현될것이기 때문에 전역변수로 처리하는것이 속도, 공간, 코드 가독성상 이득입니다.  
+
+그리고, 배열의 최대값을 `MAX_ARRAY_SIZE`로 지정하고, 세그먼트 트리의 최대 사이즈를 `MAX_ARRAY_SIZE`의 4배로 지정합니다. 그 이유는 다음과 같습니다.  
+1. 리프 노드의 개수는 입력될 데이터 개수와 같습니다.
+2. 리프 노드가 $N$개인 완전 이진트리의 높이 $H$는 $\lceil \log N \rceil$입니다.
+3. 높이가 $H$인 완전 이진트리의 최대 노드 개수는 $2^{H+1}-1$입니다.
+4. 입력될 데이터 개수가 $N$개인 세그먼트 트리는 $N$과 $\frac{2^{\lceil \log N \rceil +1}-1}{N}$배 차이납니다.
+5. [**그래프**](https://www.desmos.com/calculator/wsah71swqr)를 통해 $\frac{2^{\lceil \log N \rceil +1}-1}{N}$가 4가 최대값임을 알 수 있습니다.
+
+위와 같은 이유로 네이브하게 세그먼트 트리 노드의 크기는 4배로 지정해주면 `Outofbounds` 에러를 마주칠 일은 없을겁니다.  
+
+### 2.2. 생성
+```c
+{% raw %}int init(int node, int start, int end){
+  if(start == end)
+    return segTree(node] = arr[start];
+  int mid = (start + end)/2;
+  return segTree[node] = init(node*2, start, mide), init(node*2+1, mid+1, end);
+}{% endraw %}
+```
+
+입력한 데이터인 `arr`배열을 세그먼트 트리로 바꿔주는 함수입니다. `init(1, 0, N-1)` 형태로 사용합니다.  
+
+![SegmentTreeInit](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/SegmentTree/SegmentTreeInit.png?raw=true "SegmentTreeInit") 
+{: .text-center}  
+첫번째 매개변수인 `node`는 세그먼트 트리 배열에 할당될 노드의 인덱스를 의미합니다. 가장 위 `root`노드의 인덱스는 1이고, 자식 노드가 있는 노드의 인덱스가 `node`이라고 하면 왼쪽 자식은 `2*node`, 오른쪽 자식은 `2*node+1`로 불러 올 수 있습니다.  
+
+두번째와 세번째 매개변수인 `start`와 `end`는 해당 노드가 어느 구간의 데이터를 포함할지를 뜻합니다. 즉, `init(1, 0, 7)`의 경우에는 1번 노드가 0번째부터 7번째 배열까지의 데이터를 포함한다는 의미입니다.  
+
+이 `init` 함수는 재귀 함수로 구성되어 `start`와 `end`가 같을때, 즉, 구간에 데이터 개수가 1개일때가 종료 조건입니다. 리프 노드가 채워짐과 동시에 다른 노드의 데이터도 채워지게 됩니다.  
+
+### 2.3. 계산
+```c
+{% raw %}int sum(int node, int start, int end, int left, int right){
+  if(left<=start&&end<=right)
+    return segTree[node];
+  if(right<start||end<left)
+    return 0;
+  int mid = (start + end)/2;
+  return sum(node*2, start, mid, left, right) + sum(node*2+1, mid+1, end, left, right);
+}{% endraw %}
+```
+입력한 데이터의 `left`에서부터 `right`까지의 데이터의 합을 구하는 함수입니다. `sum(1, 0, N-1, 0, N-1)` 형태로 사용합니다.  
+
+![SegmentTreeSum](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/SegmentTree/SegmentTreeSum.png?raw=true "SegmentTreeSum")
+{: .text-center}
+위 함수는 3가지 형태의 반환을 가지고 있습니다.
+1. 탐색하는 구간이 현재 구간을 모두 포함하는 경우 : 현재 구간에 대한 노드의 값을 반환하니다.
+2. 탐색하는 구간이 구간을 포함하지 않는 경우 : 0<sub>또는 적절한 값</sub>을 반환합니다.
+3. 탐색하는 구간이 일부 구간을 포함하는 경우 : 탐색하는 구간을 절반으로 나눠, 다시 탐색하여 그 값의 합을 반환합니다.
