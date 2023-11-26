@@ -53,7 +53,7 @@ int arr[MAX_ARRAY_SIZE] = {0, };
 2. 리프 노드가 $N$개인 완전 이진트리의 높이 $H$는 $\lceil \log N \rceil$입니다.
 3. 높이가 $H$인 완전 이진트리의 최대 노드 개수는 $2^{H+1}-1$입니다.
 4. 입력될 데이터 개수가 $N$개인 세그먼트 트리는 $N$과 $\frac{2^{\lceil \log N \rceil +1}-1}{N}$배 차이납니다.
-5. [**그래프**](https://www.desmos.com/calculator/wsah71swqr)를 통해 $\frac{2^{\lceil \log N \rceil +1}-1}{N}$가 4가 최대값임을 알 수 있습니다.
+5. [**그래프**](https://www.desmos.com/calculator/byfufbvbgg)를 통해 $\frac{2^{\lceil \log N \rceil +1}-1}{N}$가 4가 최대값임을 알 수 있습니다.
 
 위와 같은 이유로 네이브하게 세그먼트 트리 노드의 크기는 4배로 지정해주면 `Outofbounds` 에러를 마주칠 일은 없을겁니다.  
 
@@ -96,3 +96,34 @@ int arr[MAX_ARRAY_SIZE] = {0, };
 1. 탐색하는 구간이 현재 구간을 모두 포함하는 경우 : 현재 구간에 대한 노드의 값을 반환하니다.
 2. 탐색하는 구간이 구간을 포함하지 않는 경우 : 0<sub>또는 적절한 값</sub>을 반환합니다.
 3. 탐색하는 구간이 일부 구간을 포함하는 경우 : 탐색하는 구간을 절반으로 나눠, 다시 탐색하여 그 값의 합을 반환합니다.
+
+해당 `sum`함수가 현재 구간을 모두 포함하고 있는 경우 덕에 순회로 리프 노드까지 가지 않아도 되므로, 시간 복잡도가 $O(\log N)$으로 줄어들게 됩니다.  
+
+### 2.4. 갱신
+```c
+{% raw %}void edit(int node, int start, int end, int index, int diff){
+  if(start<=index&&index<=end)
+    segTree[node] -= diff;
+  else
+  if(start == end)
+    return;
+  int mid = (start+end)/2;
+  edit(node*2, start, mid+1, index, diff);
+  edit(node*2+1, mid, end, inedx, diff);
+}{% endraw %}
+```
+입력한 데이터의 `index`의 값을 `diff`만큼 빼는 함수입니다. `edit(1, 0, N-1, index, idff)` 형태로 사용합니다.  
+
+![SegmentTreeEdit](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/SegmentTree/SegmentTreeEdit.png?raw=true "SegmentTreeEdit") 
+{: .text-center}  
+위 함수는 위의 계산 함수와 유사하게 동작합니다.
+1. index가 현재 구간의 전체인 경우 : 현재 구간의 값을 변경시키고 함수를 종료합니다.
+2. index가 현재 구간에 포함되지 않는 경우 : 함수를 종료합니다.
+3. index가 현재 구간에 포함되는 경우 : 현재 구간의 값을 변경시키고 현재 구간을 절반으로 나눠, 각각 구간을 함수 구간으로 하는 `edit` 함수를 실행합니다.
+
+계산 함수와 같이, 모든 리프 노드에 대해서 수정을 하지 않아도 되므로, 데이터 갱신의 경우에도 시간 복잡도 $O(\log N)$으로 해결이 가능합니다.  
+
+## 3. 그래서 이걸 왜?
+세그먼트 트리를 점수 복사기가 된 주요한 원인은 세그먼트 트리를 다루는 가장 쉬운 문제인 [**2042번 구간 합 구하기**](https://www.acmicpc.net/problem/2042)가 골드 1 문제이기 때문입니다. 즉, 정식 문제 풀이 중에 세그먼트 트리가 포함된다면, 문제의 티어가 모두 골드 1 이상이 된다는 의미입니다.  
+
+또한 세그먼트 트리의 모든 함수가 재귀적으로 구성된 것도 한몫 했습니다. 재귀 함수는 코드가 아주 간결해지고 짧아지기 때문에, 코드를 타이핑, 또는 암기하기 쉬운 구조로 되어있습니다.  
