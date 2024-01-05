@@ -14,7 +14,7 @@ last_modified_at: 2023-04-05
 
 하지만, 자료구조는 알고리즘과 더불어 뉴비 학살기로 불리는 만큼 난이도가 꽤 있는 편입니다. 왜냐하면 자료구조 강의는 대부분 C로 진행되어, 기초적인 [**추상 자료형**](https://ko.wikipedia.org/wiki/%EC%B6%94%EC%83%81_%EC%9E%90%EB%A3%8C%ED%98%95)이나 그와 관계된 연산 함수가 기본 라이브러리에 있는 C++, Python과는 다르게 자료형과 함수를 직접 구현해야 하므로 기초 프로그래밍을 배우다가 자료구조로 바로 넘어오는 경우 엄청난 벽을 만나게 됩니다.  
 
-그래서 자료구조의 대표적인 자료형인 스택, 큐, 원형 큐, 덱, 연결 리스트, 트리, 힙, 그래프를 연결 리스트로 구현하며 정리해보고자 합니다.  
+그래서 자료구조의 대표적인 자료형인 스택, 큐, 원형 큐, 덱, 연결 리스트, 트리, 그래프를 연결 리스트로 구현하며 정리해보고자 합니다.  
 
 ## 1. 연결 리스트
 모든 자료형의 기초가 되는 연결 리스트입니다.  
@@ -1178,6 +1178,7 @@ int main(){
 }{% endraw %}
 ```
 이진 트리는 이중 연결 리스트로 구현합니다. 트리의 가장 위 노드인 루트(root)노드를 이용하여 트리를 순회합니다.  
+
 ![BinaryTreeLinkedList](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/BinaryTreeLinkedList.png?raw=true "BinaryTreeLinkedList") 
 {: .text-center}  
 이전의 추상 자료형과는 달리, 트리는 규격화된 삽입, 삭제 연산이 없습니다.[^4]  
@@ -1185,7 +1186,7 @@ int main(){
 하지만 노드를 탐색하는 트리 순회는 3가지 종류가 있습니다. 왼쪽 노드로 순회를 **L**, 현재 노드를 출력하는것을 **V**, 오른쪽 노드로 순회하는것을 **R**이라고 할 때, **VLR**인 전위 순회<sub>Preorder Traversal</sub>, **LVR**인 중위 순회<sub>Inorder Traversal</sub>, **LRV**인 후위 순회<sub>Postorder Traversal</sub>로 구성되어있습니다. 이러한 순회들은 재귀 함수로 구현되어 간단하게 표현 가능합니다.
 
 #### 6.1.2. 실습
-백준 [**1991 트리 순회**](https://www.acmicpc.net/problem/1991)를 풀어보며 이진 트리를 실습해 봅시다.
+백준 [**1991번 트리 순회**](https://www.acmicpc.net/problem/1991)를 풀어보며 이진 트리를 실습해 봅시다.
 ```c
 {% raw %}#include <stdio.h>
 #include <stdlib.h>
@@ -1258,7 +1259,7 @@ int main(){
 우선 트리의 노드를 전부 만들어 둔 뒤, 나중에 입력을 통해 노드들을 각각 잇는것으로 구현했습니다. 또한 이미 구현한 순회들을 이용하여 출력을 하면 [<span style="color:#009874;font-weight:bold">맞았습니다!!</span>](https://www.acmicpc.net/source/68927871)  
 
 ### 6.2. 트리
-![NTree](https://github.com/MOJAN3543/MOJAN3543.github.io/assets/71973291/b0c322a8-b843-48e3-9e68-f5b104560d16 "NTree") 
+![NTree](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/NTree.png?raw=true "NTree") 
 {: .text-center}  
 **트리**(Tree)는 이진 트리를 포함한 순환이 없는 그래프 형태입니다. 이진 트리보다는 활용성, 응용성에서 떨어져 잘 사용하지 않는 자료구조 형태입니다.  
 
@@ -1329,6 +1330,7 @@ int main(){
 }{% endraw %}
 ```
 트리 또한 이진 트리와 같이 이중 연결 리스트를 이용하여 구현합니다. 트리의 가장 위 노드인 루트(root)노드를 이용하여 트리를 순회합니다.  
+
 ![LCRSTree](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/LCRSTree.png?raw=true "LCRSTree") 
 {: .text-center}  
 이중 연결 리스트로 구현 할 수 있는 이유는, **LCRS**<sub>Left Child Right Sibilings</sub> 방식을 채택했기 때문입니다.  
@@ -1336,6 +1338,206 @@ int main(){
 LCRS는 왼쪽 노드에는 자식 노드<sub>Child</sub>를 저장하고, 오른쪽 노드에는 형제 노드<sub>Sibilings</sub>를 저장하는 방식입니다.  
 
 예를 들어 7번 노드의 자식 노드는 3번 노드와 4번 노드, 5번 노드입니다. 그러므로 7번 노드의 왼쪽 포인터는 3번 노드를 가리키고, 3번 노드의 오른쪽 포인터는 4번 노드를, 4번 노드의 오른쪽 포인터는 5번 노드를 가리킵니다.
+
+#### 6.2.2. 실습
+백준 [**1068번 트리**](https://www.acmicpc.net/problem/1068)를 풀어보며 트리를 실습해 보겠습니다.
+```c
+{% raw %}#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct _NODE{
+    int data;
+    struct _NODE* child;
+    struct _NODE* sibilings;
+} NODE;
+typedef NODE Tree;
+
+NODE* newTree(int data){
+    NODE* T = (NODE*)malloc(sizeof(NODE));
+    T->data = data;
+    T->child = T->sibilings = NULL;
+    return T;
+}
+
+void connectTree(Tree* parent, Tree* child){
+    if(!parent->child)
+        parent->child = child;
+    else{
+        for(parent = parent->child; parent->sibilings; parent=parent->sibilings);
+        parent->sibilings = child;
+    }
+}
+
+int countLeafNode(Tree* root){
+    int ret = 0;
+    if(root->sibilings)
+        ret += countLeafNode(root->sibilings);
+    if(root->data == -1)
+        return ret;
+    if(root->child){
+        if(root->child->data != -1 || root->child->sibilings)
+            ret += countLeafNode(root->child);
+        else // When a child node is deleted and the parent node has only a deleted child node
+            ret++; 
+    }
+    else
+        ret++;
+    return ret;
+}
+
+int main(){
+    Tree* root;
+    Tree* T[50];
+    for(int i=0; i<50; i++)
+        T[i] = newTree(i);
+    
+    int N;
+    scanf("%d", &N);
+    for(int i=0; i<N; i++){
+        int parent;
+        scanf("%d", &parent);
+        if(parent == -1)
+            root = T[i];
+        else
+            connectTree(T[parent], T[i]);
+    }
+    int deleteNode;
+    scanf("%d", &deleteNode);
+    T[deleteNode]->data = -1;
+    
+    printf("%d", countLeafNode(root));
+}{% endraw %}
+```
+이전 1991번 트리 순회와 같이 먼저 트리의 노드를 할당하고, 이후에 부모 자식간의 관계를 입력받아 잇는 방식으로 동작하고, 마지막 리프 노드를 세는 로직에 주의하여 구현하여 [<span style="color:#009874;font-weight:bold">맞았습니다!!</span>](https://www.acmicpc.net/source/71248798)  
+
+## 7. 그래프
+![Graph](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/Graph.png?raw=true "Graph") 
+{: .text-center}  
+
+**그래프**(Graph)는 정점과 간선으로 이루어진 자료 구조입니다. 즉, 그래프는 연결 리스트와 트리를 포함하는 큰 개념입니다.  
+
+간선의 특성에 따라 방향을 가지고 있다면 방향 그래프, 가중치가 있다면 가중 그래프로 불립니다.
+### 7.1. 그래프의 구현
+```c
+{% raw %}#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct _NODE{
+	int data;
+	struct _NODE* prev; 
+} NODE;
+
+typedef struct _STACK{
+	NODE* head;
+} Graph;
+
+Graph* newGraph(){
+    Graph* G = (Graph *)malloc(sizeof(Graph));
+    G->head = NULL;
+    return G;
+}
+
+void addEdge(Graph* G, int vertex){
+	NODE* newNode = (NODE *)malloc(sizeof(NODE));
+	newNode->data = vertex;
+	newNode->prev = G->head;
+	G->head = newNode;
+}
+
+void DFS(Graph* adjList[], int visit[], int start){
+    visit[start] = 1;
+    printf("%d ", start);
+    for(NODE* ptr = adjList[start]->head; ptr; ptr=ptr->prev)
+        if(!visit[ptr->data])
+            DFS(adjList, visit, ptr->data);
+}
+
+int main(){
+	Graph* adjList[7];
+	
+	for(int i=1; i<=6; i++)
+	    adjList[i] = newGraph();
+	
+	addEdge(adjList[1], 2);
+	addEdge(adjList[1], 4);
+	addEdge(adjList[2], 6);
+	addEdge(adjList[3], 2);
+	addEdge(adjList[3], 5);
+	addEdge(adjList[3], 6);
+	addEdge(adjList[4], 1);
+	addEdge(adjList[4], 3);
+	addEdge(adjList[5], 4);
+	addEdge(adjList[6], 3);
+	
+	int visit[7] = {0, };
+	DFS(adjList, visit, 1);
+}{% endraw %}
+```
+그래프는 연결 리스트를 배열에 저장한 **인접 리스트**(Adjacency List)를 이용하여 구현합니다. 각 연결 리스트는 스택과 형태가 유사하게 동작합니다.  
+![AdjacencyList](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/AdjacencyList.png?raw=true "AdjacencyList") 
+{: .text-center}  
+
+인접 리스트에는 각 노드와 간선으로 연결된 노드의 번호가 연결 리스트로 저장되어 있습니다. 그래프는 여러 순회 방식이 있으며 대표적으로 **깊이 우선 탐색**(DFS)과 **너비 우선 탐색**(BFS)가 있습니다.  
+### 7.2. 실습
+백준 [**2606번 바이러스**](https://www.acmicpc.net/problem/2606)를 풀어보며 실습해 봅시다.
+```c
+{% raw %}#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct _NODE{
+	int data;
+	struct _NODE* prev; 
+} NODE;
+
+typedef struct _STACK{
+	NODE* head;
+} Graph;
+
+Graph* newGraph(){
+    Graph* G = (Graph *)malloc(sizeof(Graph));
+    G->head = NULL;
+    return G;
+}
+
+void addEdge(Graph* G, int vertex){
+	NODE* newNode = (NODE *)malloc(sizeof(NODE));
+	newNode->data = vertex;
+	newNode->prev = G->head;
+	G->head = newNode;
+}
+
+int DFS(Graph* adjList[], int visit[], int start){
+    int ret = 1;
+    visit[start] = 1;
+    for(NODE* ptr = adjList[start]->head; ptr; ptr=ptr->prev)
+        if(!visit[ptr->data])
+            ret += DFS(adjList, visit, ptr->data);
+    return ret;
+}
+
+int main(){
+	Graph* adjList[101];
+	for(int i=1; i<=100; i++)
+	    adjList[i] = newGraph();
+	    
+	int V, E;
+    scanf("%d %d", &V, &E);
+    for(int i=0; i<E; i++){
+        int A, B;
+        scanf("%d %d", &A, &B);
+        addEdge(adjList[A], B);
+        addEdge(adjList[B], A);
+    }
+	
+	int visit[101] = {0, };
+	printf("%d", DFS(adjList, visit, 1)-1);
+}{% endraw %}
+```
+노드를 모두 만들어 놓고 `addEdge`함수로 잇는 방식으로 그래프를 만들고, DFS로 연결된 정점의 갯수를 새는 방식으로 [<span style="color:#009874;font-weight:bold">맞았습니다!!</span>](https://www.acmicpc.net/source/71252975)  
+## 8. 마치며
+7개의 자료구조를 구현 해 보면서 각각의 자료구조의 기초와 활용, 연산법 그리고 연결 리스트의 활용을 알아보았습니다. 해당 내용만 잘 숙지한다면, 자료 구조 과목에서의 이론은 쉽게 이해하리라고 생각합니다.  
+
+이후에 C로 배우는 자료구조 (배열편)으로 다시 뵙도록 하겠습니다. 감사합니다.
 
 [^1]: 추상 자료형의 연산을 구현하는 중, 에러를 핸들링 하는 코드를 작성하기도 하지만, 이 포스트에서는 동작을 위한 코드만 작성하여 최소화 했습니다.
 [^2]: 원형으로 연결되어 있어, 가장 뒤 노드의 다음 노드는 가장 앞 노드가 되게 됩니다.
