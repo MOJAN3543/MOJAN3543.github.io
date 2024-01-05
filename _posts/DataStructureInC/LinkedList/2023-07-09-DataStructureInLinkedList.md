@@ -1177,12 +1177,12 @@ int main(){
     
 }{% endraw %}
 ```
-트리는 이중 연결 리스트를 구현합니다. 트리의 가장 위 노드인 루트(root)노드를 이용하여 트리를 순회합니다.
+이진 트리는 이중 연결 리스트로 구현합니다. 트리의 가장 위 노드인 루트(root)노드를 이용하여 트리를 순회합니다.  
 ![BinaryTreeLinkedList](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/BinaryTreeLinkedList.png?raw=true "BinaryTreeLinkedList") 
 {: .text-center}  
 이전의 추상 자료형과는 달리, 트리는 규격화된 삽입, 삭제 연산이 없습니다.[^4]  
   
-하지만 노드를 탐색하는 트리 순회는 3가지 종류가 있습니다. 왼쪽 노드로 순회를 **L**, 현재 노드를 출력하는것을 **V**, 오른쪽 노드로 순회하는것을 **R**이라고 할 때, **VLR**인 전위 순회(Preorder Traversal), **LVR**인 중위 순회(Inorder Traversal), **LRV**인 후위 순회(Postorder Traversal)로 구성되어있습니다. 이러한 순회들은 재귀 함수로 구현되어 간단하게 표현 가능합니다.
+하지만 노드를 탐색하는 트리 순회는 3가지 종류가 있습니다. 왼쪽 노드로 순회를 **L**, 현재 노드를 출력하는것을 **V**, 오른쪽 노드로 순회하는것을 **R**이라고 할 때, **VLR**인 전위 순회<sub>Preorder Traversal</sub>, **LVR**인 중위 순회<sub>Inorder Traversal</sub>, **LRV**인 후위 순회<sub>Postorder Traversal</sub>로 구성되어있습니다. 이러한 순회들은 재귀 함수로 구현되어 간단하게 표현 가능합니다.
 
 #### 6.1.2. 실습
 백준 [**1991 트리 순회**](https://www.acmicpc.net/problem/1991)를 풀어보며 이진 트리를 실습해 봅시다.
@@ -1256,6 +1256,86 @@ int main(){
 }{% endraw %}
 ```
 우선 트리의 노드를 전부 만들어 둔 뒤, 나중에 입력을 통해 노드들을 각각 잇는것으로 구현했습니다. 또한 이미 구현한 순회들을 이용하여 출력을 하면 [<span style="color:#009874;font-weight:bold">맞았습니다!!</span>](https://www.acmicpc.net/source/68927871)  
+
+### 6.2. 트리
+![NTree](https://github.com/MOJAN3543/MOJAN3543.github.io/assets/71973291/b0c322a8-b843-48e3-9e68-f5b104560d16 "NTree") 
+{: .text-center}  
+**트리**(Tree)는 이진 트리를 포함한 순환이 없는 그래프 형태입니다. 이진 트리보다는 활용성, 응용성에서 떨어져 잘 사용하지 않는 자료구조 형태입니다.  
+
+#### 6.2.1. 트리의 구현
+```c
+{% raw %}#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct _NODE{
+    int data;
+    struct _NODE* child;
+    struct _NODE* sibilings;
+} NODE;
+typedef NODE Tree;
+
+NODE* newTree(int data){
+    NODE* T = (NODE*)malloc(sizeof(NODE));
+    T->data = data;
+    T->child = T->sibilings = NULL;
+    return T;
+}
+
+void connectTree(Tree* parent, Tree* child){
+    if(!parent->child)
+        parent->child = child;
+    else{
+        for(parent = parent->child; parent->sibilings; parent=parent->sibilings);
+        parent->sibilings = child;
+    }
+}
+
+void traverseTree(Tree* root, int depth){
+    for(Tree* ptr = root; ptr; ptr=ptr->sibilings){
+        for(int i=0; i<depth; i++)
+            printf("  ");
+        printf("└─%d", ptr->data);
+        puts("");
+        if(ptr->child)
+            traverseTree(ptr->child, depth+1);
+    }
+}
+
+int main(){
+    Tree* root;
+    Tree* T[17];
+    for(int i=0; i<17; i++)
+        T[i] = newTree((i+1)%10);
+    root = T[0];
+    
+    connectTree(T[0], T[1]);
+    connectTree(T[0], T[2]);
+    connectTree(T[1], T[3]);
+    connectTree(T[1], T[4]);
+    connectTree(T[1], T[5]);
+    connectTree(T[2], T[6]);
+    connectTree(T[2], T[7]);
+    connectTree(T[2], T[8]);
+    connectTree(T[2], T[9]);
+    connectTree(T[3], T[10]);
+    connectTree(T[3], T[11]);
+    connectTree(T[6], T[12]);
+    connectTree(T[6], T[13]);
+    connectTree(T[6], T[14]);
+    connectTree(T[9], T[15]);
+    connectTree(T[9], T[16]);
+    
+    traverseTree(T[0], 0);
+}{% endraw %}
+```
+트리 또한 이진 트리와 같이 이중 연결 리스트를 이용하여 구현합니다. 트리의 가장 위 노드인 루트(root)노드를 이용하여 트리를 순회합니다.  
+![LCRSTree](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/LCRSTree.png?raw=true "LCRSTree") 
+{: .text-center}  
+이중 연결 리스트로 구현 할 수 있는 이유는, **LCRS**<sub>Left Child Right Sibilings</sub> 방식을 채택했기 때문입니다.  
+
+LCRS는 왼쪽 노드에는 자식 노드<sub>Child</sub>를 저장하고, 오른쪽 노드에는 형제 노드<sub>Sibilings</sub>를 저장하는 방식입니다.  
+
+예를 들어 7번 노드의 자식 노드는 3번 노드와 4번 노드, 5번 노드입니다. 그러므로 7번 노드의 왼쪽 포인터는 3번 노드를 가리키고, 3번 노드의 오른쪽 포인터는 4번 노드를, 4번 노드의 오른쪽 포인터는 5번 노드를 가리킵니다.
 
 [^1]: 추상 자료형의 연산을 구현하는 중, 에러를 핸들링 하는 코드를 작성하기도 하지만, 이 포스트에서는 동작을 위한 코드만 작성하여 최소화 했습니다.
 [^2]: 원형으로 연결되어 있어, 가장 뒤 노드의 다음 노드는 가장 앞 노드가 되게 됩니다.
