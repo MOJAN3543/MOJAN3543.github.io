@@ -8,6 +8,8 @@ tags:
   - [C, 자료구조, 배열]
 last_modified_at: 2024-01-06
 ---
+![ThisIsArray](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/Array/ThisIsArray.png?raw=true "ThisIsArray") 
+{: .text-center}  
 
 [**자료 구조**](https://ko.wikipedia.org/wiki/%EC%9E%90%EB%A3%8C_%EA%B5%AC%EC%A1%B0)는 컴퓨터 과학에서 아주 중요한 요소중 하나이며, 널리 활용되고 있습니다.  
 
