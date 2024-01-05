@@ -1474,6 +1474,7 @@ int main(){
 }{% endraw %}
 ```
 그래프는 연결 리스트를 배열에 저장한 **인접 리스트**(Adjacency List)를 이용하여 구현합니다. 각 연결 리스트는 스택과 형태가 유사하게 동작합니다.  
+
 ![AdjacencyList](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/LinkedList/AdjacencyList.png?raw=true "AdjacencyList") 
 {: .text-center}  
 
@@ -1533,7 +1534,7 @@ int main(){
 	printf("%d", DFS(adjList, visit, 1)-1);
 }{% endraw %}
 ```
-노드를 모두 만들어 놓고 `addEdge`함수로 잇는 방식으로 그래프를 만들고, DFS로 연결된 정점의 갯수를 새는 방식으로 [<span style="color:#009874;font-weight:bold">맞았습니다!!</span>](https://www.acmicpc.net/source/71252975)  
+노드를 모두 만든 후, `addEdge`함수로 간선을 만드는 방식으로 그래프를 만들고, DFS로 연결된 정점의 갯수를 새는 방식으로 [<span style="color:#009874;font-weight:bold">맞았습니다!!</span>](https://www.acmicpc.net/source/71252975)  
 ## 8. 마치며
 7개의 자료구조를 구현 해 보면서 각각의 자료구조의 기초와 활용, 연산법 그리고 연결 리스트의 활용을 알아보았습니다. 해당 내용만 잘 숙지한다면, 자료 구조 과목에서의 이론은 쉽게 이해하리라고 생각합니다.  
 
