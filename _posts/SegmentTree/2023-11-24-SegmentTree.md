@@ -39,12 +39,10 @@ last_modified_at: 2023-11-24
 
 ### 2.1. 기초
 ```c
-{% raw %}#include <stdio.h>
-#define MAX_ARRAY_SIZE 1000001
+{% raw %}#define MAX_ARRAY_SIZE 1000001
 #define MAX_TREE_SIZE MAX_ARRAY_SIZE * 4
-int segTree[MAX_TREE_SIZE] = {0, };
-int arr[MAX_ARRAY_SIZE] = {0, };
-{% endraw %}
+int segTree[MAX_TREE_SIZE];
+int arr[MAX_ARRAY_SIZE];{% endraw %}
 ```
 우선 입력할 데이터와 세그먼트 트리에 사용되는 배열을 전역 변수로 선언합니다. 모든 계산은 함수로 구현될것이기 때문에 전역변수로 처리하는것이 속도, 공간, 코드 가독성상 이득입니다.  
 
@@ -63,7 +61,7 @@ int arr[MAX_ARRAY_SIZE] = {0, };
   if(start == end)
     return segTree(node] = arr[start];
   int mid = (start + end)/2;
-  return segTree[node] = init(node*2, start, mide), init(node*2+1, mid+1, end);
+  return segTree[node] = init(node*2, start, mid) + init(node*2+1, mid+1, end);
 }{% endraw %}
 ```
 
@@ -104,15 +102,14 @@ int arr[MAX_ARRAY_SIZE] = {0, };
 {% raw %}void edit(int node, int start, int end, int index, int diff){
   if(start<=index&&index<=end)
     segTree[node] -= diff;
-  else
-  if(start == end)
+  else if(start == end)
     return;
   int mid = (start+end)/2;
-  edit(node*2, start, mid+1, index, diff);
-  edit(node*2+1, mid, end, inedx, diff);
+  edit(node*2, start, mid, index, diff);
+  edit(node*2+1, mid+1, end, inedx, diff);
 }{% endraw %}
 ```
-입력한 데이터의 `index`의 값을 `diff`만큼 빼는 함수입니다. `edit(1, 0, N-1, index, idff)` 형태로 사용합니다.  
+입력한 데이터의 `index`번째의 값을 `diff`만큼 빼는 함수입니다. `edit(1, 0, N-1, index, idff)` 형태로 사용합니다.  
 
 ![SegmentTreeEdit](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/SegmentTree/SegmentTreeEdit.png?raw=true "SegmentTreeEdit") 
 {: .text-center}  
@@ -128,3 +125,73 @@ int arr[MAX_ARRAY_SIZE] = {0, };
 
 또한 세그먼트 트리의 모든 함수가 재귀적으로 구성된 것도 한몫 했습니다. 재귀 함수는 코드가 아주 간결해지고 짧아지기 때문에, 코드를 타이핑, 또는 암기하기 쉬운 구조로 되어있습니다.  
 
+## 4. 활용처
+다음은 백준에서 세그먼트 트리가 정해 이거나, 세그먼트 트리를 이용하여 해결 할 수 있는 문제들을 서술합니다.  
+  
+### 4.1. 구간 합 구하기
+```c
+{% raw %}#define MAX_ARRAY_SIZE 1000001
+#define MAX_TREE_SIZE MAX_ARRAY_SIZE * 4
+long long segTree[MAX_TREE_SIZE];
+long long arr[MAX_ARRAY_SIZE];
+
+long long init(int node, int start, int end){
+    if(start == end)
+        segTree[node] = arr[start];
+    int mid = (start + end)/2;
+    return segTree[node] = init(node*2, start, mid) + init(node*2+1 , mid+1, end);
+}
+
+long long sum(int node, int start, int end, int left, int right){
+    if(left<=start&&end<=right)
+        return segTree[node];
+    if(right<start||end<left)
+        return 0;
+    int mid = (start + end)/2;
+    return sum(node*2, start, mid, left, right) + sum(node*2, mid+1, end, left, right);
+}
+
+void edit(int node, int start, int end, int index, long long diff){
+    if(start<=index&&index<=end)
+        segTree[node] -= diff;
+    else if (start == end)
+        return;
+    int mid = (start + end)/2;
+    edit(node*2, start, mid, index, diff);
+    edit(node*2+1, mid+1, end, index, diff);
+}{% endraw %}
+```
+세그먼트 트리가 활용된 문제중 가장 기본적인 형태인 [**2042번 구간 합 구하기**](https://www.acmicpc.net/problem/2042)입니다. 입력 받는 값과 세그먼트 트리에 들어 갈 수 있는 값의 크기가 C언어의 `long long`와 같으므로 배열과 트리의 자료형을 `long long`으로 설정했고, 수의 변경 마다 범위에 포함되는 값에 변경되는 차이만큼 빼서 갱신했습니다.  
+
+### 4.2. 최솟값
+```c
+{% raw %}#define INF 1000000001
+#define MAX_ARRAY_SIZE 100001
+#define MAX_TREE_SIZE MAX_ARRAY_SIZE * 4
+int segTree[MAX_TREE_SIZE];
+int arr[MAX_ARRAY_SIZE];
+
+int MIN(int A, int B){
+    return A<B?A:B;
+}
+
+int init(int node, int start, int end){
+    if(start == end)
+        segTree[node] = arr[start];
+    int mid = (start + end)/2;
+    return segTree[node] = MIN(init(node*2, start, mid), init(node*2+1 , mid+1, end));
+}
+
+int find(int node, int start, int end, int left, int right){
+    if(left<=start&&end<=right)
+        return segTree[node];
+    if(right<start||end<left)
+        return INF;
+    int mid = (start + end)/2;
+    return MIN(find(node*2, start, mid, left, right), find(node*2, mid+1, end, left, right));
+}{% endraw %}
+```
+사칙 연산 대신 두 값을 비교하여 더 작은 값을 세그먼트 트리에 할당하는 [**10868번 최솟값**](https://www.acmicpc.net/problem/10868)입니다. 값의 변동은 없으므로 `edit` 함수는 구현을 하지 않고, `MIN`함수를 이용하여[^1] 최솟값을 구하는 연산을 진행했습니다.
+
+
+[^1]: 여기서, 함수 선언 대신 매크로를 사용한다면 `init` 함수와 `find`함수가 [**두번 실행**](https://gcc.gnu.org/onlinedocs/cpp/Duplication-of-Side-Effects.html)되기 때문에, <span style="color:#fa7268">시간 초과</span> 될 수 있습니다.
