@@ -11,7 +11,7 @@ last_modified_at: 2023-08-26
 ![NewsImage](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/CyberCafe/NewsImage.jpg?raw=true "NewsImage") 
 {: .text-center}  
 
-<span style="font-size:50%">[서울 용산 국방부 내 근무지원단 생활관 사이버지식정보방에서 장병들이 컴퓨터를 하고 있다. [연합뉴스]](https://www.edaily.co.kr/news/read?newsId=01784326612587912&mediaCodeNo=257&OutLnkChk=Y)</span>  
+<span style="font-size:75%">[서울 용산 국방부 내 근무지원단 생활관 사이버지식정보방에서 장병들이 컴퓨터를 하고 있다. [연합뉴스]](https://www.edaily.co.kr/news/read?newsId=01784326612587912&mediaCodeNo=257&OutLnkChk=Y)</span>  
 {: .text-center}  
 **사이버 지식 정보방**. 줄여서 사지방이라고 불리는 이곳은, 인터넷이나 컴퓨터 장비가 한정된 군대 내에서 병사들이 자유롭게 인터넷과 컴퓨터 사용을 허용하는 공간입니다.  
 
