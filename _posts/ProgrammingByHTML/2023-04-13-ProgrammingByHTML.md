@@ -143,7 +143,7 @@ Rule 110의 의미도 이 패턴을 의미합니다. `111`부터 `000`까지의 
    
 ![Rule110Glider](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/Glider-classification-in-Rule-110.png?raw=true"Rule110Glider")
 {: .text-center} 
-<span style="font-size:50%">[Determining a Regular Language by Glider-Based Structures called Phases - Scientific Figure on ResearchGate.](https://www.researchgate.net/figure/Glider-classification-in-Rule-110_fig1_220440959)</span>
+<span style="font-size:75%">[Determining a Regular Language by Glider-Based Structures called Phases - Scientific Figure on ResearchGate.](https://www.researchgate.net/figure/Glider-classification-in-Rule-110_fig1_220440959)</span>
 {: .text-center} 
 이렇게 몇 세대에 걸쳐서 좌측, 또는 우측으로 움직이거나 움직이지 않는 규칙들이 보입니다. 이를 글라이더라고 합니다.   
    
@@ -226,7 +226,7 @@ Production Rule : (00100010010010000001,001000101000,00100010,,,,,)
 ![TagsystemUniversal](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/TagsystemUniversal.png?raw=true"TagsystemUniversal")
 {: .text-center}  
 
-<span style="font-size:50%">[Universality of Tag Systems With P = 2, p.17](https://dl.acm.org/doi/epdf/10.1145/321203.321206)</span>
+<span style="font-size:75%">[Universality of Tag Systems With P = 2, p.17](https://dl.acm.org/doi/epdf/10.1145/321203.321206)</span>
 {: .text-center} 
 2 태그 시스템은 튜링 머신을 [**가동합니다**](https://dspace.mit.edu/handle/1721.1/6107). 튜링 머신의 헤드의 앞과 뒤 문자를 이진수로 치환한 정수로 생각하고, 이 두 자연수 `a`, `b`를, 2 태그 시스템에 정수로 기입, 그 정수를 비트 연산하여 헤드를 움직이는 방식으로 튜링 머신을 구현했습니다!  
   
@@ -380,7 +380,7 @@ Rule 110을 HTML과 CSS로 구현한 결과입니다! `+` 선택자를 여러개
 ![Rule110ByHTML](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/ProgrammingByHTML/Rule110ByHTML.png?raw=true "Rule110ByHTML")
 {: .text-center} 
 
-<span style="font-size:50%">[Rule 110 By HTML](https://mojan3543.github.io/Rule110ByHTML)</span>
+<span style="font-size:75%">[Rule 110 By HTML](https://mojan3543.github.io/Rule110ByHTML)</span>
 {: .text-center}  
 하하! 실제로 동작하지 않는 이미지입니다. [**이 곳**](https://mojan3543.github.io/Rule110ByHTML)에서 실제로 해볼 수 있습니다!   
    
