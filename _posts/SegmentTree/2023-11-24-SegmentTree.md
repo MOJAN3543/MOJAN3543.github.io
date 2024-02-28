@@ -137,7 +137,7 @@ long long arr[MAX_ARRAY_SIZE];
 
 long long init(int node, int start, int end){
     if(start == end)
-        segTree[node] = arr[start];
+        return segTree[node] = arr[start];
     int mid = (start + end)/2;
     return segTree[node] = init(node*2, start, mid) + init(node*2+1 , mid+1, end);
 }
@@ -148,7 +148,7 @@ long long sum(int node, int start, int end, int left, int right){
     if(right<start||end<left)
         return 0;
     int mid = (start + end)/2;
-    return sum(node*2, start, mid, left, right) + sum(node*2, mid+1, end, left, right);
+    return sum(node*2, start, mid, left, right) + sum(node*2+1, mid+1, end, left, right);
 }
 
 void edit(int node, int start, int end, int index, long long diff){
@@ -177,7 +177,7 @@ int MIN(int A, int B){
 
 int init(int node, int start, int end){
     if(start == end)
-        segTree[node] = arr[start];
+        return segTree[node] = arr[start];
     int mid = (start + end)/2;
     return segTree[node] = MIN(init(node*2, start, mid), init(node*2+1 , mid+1, end));
 }
@@ -188,7 +188,7 @@ int find(int node, int start, int end, int left, int right){
     if(right<start||end<left)
         return INF;
     int mid = (start + end)/2;
-    return MIN(find(node*2, start, mid, left, right), find(node*2, mid+1, end, left, right));
+    return MIN(find(node*2, start, mid, left, right), find(node*2+1, mid+1, end, left, right));
 }{% endraw %}
 ```
 사칙 연산 대신 두 값을 비교하여 더 작은 값을 세그먼트 트리에 할당하는 [**10868번 최솟값**](https://www.acmicpc.net/problem/10868)입니다. 값의 변동은 없으므로 `edit` 함수는 구현을 하지 않고, `MIN`함수를 이용하여[^1] 최솟값을 구하는 연산을 진행했습니다.
