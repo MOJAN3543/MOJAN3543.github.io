@@ -5,7 +5,7 @@ toc_sticky: true
 categories:
   - 튜토리얼
 tags:
-  - [C, 자료구조, 배열]
+  - [C, 자료구조, 배열, 미완성]
 last_modified_at: 2024-01-06
 ---
 ![ThisIsArray](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/DataStructureInC/Array/ThisIsArray.png?raw=true "ThisIsArray") 
