@@ -5,7 +5,7 @@ toc_sticky: true
 categories:
   - 튜토리얼
 tags:
-  - [백준, 세그먼트 트리]
+  - [백준, 세그먼트 트리, 미완성]
 last_modified_at: 2023-11-24
 ---
 ![Click](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/SegmentTree/Click.png?raw=true "Click") 
