@@ -8,8 +8,7 @@ tags:
   - [멋쟁이사자처럼, 후기]
 last_modified_at: 2024-03-21
 ---
-
-![LikeLion](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/LIKELION/likelion.png?raw=true) 
+![LikeLion](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/LIKELION/likelion.png?raw=true)
 {: .text-center}  
 
 [**멋쟁이 사자처럼**](https://www.likelion.net/)은 2013년부터 시작한 프로그래밍 교육 단체입니다. 멋쟁이 사자처럼에서는 프론트엔드/백엔드의 부트캠프 운영이나 온라인 강좌 뿐만 아니라, 전국에 있는 대학교에서 국내 최대 규모의 IT창업 동아리를 운영하고 있습니다.  
@@ -55,7 +54,7 @@ last_modified_at: 2024-03-21
 저 자신의 성장 뿐만 아니라, 동아리를 발전하는 사람이 되도록 하겠다고 작성했습니다.  
 
 ## 2. 면접
-![1](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/LIKELION/1.jpg?raw=true) 
+![1](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/LIKELION/1.jpg?raw=true)
 {: .text-center}  
 
 서류 모집에 합격했습니다! 면접은 기본적으로 대면으로 진행되며 본인이 가능한 시간대를 작성하여 면접 시간이 확정되었습니다.
@@ -96,7 +95,7 @@ last_modified_at: 2024-03-21
 다음과 같은 질문들을 하고, 간단한 Q&A 후에 면접을 종료했습니다.
 
 ## 3. 합격  
-![2](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/LIKELION/2.jpg?raw=true) 
+![2](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/LIKELION/2.jpg?raw=true)
 {: .text-center}  
 
 영겁과도 같은 4일 후에 드디어 합격 문자를 받았습니다. 뭔가 엉성하게 준비한 느낌이 없잖아 있는데 정말 잘 봐주신 운영진분들에게 감사합니다. 정말 대학교 입시 준비도 이정도로 하진 않은거 같은데 오랜만에 노력 한 것 같습니다.  
