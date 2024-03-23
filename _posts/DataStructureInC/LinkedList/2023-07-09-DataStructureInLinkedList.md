@@ -280,7 +280,7 @@ int main(){
 typedef struct _NODE{
 	int data;
 	struct _NODE* next;
-    struct _NODE* prev;
+        struct _NODE* prev;
 } NODE;
 
 NODE* newLinkedList(){
@@ -1427,7 +1427,7 @@ typedef struct _NODE{
 	struct _NODE* prev; 
 } NODE;
 
-typedef struct _STACK{
+typedef struct _GRAPH{
 	NODE* head;
 } Graph;
 
@@ -1490,7 +1490,7 @@ typedef struct _NODE{
 	struct _NODE* prev; 
 } NODE;
 
-typedef struct _STACK{
+typedef struct _GRAPH{
 	NODE* head;
 } Graph;
 
