@@ -3,16 +3,19 @@ title: "EasyJudge: 코드 채점용 크롬 익스텐션 개발기"
 toc: true
 toc_sticky: true
 categories:
-  - 설명
+  - 토이 프로젝트
 tags:
   - [크롬 익스텐션, Flask, 온라인 저지]
 last_modified_at: 2024-04-06
 ---
+![gif](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/EasyJudge/easyjudge_gif.gif?raw=true) 
+{: .text-center}  
 
 크롬을 사용하는 사람이라면, 누구든 **크롬 익스텐션**은 하나씩 가지고 있을겁니다. 이런 익스텐션은 어떻게 개발이 되는걸까요? 그리고 익스텐션을 이용해서 실생활에 불편했던 점을 해결할 수 있지 않을까요? 이번 포스트에서는 제가 개발한 익스텐션을 예를 들며 크롬 익스텐션 개발 과정을 소개하겠습니다.
 
 ## 1. 전개
 ![image](https://github.com/MOJAN3543/MOJAN3543.github.io/assets/71973291/de285b4f-e6bf-42c8-bae6-3b6db6872336) 
+{: .text-center}  
 
 저는 이번 학기에 자료구조 TA[^1]를 맡게 되었습니다. 자료구조를 실습하며 과제로 제출한 코드를 제가 직접 채점을 해야하는데, 정말 귀찮은 작업입니다.  
 > 1. 코드를 다운로드 받는다.
@@ -51,6 +54,7 @@ EasyJudge는 크게 2가지로 나뉩니다. 코드를 받아오고 실행 결�
 채점 서버는 파이썬 백엔드 프레임워크인 **Flask**를 사용했습니다. 사용한 이유는 그 당시 가장 친숙했고 사용하기 편리했던 프레임워크였기 때문입니다.  
   
 또한 `subprocess`를 이용해 파일을 컴파일, 실행하여 결과를 종합했습니다.  
+
 ![image](https://github.com/MOJAN3543/MOJAN3543.github.io/assets/71973291/3b8fdb9c-2b9d-4c89-81e9-51314752f688) 
 {: .text-center}  
 
@@ -62,14 +66,14 @@ EasyJudge는 크게 2가지로 나뉩니다. 코드를 받아오고 실행 결�
 다음은 제가 EasyJudge를 개발하며 있었던 난관을 설명해드리겠습니다.
 
 ### 3.1. domController.js
-![image](https://github.com/MOJAN3543/MOJAN3543.github.io/assets/71973291/8053b148-5460-4758-a43f-2c7a21543674) 
+![image](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/EasyJudge/DOM_Code.png?raw=true) 
 {: .text-center}  
 
 저는 해당 익스텐션을 HTML/CSS와 Vanilla JavaScript를 사용했기 때문에, [**DOM을 직접 조작해야 합니다...**](https://mojan3543.github.io/MarkdownInteraction/)  
 
 대략 15개에 대한 DOM을 작성하며 하루에 300번씩 React로 갈아탈까 고민을 했지만, React로 갈아타면 절대로 익스텐션을 완성하지 못할까봐 그냥 참고 개발했습니다.  
   
-![image](https://github.com/MOJAN3543/MOJAN3543.github.io/assets/71973291/da1531ec-ee1e-4bc4-9ef7-0f3c1a7157f3) 
+![image](https://github.com/MOJAN3543/MOJAN3543.github.io/blob/main/_posts/EasyJudge/makeJudgeJson.png?raw=true) 
 {: .text-center}  
 
 DOM 조작 뿐만 아니라, 값을 가져 오는것에도  제 미숙한 구조 설계 덕에 아주 이상한 코드가 완성되었습니다. 이것으로 객체지향에 대한 필요성과 구조를 먼저 확립하지 않고 코딩하는 것의 위험성을 깨달았습니다.  
@@ -84,12 +88,18 @@ DOM 조작 뿐만 아니라, 값을 가져 오는것에도  제 미숙한 구조
 하지만, 프로세스가 메모리 부족으로 종료했는지를 판별할 방법이 **없습니다!** 단지 `Segmentation fault` 런타임 에러를 발생시키고 종료됩니다[^2]. 저는 이를 해결하고자 며칠간 해당 내용을 찾아봤지만, 메모리 사용량을 직접적으로 모니터링 해야 한다는 글 외에는 찾아 볼 수가 없었습니다. 그걸 직접 구현 하면 채점에 너무 많은 자원을 사용 할 것 같아, 그냥 런타임 에러로 남기기로 했습니다.  
 
 ### 3.3. 크롬 익스텐션
-크롬 익스텐션에서의 고난도 있었습니다. 저는 링크만 사용한 채점이 아닌 드래그 해서 선택한 코드를 채점 해주는 기능도 포함 하고 싶었습니다.  
+크롬 익스텐션에서의 고난도 있었습니다. 저는 현재 사이트 내에서, 코드를 드래그 해서 선택한 코드를 채점 해주는 기능도 포함 하고 싶었습니다.  
 
-하지만 해당 기능은 사용 할 수 없었습니다. 왜냐하면 드래그 해서 선택한 문자열을 받아 올때에는 [**크롬이 자동으로 `\n`을 지워주기 떄문입니다.**](https://stackoverflow.com/questions/25622691/to-get-selected-text-with-new-line-characters)  
+하지만 해당 기능은 사용 할 수 없었습니다. 왜냐하면 드래그 해서 선택한 문자열을 받아 올때에는 [**크롬이 자동으로 `\n`을 지워주기 때문입니다.**](https://stackoverflow.com/questions/25622691/to-get-selected-text-with-new-line-characters)  
   
+물론 C가 줄바꿈이 없어도 동작하는 관대한 언어긴 하지만, 전처리문에서는 줄바꿈이 필요하고, 기타 다른 언어에서의 이식을 고려해보자면, 차라리 기능이 없어지는것이 나을것 같아 해당 기능을 제거했습니다.  
 
+또한 크롬 익스텐션을 개발 하는 중에, 환경 변수 저장이나 HTTP 통신 등의 문제가 있었으나, [**크롬 익스텐션 공식 문서**](https://developer.chrome.com/docs/extensions?hl=ko)를 보면서 해결할 만한 일들이었습니다.  
 
+## 4. 마치며
+해당 프로젝트의 아이디어부터 실제 개발 완료까지 대략 3주정도 소요되었습니다. 여러 고난들이 있었지만, 잘 해쳐 나가고 개발을 완료했습니다. 제가 개발한 EasyJudge는 현재 [**깃허브**](https://github.com/MOJAN3543/EasyJudge)에서 이용 가능합니다!  
+
+이 글을 통해 크롬 익스텐션 개발에 흥미를 가지셨거나, 진행중인 개발에 조금이라도 도움이 되었으면 좋겠습니다. 감사합니다.
 
 
 [^1]: 대학마다 이 역할을 부르는 말이 다른것 같습니다. 제 학교에서는 튜터라고 부르는데, 보통 학부생 조교, TA 등으로 불리는것 같습니다.
