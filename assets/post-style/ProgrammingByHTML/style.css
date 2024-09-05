@@ -27,17 +27,21 @@
 }
 .head {
 	position: absolute;
-	background-color : #000000;
-	width: 2.5rem;
-	height:4.75rem;
-	left: 4.5rem;
+        width: 2.5rem;
+        height: 4.75rem;
+        left: 4.5rem;
+        z-index: 2;
+        color: transparent;
+        transition: all 0.2s ease-in-out;
+        border: 4px solid black;
 }
 .state {
-	margin: auto;
-	width: 2rem;
-	height : 2.5rem;
-	background-color : #ffffff;
-	line-height: 3rem;
+        margin-top: -0.3rem;
+        width: 2rem;
+        height: 2rem;
+        background-color: #ffffff;
+        line-height: 3rem;
+        color: black;
 }
 .inputtray {
 	border: none;
